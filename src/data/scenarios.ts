@@ -1,0 +1,58 @@
+import type { Scenario } from './types';
+
+export const scenarios: Scenario[] = [
+  {
+    id: 'scenario-001',
+    title: 'We already have Copilot. Why do we need Agent 365?',
+    description: 'Copilot is an AI assistant. Agent 365 is the governance layer that helps you manage all agents (including Copilot extensions) securely at scale.',
+    icon: '🤔',
+    targetAudiences: ['Business & Licensing', 'IT Admin'],
+    relatedFaqIds: ['basics-002', 'basics-001', 'governance-001'],
+    relatedCategories: ['Basics', 'Governance & Shadow Agents'],
+  },
+  {
+    id: 'scenario-002',
+    title: 'We\'re worried about uncontrolled agents and shadow AI',
+    description: 'Agent 365 discovers, inventories, and governs all agents across your organization, including unsanctioned ones, with quarantine and policy enforcement capabilities.',
+    icon: '⚠️',
+    targetAudiences: ['Security & Compliance', 'IT Admin'],
+    relatedFaqIds: ['governance-001', 'governance-002', 'security-004'],
+    relatedCategories: ['Governance & Shadow Agents', 'Security & Compliance'],
+  },
+  {
+    id: 'scenario-003',
+    title: 'We want to onboard agents from third-party providers',
+    description: 'Learn how Agent 365 can manage agents from Salesforce, ServiceNow, and other third-party platforms alongside Microsoft-built agents.',
+    icon: '🔌',
+    targetAudiences: ['IT Admin', 'Developer / Architect'],
+    relatedFaqIds: ['ecosystem-001', 'dev-002', 'security-003'],
+    relatedCategories: ['Ecosystem & Integrations'],
+  },
+  {
+    id: 'scenario-004',
+    title: 'We\'re a regulated company - what should we look at first?',
+    description: 'Agent 365 integrates with Microsoft Purview for data governance and compliance, and Defender for security monitoring - critical for regulated industries.',
+    icon: '🏛️',
+    targetAudiences: ['Security & Compliance', 'Business & Licensing'],
+    relatedFaqIds: ['security-001', 'security-002', 'security-003', 'governance-003'],
+    relatedCategories: ['Security & Compliance', 'Governance & Shadow Agents'],
+  },
+  {
+    id: 'scenario-005',
+    title: 'We want to build custom agents with our own tech stack',
+    description: 'Agent 365 supports custom agents built with Azure OpenAI, LangChain, or other frameworks through Entra Agent ID integration.',
+    icon: '👨‍💻',
+    targetAudiences: ['Developer / Architect'],
+    relatedFaqIds: ['dev-002', 'dev-003', 'ecosystem-003'],
+    relatedCategories: ['Developer Experience', 'Ecosystem & Integrations'],
+  },
+  {
+    id: 'scenario-006',
+    title: 'We need to understand licensing and costs before committing',
+    description: 'Agent 365 is currently in Frontier early access. Pricing and licensing details for general availability are not yet finalized - here\'s what we know.',
+    icon: '💰',
+    targetAudiences: ['Business & Licensing'],
+    relatedFaqIds: ['licensing-001', 'licensing-002', 'licensing-003'],
+    relatedCategories: ['Licensing & Availability'],
+  },
+];
