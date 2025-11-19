@@ -366,7 +366,9 @@ Given Microsoft's product strategy, Agent 365 could follow patterns like:
 - **Copilot-bundled**: Included with Copilot licenses as an agent management layer
 - **Per-agent pricing**: Some features might be priced per registered agent
 
-**Recommendation:** If you're evaluating Agent 365, ask your Microsoft account team about roadmap and pricing plans specific to your licensing agreement.`,
+**Recommendation:** If you're evaluating Agent 365, ask your Microsoft account team about roadmap and pricing plans specific to your licensing agreement.
+
+**Learn more:** <a href="https://licensing.guide/tag/agent-365/" target="_blank" rel="noopener noreferrer" style="color: #0078d4; text-decoration: underline;">Read more about Microsoft Agent 365 licensing in The Licensing Guide blog</a>`,
     audiences: ['Business & Licensing', 'IT Admin'],
     categories: ['Licensing & Availability'],
     difficulty: 'Intermediate',
