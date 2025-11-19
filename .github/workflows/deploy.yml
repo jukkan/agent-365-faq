@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ['claude/agent365-faq-site-01JDEj9CtKtPZXLguEjJJV4F']
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
