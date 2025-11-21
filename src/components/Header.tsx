@@ -10,6 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     { id: 'faq', label: 'FAQ Explorer' },
     { id: 'scenarios', label: 'Scenarios' },
     { id: 'governance', label: 'Governance & Security' },
+    { id: 'architecture', label: 'Architecture' },
     { id: 'ecosystem', label: 'Ecosystem' },
     { id: 'open-questions', label: 'Open Questions' },
   ];

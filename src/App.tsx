@@ -7,8 +7,9 @@ import { ScenariosSection } from './components/ScenariosSection';
 import { GovernanceSection } from './components/GovernanceSection';
 import { EcosystemSection } from './components/EcosystemSection';
 import { OpenQuestionsSection } from './components/OpenQuestionsSection';
+import { ArchitectureDiagramSection } from './components/ArchitectureDiagramSection';
 
-type Section = 'overview' | 'faq' | 'scenarios' | 'governance' | 'ecosystem' | 'open-questions';
+type Section = 'overview' | 'faq' | 'scenarios' | 'governance' | 'architecture' | 'ecosystem' | 'open-questions';
 
 function App() {
   const [, setActiveSection] = useState<Section>('overview');
@@ -17,6 +18,7 @@ function App() {
     faq: useRef<HTMLDivElement>(null),
     scenarios: useRef<HTMLDivElement>(null),
     governance: useRef<HTMLDivElement>(null),
+    architecture: useRef<HTMLDivElement>(null),
     ecosystem: useRef<HTMLDivElement>(null),
     'open-questions': useRef<HTMLDivElement>(null),
   };
@@ -68,8 +70,15 @@ function App() {
           </div>
         </section>
 
+        {/* Architecture Diagram Section */}
+        <section ref={sectionRefs.architecture} id="architecture" className="scroll-mt-20 py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ArchitectureDiagramSection />
+          </div>
+        </section>
+
         {/* Ecosystem Section */}
-        <section ref={sectionRefs.ecosystem} id="ecosystem" className="scroll-mt-20 py-16 bg-gray-50">
+        <section ref={sectionRefs.ecosystem} id="ecosystem" className="scroll-mt-20 py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <EcosystemSection />
           </div>

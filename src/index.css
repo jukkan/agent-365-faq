@@ -17,3 +17,23 @@
     text-wrap: balance;
   }
 }
+
+/* Mermaid diagram styles */
+.mermaid-container {
+  min-height: 400px;
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .mermaid-container {
+    overflow-x: auto;
+  }
+
+  .mermaid-container svg {
+    min-width: 800px;
+  }
+}
