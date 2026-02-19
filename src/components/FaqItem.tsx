@@ -21,15 +21,28 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
     'Advanced': 'bg-red-100 text-red-800',
   };
 
+  const isUpdated = faq.updatedAt === '2026-02-19';
+  const isNew = faq.isNew === true;
+
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+    <div className={`bg-white border rounded-lg p-6 hover:shadow-md transition-shadow ${isNew ? 'border-ms-blue-400 ring-1 ring-ms-blue-300' : isUpdated ? 'border-amber-300 ring-1 ring-amber-200' : 'border-gray-200'}`}>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full text-left"
       >
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-lg font-semibold text-gray-900 flex-1">
+          <h3 className="text-lg font-semibold text-gray-900 flex-1 flex items-center gap-2 flex-wrap">
             {faq.question}
+            {isNew && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-ms-blue-600 text-white shrink-0">
+                NEW
+              </span>
+            )}
+            {!isNew && isUpdated && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-white shrink-0">
+                UPDATED
+              </span>
+            )}
           </h3>
           <div className="flex-shrink-0">
             <svg
@@ -82,6 +95,11 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
 
           <div className="mt-4 text-xs text-gray-500">
             Last reviewed: {new Date(faq.lastReviewed).toLocaleDateString()}
+            {(isNew || isUpdated) && (
+              <span className="ml-2 font-medium text-amber-600">
+                · February 2026 refresh
+              </span>
+            )}
           </div>
         </div>
       )}

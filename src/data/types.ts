@@ -38,6 +38,10 @@ export interface FaqItem {
   status: Status;
   lastReviewed: string;
   tags?: string[];
+  /** ISO date string marking when this item was last meaningfully updated (triggers "Updated" badge) */
+  updatedAt?: string;
+  /** Mark as true for brand-new FAQ items added in a refresh (triggers "New" badge) */
+  isNew?: boolean;
 }
 
 export interface Scenario {
