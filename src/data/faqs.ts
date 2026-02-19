@@ -5,30 +5,44 @@ export const faqs: FaqItem[] = [
   {
     id: 'basics-001',
     question: 'What is Microsoft Agent 365 in simple terms?',
-    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to register, monitor, secure, and govern all agents across your organization, whether built by Microsoft, third parties, or your own teams.',
+    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms.',
     detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities.
 
 **Key capabilities:**
-- **Registry**: A central inventory of all agents in your organization
+- **Registry**: A central inventory of all agents in your organization, including shadow agents
 - **Access Control**: Define what each agent can access using conditional access policies
-- **Visibility**: Monitor agent activity, performance, and security posture through dashboards
+- **Observability**: Explore connections between agents, people, and data; monitor agent behavior and performance in real time
 - **Security**: Detect and respond to threats via Microsoft Defender integration
 - **Governance**: Apply data protection policies via Microsoft Purview integration
 
-Think of it as giving your IT and security teams the same level of control over AI agents that they have over human users - because agents are becoming "digital employees" that can take actions, access data, and make decisions.`,
+**What Agent 365 unites:**
+- Microsoft 365 apps optimized for agent productivity
+- Microsoft Admin Center for agent management
+- **Windows 365 for Agents** - a secure execution environment for computer-using AI agents
+- Defender, Entra, and Purview for agent security and governance
+
+Think of it as giving your IT and security teams the same level of control over AI agents that they have over human users - because agents are becoming "digital employees" that can take actions, access data, and make decisions.
+
+As of February 2026, official documentation is available on Microsoft Learn - see the sources below.`,
     audiences: ['IT Admin', 'Security & Compliance', 'Business & Licensing'],
     categories: ['Basics'],
     difficulty: 'Intro',
     sources: [
       {
-        label: 'Microsoft Agent 365 landing page',
-        url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
+        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+        type: 'Official',
+      },
+      {
+        label: 'Hello, world. — Agent 365 Blog launch post (Feb 2026)',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
         type: 'Official',
       },
     ],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['control plane', 'registry', 'governance'],
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['control plane', 'registry', 'governance', 'windows 365 for agents'],
   },
   {
     id: 'basics-002',
@@ -46,10 +60,15 @@ Think of it as giving your IT and security teams the same level of control over 
 - Provides visual designers, connectors to data sources, and workflow automation
 - Agents built here can be deployed to Microsoft 365 Copilot or Teams
 
+**Microsoft Foundry (formerly Azure AI Foundry):**
+- Microsoft's platform for building enterprise AI agents with pro-code tooling
+- Includes integration with Agent 365 out of the box
+
 **Agent 365:**
 - A governance and management platform that works ACROSS all agents
-- Manages agents from Copilot Studio, Azure AI Foundry, third-party platforms (Salesforce, ServiceNow), and custom-built agents
+- Manages agents from Copilot Studio, Microsoft Foundry, third-party platforms (Salesforce, ServiceNow), and custom-built agents
 - Provides registry, security, access control, monitoring, and compliance
+- Provides enterprise SDK and CLI for developers integrating any agent framework
 
 **Analogy:** If agents are employees, Copilot Studio is the hiring/training department, and Agent 365 is HR + IT + Security combined - managing all employees regardless of which department hired them.`,
     audiences: ['IT Admin', 'Business & Licensing', 'Developer / Architect'],
@@ -57,14 +76,15 @@ Think of it as giving your IT and security teams the same level of control over 
     difficulty: 'Intro',
     sources: [
       {
-        label: 'Microsoft 365 Copilot agents overview',
-        url: 'https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview',
+        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
         type: 'Official',
       },
     ],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['copilot', 'copilot studio', 'comparison'],
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['copilot', 'copilot studio', 'microsoft foundry', 'comparison'],
   },
   {
     id: 'basics-003',
@@ -307,21 +327,23 @@ Think of it as: Entra = ID card, Agent 365 = HR system, Defender = security guar
   {
     id: 'licensing-001',
     question: 'How do I get access to Agent 365 today?',
-    shortAnswer: 'Agent 365 is currently available through the Frontier early access program for customers with Microsoft 365 Copilot licenses. Access is enabled through the Microsoft 365 Admin Center.',
-    detailedAnswer: `**Current availability (as of Nov 2025):**
+    shortAnswer: 'Agent 365 is available through the Frontier preview program for tenants with at least one Microsoft 365 Copilot license. Enable it via Microsoft 365 Admin Center > Copilot > Settings > Copilot Frontier.',
+    detailedAnswer: `**Current availability (as of Feb 2026):**
 
-Agent 365 is in **early access** via the Frontier program, not generally available.
+Agent 365 is in the **Frontier preview program**, not generally available.
 
 **Prerequisites:**
-- Microsoft 365 Copilot license (required)
-- Admin access to Microsoft 365 Admin Center
-- Enrollment in the Frontier early access program
+- At least one Microsoft 365 Copilot license on the tenant
+- Global Admin or Copilot Admin access to Microsoft 365 Admin Center
 
-**How to access:**
-1. Navigate to Microsoft 365 Admin Center
-2. Look for Frontier program enrollment options
-3. Enable Agent 365 features for your tenant or specific users
-4. Begin registering and managing agents
+**Exact steps to enable:**
+1. Sign into Microsoft 365 admin center
+2. Select **Copilot** in the left navigation
+3. Select **Settings**
+4. Under **User access**, select **Copilot Frontier**
+5. Choose specific users, groups, or select all to grant access
+6. Go to **Agents** from the left pane to get started
+7. If prompted, agree to the terms of service
 
 **Important caveats:**
 - Frontier is for early adopters who want to test new features
@@ -329,20 +351,31 @@ Agent 365 is in **early access** via the Frontier program, not generally availab
 - Features and capabilities are still evolving
 - No public SLA or support commitments for Frontier features
 
-**Editor's note:** Microsoft has not announced a general availability (GA) date or detailed pricing for Agent 365 as a standalone product.`,
+**Next steps after enabling:**
+- Take a tour of your Agent 365 overview page
+- Use the Agent 365 documentation hub on Microsoft Learn
+- For developers: explore the Agent 365 SDK and CLI
+
+**Editor's note:** Microsoft has not announced a general availability (GA) date or detailed standalone pricing for Agent 365.`,
     audiences: ['IT Admin', 'Business & Licensing'],
     categories: ['Licensing & Availability', 'Rollout & Adoption'],
     difficulty: 'Intro',
     sources: [
       {
-        label: 'Frontier program overview',
-        url: 'https://adoption.microsoft.com/en-us/copilot/frontier-program/',
+        label: 'Microsoft Agent 365 overview — prerequisites and access (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+        type: 'Official',
+      },
+      {
+        label: 'Hello, world. — Agent 365 Blog (Feb 2026)',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
         type: 'Official',
       },
     ],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['frontier', 'early access', 'availability'],
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['frontier', 'early access', 'availability', 'admin center'],
   },
   {
     id: 'licensing-002',
@@ -387,41 +420,52 @@ Given Microsoft's product strategy, Agent 365 could follow patterns like:
   // DEVELOPER EXPERIENCE
   {
     id: 'dev-001',
-    question: 'If I build an agent in Copilot Studio or Azure AI Foundry, what do I need to do to make it Agent 365 compatible?',
-    shortAnswer: 'Agents built in Copilot Studio and Azure AI Foundry can be automatically registered with Agent 365. You will need to ensure the agent has an Entra Agent ID and proper metadata.',
+    question: 'If I build an agent in Copilot Studio or Microsoft Foundry, what do I need to do to make it Agent 365 compatible?',
+    shortAnswer: 'Agents built in Copilot Studio and Microsoft Foundry integrate with Agent 365 automatically. For custom agents built on any SDK, use the Agent 365 SDK and CLI to add enterprise identity, observability, and governed MCP tool access.',
     detailedAnswer: `**For Copilot Studio agents:**
 - Agents built in Copilot Studio can be published to Microsoft 365 Copilot
 - Once published, they automatically appear in the Agent 365 registry
-- Ensure you provide clear descriptions and metadata during creation
-- Apply governance policies via the Admin Center
+- Apply governance policies and Blueprints via the Admin Center
 
-**For Azure AI Foundry agents:**
-- Create an Entra Agent ID for your agent (similar to creating a managed identity)
-- Register the agent in the Agent 365 registry via API or portal
-- Configure access permissions and conditional access policies
-- Integrate telemetry and logging for observability
+**For Microsoft Foundry agents (formerly Azure AI Foundry):**
+- Microsoft Foundry integrates with Agent 365 out of the box
+- Agents created in Foundry can be automatically registered
+- Supports Entra Agent IDs natively
+
+**For custom or open-source agents (any framework):**
+- Use the **Agent 365 SDK** to extend your agent with enterprise capabilities:
+  - Entra-based Agent identity
+  - Governed MCP tool access (Outlook, Teams, SharePoint, etc.)
+  - OpenTelemetry-based observability
+  - Notifications via Activity protocol
+- Use the **Agent 365 CLI** (a365) to automate setup, blueprint creation, MCP integration, publishing, and Azure deployment
+- Supported frameworks: LangChain, OpenAI Agents SDK, Claude Code SDK, Microsoft Agent Framework, Microsoft Agents SDK
 
 **Best practices:**
 - Use descriptive names and documentation for your agents
 - Follow least-privilege principles for data access
-- Implement logging and monitoring hooks
-- Test agents in non-production environments first
-- Document agent capabilities and limitations
-
-**Editor's note:** Microsoft is still building out developer documentation and SDKs for Agent 365 integration. More detailed guidance is expected as the product moves toward GA.`,
+- Use Agent Blueprints for consistent policy inheritance
+- Test locally using the Agent 365 CLI mock tooling server
+- Document agent capabilities and limitations`,
     audiences: ['Developer / Architect'],
     categories: ['Developer Experience', 'Rollout & Adoption'],
     difficulty: 'Intermediate',
     sources: [
       {
-        label: 'Announcing Microsoft Entra Agent ID',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft-entra-blog/announcing-microsoft-entra-agent-id-secure-and-manage-your-ai-agents/3827392',
+        label: 'Agent 365 SDK and CLI (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
+        type: 'Official',
+      },
+      {
+        label: 'Agent 365 development lifecycle (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/a365-dev-lifecycle',
         type: 'Official',
       },
     ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['copilot studio', 'azure ai foundry', 'registration'],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['copilot studio', 'microsoft foundry', 'sdk', 'cli', 'registration'],
   },
   {
     id: 'dev-002',
@@ -664,58 +708,69 @@ Starting now positions you to move quickly when Agent 365 becomes generally avai
   {
     id: 'arch-001',
     question: 'Where does Agent 365 fit in the Microsoft 365 architecture?',
-    shortAnswer: 'Agent 365 sits alongside Microsoft 365 Admin Center as a management layer, integrating with Entra ID for identity, Defender for security, and Purview for compliance.',
+    shortAnswer: 'Agent 365 sits alongside Microsoft 365 Admin Center as a management layer, integrating with Entra ID for identity, Defender for security, Purview for compliance, and Windows 365 for Agents for secure agent execution environments.',
     detailedAnswer: `**Architectural layers:**
 
 **Layer 1: Agents (the workload)**
 - Microsoft 365 Copilot agents
 - Copilot Studio agents
-- Azure AI Foundry agents
-- Third-party agents
-- Custom-built agents
+- Microsoft Foundry agents (formerly Azure AI Foundry)
+- Third-party agents (Salesforce, ServiceNow, etc.)
+- Custom-built agents (LangChain, OpenAI Agents SDK, Claude SDK, etc.)
+- Computer-using agents running via **Windows 365 for Agents**
 
 **Layer 2: Agent 365 (control plane)**
-- Registry and metadata store
+- Registry and metadata store (including shadow agent discovery)
+- Agent Blueprint system (IT-approved governance templates from Entra)
 - Policy orchestration engine
-- Monitoring and telemetry collection
-- Admin interfaces and dashboards
+- Monitoring and telemetry via OpenTelemetry / observability dashboards
+- Admin interfaces in Microsoft 365 Admin Center
 
 **Layer 3: Security and compliance integrations**
-- Microsoft Entra (identity and access)
-- Microsoft Defender (threat protection)
-- Microsoft Purview (data governance)
-- Microsoft 365 Admin Center (management)
+- **Microsoft Entra** (identity and access via Entra Agent IDs)
+- **Microsoft Defender** (threat protection, runtime security)
+- **Microsoft Purview** (data governance, DLP)
+- **Windows 365 for Agents** (secure execution environment for computer-using AI agents)
+- MCP Tooling Gateway (governed access to M365 services via MCP servers)
 
 **Layer 4: Data and services**
 - Microsoft Graph (data access)
 - SharePoint, OneDrive, Exchange (data stores)
-- Microsoft 365 apps (Word, Excel, Teams, etc.)
+- Microsoft 365 apps (Word, Excel, Teams, etc.) via MCP Tooling Servers
+- Dataverse / Dynamics 365
 - External data sources (via connectors)
+- Any cloud endpoint: Azure, AWS, GCP
 
 **Data flow example:**
 1. User invokes an agent in Teams
 2. Agent authenticates with Entra Agent ID
-3. Agent 365 checks policies (is agent approved? can it run now?)
+3. Agent 365 checks Blueprint policies (is agent approved? can it run now?)
 4. Defender monitors the request for threats
-5. Agent accesses data via Microsoft Graph
+5. Agent calls MCP Tooling Server to access data safely (Outlook, SharePoint, etc.)
 6. Purview applies sensitivity labels and DLP
 7. Agent performs task and responds
-8. Activity is logged in Agent 365 for audit
+8. Activity is logged via OpenTelemetry for audit and observability
 
-This architecture enables centralized governance without requiring changes to each individual agent.`,
+This architecture enables centralized governance without requiring changes to each individual agent's business logic.`,
     audiences: ['Developer / Architect', 'IT Admin'],
     categories: ['Architecture'],
     difficulty: 'Advanced',
     sources: [
       {
-        label: 'Microsoft Agent 365 landing page',
-        url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
+        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+        type: 'Official',
+      },
+      {
+        label: 'Agent 365 tooling servers overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
         type: 'Official',
       },
     ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['architecture', 'integration', 'layers'],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['architecture', 'integration', 'layers', 'windows 365 for agents', 'mcp', 'blueprint'],
   },
 
   // Additional FAQs
@@ -811,50 +866,73 @@ This architecture enables centralized governance without requiring changes to ea
   },
   {
     id: 'dev-003',
-    question: 'Can I use Agent 365 with open-source agent frameworks like LangChain or AutoGPT?',
-    shortAnswer: 'Yes, but you need to integrate your agent with Entra Agent ID for authentication and the Agent 365 registry API. This requires custom development work.',
-    detailedAnswer: `**Integration requirements:**
+    question: 'Can I use Agent 365 with open-source agent frameworks like LangChain, OpenAI Agents SDK, or Claude SDK?',
+    shortAnswer: 'Yes. Agent 365 officially supports LangChain, OpenAI Agents SDK, Claude Code SDK, and other frameworks via the Agent 365 SDK. Microsoft provides quickstart guides for each. Agents can also be hosted on Azure, AWS, or GCP.',
+    detailedAnswer: `**Supported frameworks (officially documented as of Feb 2026):**
+- LangChain (Node.js quickstart available)
+- OpenAI Agents SDK
+- Claude Code SDK (Anthropic)
+- Microsoft Agent Framework
+- Microsoft Agents SDK
+- Any other framework via manual instrumentation
 
-**1. Authentication**
-- Configure your agent to authenticate using Entra Agent ID
-- Use Microsoft Authentication Library (MSAL) in your agent code
-- Obtain and manage credentials securely
+**Hosting options:**
+- Azure (recommended for Microsoft integration)
+- AWS
+- Google Cloud Platform (GCP)
+- Any other cloud or on-premises endpoint
 
-**2. Registration**
-- Call Agent 365 registry API to register your agent
-- Provide required metadata (name, description, capabilities)
-- Keep registration information up to date
+**How to integrate using the Agent 365 SDK:**
 
-**3. Telemetry and logging**
-- Implement hooks to send activity logs to Agent 365
-- Use Azure Monitor or Application Insights for telemetry
-- Ensure compliance with data retention policies
+**1. Install Agent 365 CLI**
+- Run: \`dotnet tool install --global Microsoft.Agents.A365.DevTools.Cli --prerelease\`
 
-**4. Policy compliance**
-- Respect conditional access policies (check before executing)
-- Integrate with Microsoft Graph for data access
-- Handle policy violations gracefully
+**2. Set up your environment**
+- Run \`a365 setup\` to create Azure resources, configure permissions, and register your agent blueprint
 
-**Example workflow (Python + LangChain):**
-- Authenticate with Entra Agent ID using MSAL library
-- Register agent with Agent 365 registry API
-- Build your LangChain agent with standard code
-- Send telemetry and activity logs to Agent 365
+**3. Add MCP tool servers (optional)**
+- Run \`a365 develop add-mcp-servers\` to wire in governed Microsoft 365 MCP tools (Outlook, Teams, SharePoint, etc.)
 
-**Challenges:**
-- Limited documentation for open-source frameworks
-- More complex than using Copilot Studio
-- You're responsible for maintaining integration code
-- May require ongoing updates as Agent 365 evolves
+**4. Add observability**
+- Agent 365 SDK wraps each agent invocation in an InferenceScope for automatic capture via OpenTelemetry
 
-**Best for:** Developers comfortable with API integration and custom development.`,
+**5. Publish**
+- Run \`a365 publish\` to package and deploy your agent to the Microsoft 365 admin center
+
+**For AI-guided setup:** The Agent 365 CLI supports AI-guided setup using GitHub Copilot, Claude Code, or OpenAI Codex - all from a single instruction file.
+
+**Testing locally:** Use the Agent 365 CLI mock tooling server to simulate MCP server interactions offline without needing real Microsoft 365 connections.
+
+**Best for:** Pro-code developers comfortable with CLI tooling who want full control over their agent's tech stack.`,
     audiences: ['Developer / Architect'],
     categories: ['Developer Experience', 'Architecture'],
     difficulty: 'Advanced',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['langchain', 'open source', 'custom development'],
+    sources: [
+      {
+        label: 'Agent 365 SDK and CLI overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
+        type: 'Official',
+      },
+      {
+        label: 'Quickstart: JavaScript LangChain agent (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-nodejs-langchain',
+        type: 'Official',
+      },
+      {
+        label: 'Quickstart: JavaScript Claude Agent SDK (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-nodejs-claude',
+        type: 'Official',
+      },
+      {
+        label: 'Agent365-devTools CLI (GitHub)',
+        url: 'https://github.com/microsoft/Agent365-devTools',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['langchain', 'open source', 'claude sdk', 'openai agents sdk', 'cli', 'quickstart', 'multi-cloud'],
   },
   {
     id: 'governance-003',
@@ -906,46 +984,54 @@ This architecture enables centralized governance without requiring changes to ea
   },
   {
     id: 'ecosystem-003',
-    question: 'Does Agent 365 work with agents built on Azure OpenAI or Azure AI Services?',
-    shortAnswer: 'Yes. Agents built using Azure OpenAI and Azure AI Services can integrate with Agent 365 by using Entra Agent ID and registering with the Agent 365 registry.',
+    question: 'Does Agent 365 work with agents built on Azure OpenAI, Azure AI Services, or Microsoft Foundry?',
+    shortAnswer: 'Yes. Microsoft Foundry (formerly Azure AI Foundry) integrates with Agent 365 out of the box. Agents on Azure OpenAI can also integrate via Entra Agent ID, the Agent 365 SDK, and MCP tooling servers. Agent code can be hosted on any cloud.',
     detailedAnswer: `**Integration path for Azure-based agents:**
 
-**Using Azure AI Foundry:**
-- Azure AI Foundry is Microsoft's platform for building enterprise AI agents
-- Includes integration with Agent 365 out of the box
+**Using Microsoft Foundry (formerly Azure AI Foundry):**
+- Microsoft's platform for building enterprise AI agents
+- Integrates with Agent 365 out of the box
 - Agents created in Foundry can be automatically registered
-- Supports Entra Agent ID natively
+- Supports Entra Agent IDs natively
+- Quickstart available: Python Agent Framework sample
 
 **Using Azure OpenAI directly:**
 - Build your agent using Azure OpenAI API
-- Create an Entra Agent ID for your agent
-- Register agent metadata with Agent 365
-- Implement telemetry and logging hooks
-- Deploy and monitor via Agent 365 dashboards
-
-**Using Azure AI Services (Vision, Speech, etc.):**
-- Similar to Azure OpenAI integration
-- Use managed identities or Entra Agent IDs for authentication
-- Register the agent with Agent 365
-- Apply governance policies
+- Add the Agent 365 SDK to your project for enterprise capabilities
+- Run \`a365 setup\` via the CLI to configure identity and blueprint
+- Agent can access Microsoft 365 data via MCP Tooling Servers governed by Agent 365
 
 **Benefits of Azure integration:**
-- All data stays in Azure (no third-party LLM API calls)
+- Data stays in Azure (no third-party LLM API calls if not desired)
 - Compliance with data residency requirements
 - Integration with Azure Monitor and Application Insights
 - Unified billing under Azure subscription
 
-**Architecture:**
-Your agent → Azure OpenAI / AI Services → Microsoft Graph (data access) → Agent 365 (governance)
+**Note on multi-cloud:** Agent 365 also works with agents hosted on AWS or GCP—cloud location of the agent does not restrict Agent 365 governance.
 
-**Recommendation:** If you're building custom agents and already use Azure, this is the most natural integration path.`,
+**Architecture:**
+Your agent (Azure / AWS / GCP) → Agent 365 SDK → MCP Tooling Gateway → Microsoft 365 data → Agent 365 governance & observability
+
+**Recommendation:** If you're building custom agents and already use Azure, this is the most natural integration path. Use the Agent 365 CLI quickstart for Python Agent Framework to get started quickly.`,
     audiences: ['Developer / Architect'],
     categories: ['Ecosystem & Integrations', 'Developer Experience'],
     difficulty: 'Intermediate',
-    sources: [],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['azure', 'azure openai', 'azure ai'],
+    sources: [
+      {
+        label: 'Agent 365 SDK and CLI overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
+        type: 'Official',
+      },
+      {
+        label: 'Quickstart: Python Agent Framework sample (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-python-agent-framework',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    updatedAt: '2026-02-19',
+    tags: ['azure', 'azure openai', 'microsoft foundry', 'multi-cloud', 'sdk'],
   },
   {
     id: 'licensing-003',
@@ -1037,6 +1123,187 @@ Microsoft could take several approaches:
     lastReviewed: '2025-11-18',
     tags: ['mistakes', 'best practices', 'lessons learned'],
   },
+  // NEW IN FEBRUARY 2026 REFRESH
+  {
+    id: 'dev-004',
+    question: 'What is the Agent 365 SDK and how is it different from other Microsoft agent SDKs?',
+    shortAnswer: 'The Agent 365 SDK adds enterprise capabilities (identity, observability, MCP tool access, notifications) to agents you\'ve already built on any framework. It is not an agent builder itself—it\'s an enterprise enhancement layer.',
+    detailedAnswer: `**What the Agent 365 SDK does:**
+The Agent 365 SDK extends agents built on **any** agent platform or SDK by adding:
+
+- **Entra-based Agent identity** — each agent gets its own managed Entra ID
+- **Governed MCP tool access** — safe, policy-enforced connections to Microsoft 365 services (Outlook, Teams, SharePoint, etc.)
+- **OpenTelemetry-based observability** — automatic tracing of inputs, outputs, and inference events
+- **Activity protocol notifications** — proactive messaging to users and systems
+- **Agent ID-driven governance** — integration with Agent 365 policy enforcement
+
+**What it is NOT:**
+- Not a replacement for agent frameworks like LangChain, Copilot Studio, or Microsoft Agent Framework
+- Not a code generator or agent builder
+- Not the same as the Microsoft 365 Agents SDK (which builds multi-channel bots)
+
+**Supported frameworks for auto-instrumentation:**
+- OpenAI Agents SDK
+- LangChain
+- Microsoft Agent Framework
+- (Manual instrumentation available for any other framework)
+
+**How it differs from the Microsoft 365 Agents SDK:**
+The Microsoft 365 Agents SDK builds conversational agents that run across Teams, Outlook, and other M365 surfaces. The Agent 365 SDK is a governance/enterprise overlay that can wrap agents built with M365 Agents SDK or any other stack.
+
+**Getting started:** See the official developer docs and quickstarts on Microsoft Learn.`,
+    audiences: ['Developer / Architect'],
+    categories: ['Developer Experience', 'Architecture'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Agent 365 SDK and CLI (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    isNew: true,
+    tags: ['sdk', 'developer', 'opentelemetry', 'observability', 'identity'],
+  },
+  {
+    id: 'dev-005',
+    question: 'What are Agent 365 MCP Tooling Servers and why do they matter?',
+    shortAnswer: 'Agent 365 tooling servers are enterprise-grade Model Context Protocol (MCP) servers that give agents safe, policy-enforced access to Microsoft 365 services like Outlook, Teams, SharePoint, OneDrive, and Dataverse—replacing the need for each agent to implement its own M365 integrations.',
+    detailedAnswer: `**What MCP Tooling Servers are:**
+Agent 365 tooling servers implement the **Model Context Protocol (MCP)**—an open standard for providing AI agents with access to external tools and data sources. Microsoft pre-built and pre-certified these servers for core M365 services.
+
+**Available tooling servers (as of Feb 2026):**
+- **Outlook Calendar**: Create, list, update, and delete events; accept/decline invites; resolve scheduling conflicts
+- **Outlook Mail**: Create, update, delete messages; reply/reply-all; semantic search
+- **SharePoint and OneDrive**: Upload files; get metadata; search; manage lists
+- **Teams**: Create, update, delete chats; add members; post messages; channel operations
+- **User Profile**: Get manager, direct reports, and profile info; search users
+- **Word**: Create and read documents; add comments; reply to comments
+- **Dataverse and Dynamics 365**: CRUD operations and domain-specific actions
+- **Copilot Search**: Chat with M365 Copilot; start and continue multi-turn threads
+
+**Why they matter:**
+- **Policy enforcement built-in**: DLP, MIP sensitivity labels, and Defender monitoring are enforced at the tooling gateway—not left to each agent to implement
+- **Auditable**: All tool calls are logged for compliance and observability
+- **No custom integration needed**: Agents get instant, governed access to M365 without writing custom Graph API code
+- **Works with any framework**: Use from Agent 365 SDK, Copilot Studio, LangChain, Claude SDK, or any MCP-compatible client
+
+**How to add MCP servers to your agent:**
+Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI. Authentication scopes are configured automatically via the Blueprint.
+
+**Local testing:** Use the Agent 365 CLI mock tooling server for offline development—no real M365 connection needed.`,
+    audiences: ['Developer / Architect', 'IT Admin', 'Security & Compliance'],
+    categories: ['Developer Experience', 'Ecosystem & Integrations', 'Security & Compliance'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Agent 365 tooling servers overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
+        type: 'Official',
+      },
+      {
+        label: 'Add and manage tools (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/tooling',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    isNew: true,
+    tags: ['mcp', 'tooling servers', 'outlook', 'teams', 'sharepoint', 'governance', 'dlp'],
+  },
+  {
+    id: 'dev-006',
+    question: 'What is an Agent Blueprint and how does it work?',
+    shortAnswer: 'An Agent Blueprint is an IT-approved, Entra-sourced template that defines an agent\'s capabilities, required MCP tool permissions, security constraints, and governance policies. All agent instances created from a Blueprint inherit its rules automatically.',
+    detailedAnswer: `**What an Agent Blueprint defines:**
+- Agent capabilities and description
+- Required MCP tool server access (Outlook, Teams, SharePoint, etc.)
+- Security and compliance constraints (DLP, external access, logging)
+- Audit requirements and lifecycle metadata
+- Linked governance policy templates
+
+**How Blueprints work:**
+1. **IT creates or approves a Blueprint** in Microsoft Entra and the Agent 365 admin center
+2. **Blueprint is activated** for a tenant—users can request instances from the Microsoft 365 admin center
+3. **Agents are provisioned** from the Blueprint, automatically inheriting all its rules
+4. **Governance is consistent**—all instances of the same agent type have identical security posture
+
+**For developers:**
+- The Agent 365 CLI (\`a365 setup\`) creates your Blueprint as part of the setup process
+- The CLI configures Azure resources, permissions, service principal, and MCP permissions on the Blueprint
+- After setup, you have a fully configured, enterprise-ready agent foundation
+
+**For IT admins:**
+- Blueprints are the mechanism for pre-approving and standardizing agent types
+- Users request new agent instances from a Blueprint via the admin center
+- No individual agent configuration needed—compliance comes from the Blueprint
+
+**Analogy:** Blueprints are like enterprise app provisioning templates—similar to how managed apps are deployed via Intune, but for AI agents.`,
+    audiences: ['IT Admin', 'Developer / Architect', 'Security & Compliance'],
+    categories: ['Governance & Shadow Agents', 'Developer Experience', 'Architecture'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Agent 365 CLI and Blueprint setup (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/agent-365-cli',
+        type: 'Official',
+      },
+      {
+        label: 'Agent 365 development lifecycle (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/a365-dev-lifecycle',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-02-19',
+    isNew: true,
+    tags: ['blueprint', 'governance', 'template', 'entra', 'policy'],
+  },
+  {
+    id: 'basics-006',
+    question: 'What is Windows 365 for Agents and how does it relate to Agent 365?',
+    shortAnswer: 'Windows 365 for Agents is a secure, cloud-based execution environment for computer-using AI agents—agents that control a PC to perform tasks. Agent 365 governs and monitors these agents like any other, while Windows 365 for Agents provides their isolated runtime.',
+    detailedAnswer: `**What Windows 365 for Agents is:**
+Windows 365 for Agents provides a dedicated, managed cloud PC environment specifically for **computer-using agents**—AI agents that operate a Windows desktop to perform tasks (browsing the web, filling forms, running apps) rather than calling APIs directly.
+
+**Why a dedicated environment matters:**
+- Agents operating a desktop need an isolated, auditable environment
+- Prevents agents from accessing unintended resources on shared machines
+- Provides a clean, reproducible state for each agent session
+- Security controls (network isolation, policy enforcement) are built in
+
+**How it relates to Agent 365:**
+- Windows 365 for Agents is one component that Agent 365 "unites" as part of its control plane
+- Agent 365 governs agents running in Windows 365 for Agents just like any other agent
+- Activity from computer-using agents is logged, monitored, and policy-enforced through Agent 365
+- Admins manage Windows 365 for Agents environments alongside other agent infrastructure
+
+**Use cases for computer-using agents:**
+- Legacy application automation (systems without APIs)
+- Complex multi-step web workflows
+- RPA (Robotic Process Automation) scenarios enhanced with AI reasoning
+- UI-driven tasks that don't expose programmatic interfaces
+
+**Status:** Windows 365 for Agents was mentioned in the February 2026 blog post as part of the Agent 365 ecosystem. Detailed documentation may still be emerging.`,
+    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
+    categories: ['Basics', 'Architecture'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Hello, world. — Agent 365 Blog (Feb 2026)',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
+        type: 'Official',
+      },
+    ],
+    status: 'Partially documented',
+    lastReviewed: '2026-02-19',
+    isNew: true,
+    tags: ['windows 365 for agents', 'computer-using agents', 'execution environment', 'rpa'],
+  },
+
   {
     id: 'basics-005',
     question: 'What does "agent as a digital employee" mean in the context of Agent 365?',
