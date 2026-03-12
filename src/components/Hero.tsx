@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </a>
             </p>
             <p className="text-green-800 text-xs mt-1">
-              Key updates: GA date &amp; pricing confirmed · Microsoft 365 E7 ($99/user/month) announced · Detailed Defender &amp; Purview capabilities · Licensing questions answered. Look for <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-ms-blue-600 text-white">NEW</span> and <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-white">UPDATED</span> badges throughout the FAQ.
+              Key updates: GA date &amp; pricing confirmed · Microsoft 365 E7 ($99/user/month) announced · Work IQ MCP servers explained · Detailed Defender &amp; Purview capabilities · Licensing questions answered. Look for <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-ms-blue-600 text-white">NEW</span> and <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-white">UPDATED</span> badges throughout the FAQ.
             </p>
           </div>
         </div>

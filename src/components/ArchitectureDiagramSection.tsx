@@ -12,7 +12,7 @@ graph TB
         M365Admin["<b>M365 Admin Center</b><br/>Central Management"]
         Purview["<b>Microsoft Purview</b><br/>Data Governance"]
         Defender["<b>Microsoft Defender</b><br/>Threat Protection"]
-        WorkIQ["<b>Work IQ Layer</b><br/>Emails, Files, Meetings<br/>Org Chart, Workflows"]
+        WorkIQ["<b>Work IQ Layer</b><br/>Data · Memory · Inference<br/>Org Context for Agents"]
     end
 
     subgraph AGENT365["AGENT 365 CONTROL PLANE"]
@@ -37,7 +37,7 @@ graph TB
         subgraph INTEROP["4. INTEROPERABILITY"]
             Tools["<b>Agentic Tools</b><br/>Outlook, Teams<br/>SharePoint, Dynamics"]
             WorkIQAccess["<b>Work IQ Access</b><br/>Same Context as Users"]
-            MCP["<b>MCP Interfaces</b><br/>Standard Protocols"]
+            MCP["<b>Work IQ MCP</b><br/>Standard Protocols"]
         end
 
         subgraph SEC["5. SECURITY"]
