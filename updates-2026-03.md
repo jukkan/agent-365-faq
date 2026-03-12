@@ -14,6 +14,7 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 3. **Microsoft 365 E7: The Frontier Suite announced** — A new premium bundle at $99/user/month including E5, Copilot, Agent 365, and Entra Suite.
 4. **Detailed capability breakdown** for Agent 365 — including specific Defender, Purview, and Entra capabilities, and which ones are GA vs. public preview.
 5. **Previously speculative FAQs are now documented** — licensing, pricing, and E5 inclusion questions are now answered with official information.
+6. **Work IQ and Work IQ MCP servers documented** — Microsoft's intelligence layer (Data/Memory/Inference) and its enterprise-grade MCP servers are now explained, with updated naming across existing FAQs.
 
 ---
 
@@ -24,6 +25,8 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 | Secure agentic AI for your frontier transformation | https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/ | March 9, 2026 |
 | Microsoft Agent 365 landing page | https://www.microsoft.com/en-us/microsoft-agent-365 | March 2026 |
 | Microsoft 365 E7 enterprise page | https://www.microsoft.com/en-us/microsoft-365/microsoft-365-enterprise | March 2026 |
+| Work IQ MCP overview (Microsoft Learn) | https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview | March 2026 |
+| A closer look at Work IQ (Microsoft Tech Community) | https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789 | March 2026 |
 
 ---
 
@@ -34,6 +37,12 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 - **Difficulty:** Intro
 - **Audiences:** Business & Licensing, IT Admin
 - **Rationale:** Microsoft 365 E7 is a brand-new product announced on March 9, 2026 that bundles E5 + Copilot + Agent 365 + Entra Suite at $99/user/month. It's critical for licensing decisions.
+
+### `arch-002` — What is Work IQ and what role does it play in Agent 365?
+- **Categories:** Architecture, Basics
+- **Difficulty:** Intermediate
+- **Audiences:** IT Admin, Developer / Architect, Business & Licensing, Security & Compliance
+- **Rationale:** Work IQ is the intelligence layer (Data/Memory/Inference) behind Microsoft 365 Copilot and Agent 365–managed agents. It powers Work IQ MCP servers and is now documented on Microsoft Learn. This FAQ explains the three layers, how Work IQ connects to Agent 365 governance, the Work IQ MCP servers, and licensing requirements.
 
 ---
 
@@ -105,6 +114,41 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 - Status: Not yet documented / speculative → **Documented**
 - lastReviewed: 2025-11-18 → **2026-03-12**
 
+### `arch-001` — Where does Agent 365 fit in the Microsoft 365 architecture?
+- Added **Work IQ as a dedicated Layer 3** (intelligence layer) with Data/Memory/Inference breakdown
+- Renumbered Security & compliance to Layer 4 and Data & services to Layer 5
+- Renamed "MCP Tooling Gateway" and "MCP Tooling Servers" references to **Work IQ MCP servers**
+- Added Work IQ context step in data flow example (step 6)
+- Added A closer look at Work IQ (Tech Community) source
+- Added `work iq` tag
+- lastReviewed: 2026-02-19 → **2026-03-12**
+- updatedAt: 2026-02-19 → **2026-03-12**
+
+### `dev-001` — If I build an agent in Copilot Studio or Microsoft Foundry, what do I need to do to make it Agent 365 compatible?
+- Updated "governed MCP tool access" to **"governed Work IQ MCP tool access"** in short answer and detailed answer
+
+### `dev-004` — What is the Agent 365 SDK and how is it different from other Microsoft agent SDKs?
+- Updated "Governed MCP tool access" to **"Governed Work IQ MCP tool access"** in SDK capabilities list
+
+### `dev-005` — What are Work IQ MCP servers and how do agents use them? (previously: "What are Agent 365 MCP Tooling Servers and why do they matter?")
+- **Major update:** Renamed question and rewritten to use official **Work IQ MCP** naming
+- Updated server list to use official names: Work IQ Copilot, Work IQ Mail, Work IQ Calendar, Work IQ Teams, Work IQ User, Work IQ Word (plus SharePoint/OneDrive and Dataverse servers)
+- Added **MCP Management Server** for building custom MCP servers (1,500+ connectors, Graph APIs, Dataverse, REST)
+- Added multiple integration paths: low-code (Copilot Studio), pro-code (Microsoft Foundry), CLI, VS Code
+- Added key features: centralized governance, enterprise-grade security, continuous evaluation, full observability via Defender Advanced Hunting
+- Added **Copilot license requirement** note
+- Added A closer look at Work IQ (Tech Community) source
+- lastReviewed: 2026-02-19 → **2026-03-12**
+- updatedAt: **2026-03-12** (added)
+
+### `ecosystem-003` — Does Agent 365 work with agents built on Azure OpenAI, Azure AI Services, or Microsoft Foundry?
+- Updated "MCP tooling servers" to **"Work IQ MCP servers"** in short answer, detailed answer, and architecture diagram
+- Updated "MCP Tooling Gateway" to **"Work IQ MCP servers"** in architecture flow
+
+### CLI quickstart (within `dev-003`)
+- Updated "Add MCP tool servers" step heading to **"Add Work IQ MCP servers"**
+- Updated CLI command description to reference **"governed Work IQ MCP tools"**
+
 ---
 
 ## Updated Open Questions
@@ -122,6 +166,14 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 - Question title updated to note it's partially answered
 - lastUpdated: 2025-11-18 → **2026-03-12**
 
+### `oq-006` — What developer tools, SDKs, and documentation are available? (Updated March 2026)
+- Added Work IQ MCP server details: official server names (Work IQ Mail, Calendar, Teams, User, Word, Copilot)
+- Added MCP Management Server for custom MCP servers
+- Added Work IQ MCP availability across Copilot Studio, Microsoft Foundry, and VS Code
+- Added new question: "When will custom MCP server publishing be available to non-admin developers?"
+- Question title updated from "Feb 2026" to "March 2026"
+- lastUpdated: 2026-02-19 → **2026-03-12**
+
 ---
 
 ## Updated Scenarios
@@ -137,12 +189,17 @@ This refresh updates the Agent 365 FAQ site to reflect the most significant anno
 ### Update Banner
 - Replaced the amber "February 2026 refresh" banner with a **green "March 2026 GA announcement"** banner
 - Banner highlights the GA date, pricing, and key updates
+- Added **"Work IQ MCP servers explained"** to the banner's key updates list
 - Links directly to the Microsoft Security Blog announcement
 
 ### FAQ Card Badges
 - Items updated in March 2026 show **UPDATED** badge with "March 2026 GA update" attribution
-- New `licensing-004` item shows **NEW** badge
+- New `licensing-004` and `arch-002` items show **NEW** badge
 - Items from February 2026 refresh retain their badges with "February 2026 refresh" attribution
+
+### Architecture Diagram
+- Updated **Work IQ Layer** node: description changed from "Emails, Files, Meetings / Org Chart, Workflows" to **"Data · Memory · Inference / Org Context for Agents"**
+- Renamed **"MCP Interfaces"** node to **"Work IQ MCP"** in the Interoperability section
 
 ### Footer
 - Updated "Last updated" date to March 12, 2026
@@ -163,17 +220,11 @@ The following FAQ items were reviewed and remain accurate without changes:
 - `governance-002` — Quarantine mechanics (Still accurate)
 - `governance-003` — Granular access controls (Still accurate)
 - `security-004` — Biggest security risks (Still accurate)
-- `dev-001` — Making agents Agent 365 compatible (Still accurate)
 - `dev-002` — Entra Agent ID workflow (Still accurate)
-- `dev-003` — Open-source framework support (Still accurate)
-- `dev-004` — Agent 365 SDK (Still accurate — Feb 2026)
-- `dev-005` — MCP Tooling Servers (Still accurate — Feb 2026)
 - `dev-006` — Agent Blueprints (Still accurate — Feb 2026)
 - `rollout-003` — Common governance mistakes (Still accurate)
 - `ecosystem-001` — Third-party agent management (Still accurate)
 - `ecosystem-002` — Agent store relationship (Still accurate)
-- `ecosystem-003` — Azure OpenAI / Foundry integration (Still accurate)
-- `arch-001` — Architecture layers (Still accurate)
 
 ---
 
@@ -186,3 +237,5 @@ The following FAQ items were reviewed and remain accurate without changes:
 - **Data residency specifics** for Agent 365 telemetry (oq-007) remain undocumented.
 - **Transition from Frontier to GA**: Details on migration path not yet available.
 - **Preview to GA timeline**: When public preview capabilities will reach GA is not announced.
+- **Work IQ MCP servers are in preview**: All Work IQ MCP servers carry preview status; GA timeline not announced.
+- **Custom MCP server publishing**: Currently limited to tenant administrators; developer access timeline not announced.
