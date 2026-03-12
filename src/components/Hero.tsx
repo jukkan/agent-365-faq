@@ -9,22 +9,18 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     <div className="bg-gradient-to-br from-ms-blue-50 via-blue-50 to-indigo-50 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-        {/* February 2026 Update Banner */}
-        <div className="mb-8 bg-amber-50 border border-amber-300 rounded-lg p-4 max-w-3xl mx-auto flex items-start gap-3 text-left">
-          <span className="text-amber-500 text-xl shrink-0 mt-0.5">★</span>
+        {/* March 2026 GA Announcement Banner */}
+        <div className="mb-8 bg-green-50 border border-green-400 rounded-lg p-4 max-w-3xl mx-auto flex items-start gap-3 text-left">
+          <span className="text-green-600 text-xl shrink-0 mt-0.5">🚀</span>
           <div>
-            <p className="text-amber-900 font-semibold text-sm">
-              February 2026 refresh — content updated from{' '}
-              <a href="https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-700">
-                the new Agent 365 blog
-              </a>
-              {' '}and validated against{' '}
-              <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/overview" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-700">
-                Microsoft Learn
+            <p className="text-green-900 font-semibold text-sm">
+              March 2026 update — Agent 365 GA announced for May 1, 2026 at $15/user/month.{' '}
+              <a href="https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/" target="_blank" rel="noopener noreferrer" className="underline hover:text-green-700">
+                Read the announcement
               </a>
             </p>
-            <p className="text-amber-800 text-xs mt-1">
-              New items: Agent 365 SDK &amp; CLI · MCP Tooling Servers · Agent Blueprints · Windows 365 for Agents. Look for <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-ms-blue-600 text-white">NEW</span> and <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-white">UPDATED</span> badges throughout the FAQ.
+            <p className="text-green-800 text-xs mt-1">
+              Key updates: GA date &amp; pricing confirmed · Microsoft 365 E7 ($99/user/month) announced · Detailed Defender &amp; Purview capabilities · Licensing questions answered. Look for <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-ms-blue-600 text-white">NEW</span> and <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-white">UPDATED</span> badges throughout the FAQ.
             </p>
           </div>
         </div>

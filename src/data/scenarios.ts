@@ -49,10 +49,10 @@ export const scenarios: Scenario[] = [
   {
     id: 'scenario-006',
     title: 'We need to understand licensing and costs before committing',
-    description: 'Agent 365 is currently in Frontier early access. Pricing and licensing details for general availability are not yet finalized - here\'s what we know.',
+    description: 'Agent 365 is $15/user/month standalone, or part of Microsoft 365 E7 at $99/user/month. GA is May 1, 2026. Here\'s what you need to know.',
     icon: '💰',
     targetAudiences: ['Business & Licensing'],
-    relatedFaqIds: ['licensing-001', 'licensing-002', 'licensing-003'],
+    relatedFaqIds: ['licensing-001', 'licensing-002', 'licensing-003', 'licensing-004'],
     relatedCategories: ['Licensing & Availability'],
   },
 ];
