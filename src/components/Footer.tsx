@@ -58,7 +58,10 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="font-semibold text-gray-900 mb-3">Disclaimer</h3>
             <p className="text-xs text-gray-500">
-              This site is not affiliated with Microsoft. All information is based on publicly available sources as of November 2025. Product features, pricing, and availability are subject to change. Always verify with official Microsoft documentation.
+              This site is not affiliated with Microsoft. All information is based on publicly available sources as of March 2026. Product features, pricing, and availability are subject to change. Always verify with{' '}
+              <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/overview" target="_blank" rel="noopener noreferrer" className="text-ms-blue-600 hover:underline">
+                official Microsoft documentation
+              </a>.
             </p>
           </div>
         </div>
@@ -123,7 +126,7 @@ export const Footer: React.FC = () => {
             </a>
           </div>
           <div className="text-center text-sm text-gray-500">
-            Last updated: November 18, 2025 |{' '}
+            Last updated: March 12, 2026 |{' '}
             <a
               href="https://niiranenadvisory.com/"
               target="_blank"

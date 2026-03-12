@@ -5,8 +5,8 @@ export const faqs: FaqItem[] = [
   {
     id: 'basics-001',
     question: 'What is Microsoft Agent 365 in simple terms?',
-    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms.',
-    detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities.
+    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms. Generally available May 1, 2026.',
+    detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities. It will be **generally available on May 1, 2026** at **$15 per user per month**.
 
 **Key capabilities:**
 - **Registry**: A central inventory of all agents in your organization, including shadow agents
@@ -23,11 +23,18 @@ export const faqs: FaqItem[] = [
 
 Think of it as giving your IT and security teams the same level of control over AI agents that they have over human users - because agents are becoming "digital employees" that can take actions, access data, and make decisions.
 
-As of February 2026, official documentation is available on Microsoft Learn - see the sources below.`,
+Agent 365 is also available as part of **Microsoft 365 E7: The Frontier Suite** ($99/user/month), which bundles Copilot, Agent 365, Entra Suite, and E5 security.
+
+Official documentation is available on Microsoft Learn - see the sources below.`,
     audiences: ['IT Admin', 'Security & Compliance', 'Business & Licensing'],
     categories: ['Basics'],
     difficulty: 'Intro',
     sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
       {
         label: 'Microsoft Agent 365 overview (Microsoft Learn)',
         url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
@@ -40,9 +47,9 @@ As of February 2026, official documentation is available on Microsoft Learn - se
       },
     ],
     status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['control plane', 'registry', 'governance', 'windows 365 for agents'],
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['control plane', 'registry', 'governance', 'windows 365 for agents', 'ga', 'pricing'],
   },
   {
     id: 'basics-002',
@@ -193,67 +200,81 @@ This is similar to how endpoint management tools quarantine unmanaged devices.`,
   {
     id: 'security-001',
     question: 'What protections does Microsoft Defender add for AI agents via Agent 365?',
-    shortAnswer: 'Defender provides threat detection, security posture assessment, and runtime protection against attacks like prompt injection and data exfiltration attempts.',
-    detailedAnswer: `Microsoft Defender for Cloud Apps and Defender XDR integrate with Agent 365 to secure agents:
+    shortAnswer: 'Defender provides security posture management, threat detection and investigation, and runtime threat protection for agents—including protection against prompt manipulation, model tampering, and agent-based attack chains.',
+    detailedAnswer: `Microsoft Defender integrates with Agent 365 to secure agents with purpose-built protections:
 
-**Threat Detection:**
-- Detects anomalous agent behavior (unusual data access, excessive API calls)
-- Identifies compromised agent credentials
-- Monitors for data exfiltration attempts
-
-**Runtime Protection:**
-- Blocks prompt injection attacks in real-time
-- Filters malicious input before it reaches the agent's LLM
-- Prevents agents from executing dangerous actions
-
-**Security Posture:**
-- Assesses agent vulnerabilities and misconfigurations
+**Security Posture Management (public preview):**
+- Detects misconfigurations and vulnerabilities in Microsoft Foundry and Copilot Studio agents
+- Enables security leaders to proactively resolve issues before they become attack vectors
 - Recommends security improvements
-- Tracks compliance with organizational security policies
 
-**Incident Response:**
+**Detection, Investigation, and Response (public preview):**
+- Enables investigation and remediation of attacks that target agents
+- Ensures agents are accounted for in security investigations
 - Generates alerts when threats are detected
 - Provides investigation tools and timelines
-- Enables automated response actions (e.g., disable agent, revoke access)
 
-**Editor's note:** This is based on Microsoft's stated integration plans. Specific Defender features for agents are still rolling out.`,
+**Runtime Threat Protection (public preview, entering April 2026):**
+- Protects agents that use the Agent 365 tools gateway
+- Detects, blocks, and investigates malicious agent activities at runtime
+- Protects against prompt manipulation, model tampering, and agent-based attack chains
+
+**Agent Risk Signals (public preview):**
+- Defender assesses risk of agent compromise
+- Entra evaluates identity risk for agents
+- Purview evaluates insider risk for agent interactions
+- Security teams can evaluate agent risk just like they do for users
+- Agent actions can be blocked based on compromise signals, sign-in anomalies, and risky data interactions
+
+**Note:** Several Defender capabilities for agents are in **public preview** and will continue to be in preview at GA on May 1, 2026. Runtime threat protection enters public preview in April 2026.`,
     audiences: ['Security & Compliance', 'IT Admin'],
     categories: ['Security & Compliance'],
     difficulty: 'Intermediate',
     sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
       {
         label: 'Securing autonomous agents with Microsoft Security',
         url: 'https://www.microsoft.com/en-us/security/blog/2025/08/26/securing-and-governing-the-rise-of-autonomous-agents/',
         type: 'Official',
       },
     ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['defender', 'threat detection', 'security'],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['defender', 'threat detection', 'security', 'runtime protection', 'posture management'],
   },
   {
     id: 'security-002',
     question: 'How does Agent 365 address prompt injection and data exfiltration risks?',
-    shortAnswer: 'Agent 365 integrates with Defender for runtime filtering of malicious prompts and uses Purview to apply sensitivity labels and data loss prevention policies to agent interactions.',
-    detailedAnswer: `Prompt injection and data exfiltration are two of the biggest risks with AI agents. Agent 365 addresses both:
+    shortAnswer: 'Agent 365 uses Defender runtime threat protection to detect and block prompt manipulation at runtime, and Purview inline DLP to block sensitive data in prompts. Purview sensitivity labels ensure agents follow the same data handling rules as users.',
+    detailedAnswer: `Prompt injection and data exfiltration are two of the biggest risks with AI agents. Agent 365 addresses both through multiple layers:
 
-**Prompt Injection Protection:**
-- Runtime filtering of user input before it reaches the agent's LLM
+**Prompt Injection / Manipulation Protection:**
+- **Defender runtime threat protection** detects and blocks prompt manipulation, model tampering, and agent-based attack chains (public preview, entering April 2026)
 - Detection of jailbreak attempts and malicious instructions
 - Blocking of requests that try to override the agent's system prompt
 - Integration with Microsoft Defender's threat intelligence
 
 **Data Exfiltration Prevention:**
-- Microsoft Purview applies sensitivity labels to data accessed by agents
-- Data Loss Prevention (DLP) policies block agents from sharing sensitive data
-- Monitoring of data movement and alerting on suspicious transfers
-- Conditional access can restrict which data sources agents can access
+- **Inline Data Loss Prevention (DLP)** for prompts to Copilot Studio agents blocks sensitive information such as personally identifiable information, credit card numbers, and custom sensitive information types (SITs) from being processed in the runtime
+- **Information Protection** ensures agents inherit and honor Microsoft 365 data sensitivity labels—agents follow the same rules as users for handling sensitive data
+- **Data Security Posture Management** provides visibility into data risks for agents so admins can proactively mitigate them
+- **Insider Risk Management** extends to agents to block and flag risky agent interactions with sensitive data
+
+**Data Lifecycle and Compliance:**
+- **Data Lifecycle Management** enables retention and deletion policies for prompts and agent-generated data
+- **Audit and eDiscovery** treats AI agents as auditable entities alongside users and applications
+- **Communication Compliance** extends to agent interactions to detect risky AI communications
 
 **Limitations to note:**
+- Some Purview capabilities (insider risk signals) will remain in public preview at GA
 - Protection is strongest within the Microsoft ecosystem
 - Third-party agents may require additional configuration
 - Runtime filtering can impact performance
-- False positives are possible and require tuning
 
 **Best practice:** Use least-privilege access and test agents in isolated environments before production deployment.`,
     audiences: ['Security & Compliance', 'Developer / Architect'],
@@ -261,51 +282,60 @@ This is similar to how endpoint management tools quarantine unmanaged devices.`,
     difficulty: 'Advanced',
     sources: [
       {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+      {
         label: 'Microsoft extends Zero Trust to secure the agentic workforce',
         url: 'https://www.microsoft.com/en-us/security/blog/2025/05/19/microsoft-extends-zero-trust-to-secure-the-agentic-workforce/',
         type: 'Official',
       },
     ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['prompt injection', 'data exfiltration', 'purview', 'DLP'],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['prompt injection', 'data exfiltration', 'purview', 'DLP', 'inline dlp', 'information protection'],
   },
   {
     id: 'security-003',
     question: 'What is the relationship between Agent 365, Entra Agent ID, Defender, and Purview?',
-    shortAnswer: 'Agent 365 is the orchestration layer. Entra Agent ID provides identities, Defender provides security, and Purview provides data governance. They work together as an integrated stack.',
+    shortAnswer: 'Agent 365 is the orchestration layer. Entra Agent ID provides identities and access governance, Defender provides security and threat protection, and Purview provides data governance and compliance. They work together as an integrated stack.',
     detailedAnswer: `These four products form Microsoft's AI agent security and governance stack:
 
-**Microsoft Entra Agent ID:**
-- Provides identity for agents (like managed identities for apps)
-- Handles authentication and authorization
-- Enables conditional access policies for agents
-- Makes agents visible in the Entra admin center
+**Microsoft Entra Agent ID (included in Agent 365):**
+- **Agent ID**: Gives each agent a unique identity designed specifically for agents
+- **Identity Protection and Conditional Access**: Extends user policies to agents—real-time access decisions based on risk, device compliance, and security attributes
+- **Identity Governance**: Limits agent access with scoped access packages and audit capabilities
+- **Security policy templates**: Automates collaboration between IT and security teams
 
-**Agent 365:**
-- Central registry and control plane
-- Orchestrates policies across all agents
-- Provides unified monitoring and dashboards
-- Connects the other components together
+**Agent 365 (the control plane):**
+- **Agent Registry**: Central inventory of all agents (Microsoft, ecosystem partners, API-registered)
+- **Observability**: Agent behavior, performance, adoption metrics, agent map, and activity details
+- **Agent risk signals**: Aggregated from Defender, Entra, and Purview
+- **Policy orchestration** across all agents
 
-**Microsoft Defender:**
-- Threat detection and response
-- Runtime protection against attacks
-- Security posture assessment
-- Incident investigation tools
+**Microsoft Defender (security, included in Agent 365):**
+- **Security posture management** for Foundry and Copilot Studio agents (public preview)
+- **Detection, investigation, and response** for agent-targeted attacks (public preview)
+- **Runtime threat protection** for agents using the tools gateway (public preview, entering April 2026)
+- Protects against prompt manipulation, model tampering, and agent-based attack chains
 
-**Microsoft Purview:**
-- Data classification and sensitivity labeling
-- Data loss prevention (DLP) for agent interactions
-- Compliance monitoring and audit logs
-- Information barriers and governance policies
+**Microsoft Purview (data governance, included in Agent 365):**
+- **Data Security Posture Management**: Visibility into data risks for agents
+- **Information Protection**: Agents inherit and honor M365 sensitivity labels
+- **Inline DLP**: Blocks sensitive data in prompts to Copilot Studio agents
+- **Insider Risk Management**: Extends insider risk protection to agents
+- **Data Lifecycle Management**: Retention/deletion policies for agent data
+- **Audit and eDiscovery**: Agents are auditable entities
+- **Communication Compliance**: Extends to agent interactions
 
 **How they work together:**
-1. An agent is given an Entra Agent ID identity
-2. Agent 365 registers the agent and applies policies
-3. Purview labels data the agent can access
-4. Defender monitors agent behavior for threats
-5. All activity is logged for audit and compliance
+1. An agent is given an **Entra Agent ID** identity
+2. **Agent 365** registers the agent, applies Blueprint policies, and provides observability
+3. **Purview** enforces data protection—sensitivity labels, DLP, insider risk
+4. **Defender** monitors for threats—posture assessment, detection, runtime protection
+5. All activity is logged and auditable across the stack
 
 Think of it as: Entra = ID card, Agent 365 = HR system, Defender = security guard, Purview = compliance officer.`,
     audiences: ['Security & Compliance', 'IT Admin', 'Developer / Architect'],
@@ -313,30 +343,42 @@ Think of it as: Entra = ID card, Agent 365 = HR system, Defender = security guar
     difficulty: 'Advanced',
     sources: [
       {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+      {
         label: 'Announcing Microsoft Entra Agent ID',
         url: 'https://techcommunity.microsoft.com/blog/microsoft-entra-blog/announcing-microsoft-entra-agent-id-secure-and-manage-your-ai-agents/3827392',
         type: 'Official',
       },
     ],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['entra', 'defender', 'purview', 'architecture', 'integration'],
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['entra', 'defender', 'purview', 'architecture', 'integration', 'agent id'],
   },
 
   // LICENSING & AVAILABILITY
   {
     id: 'licensing-001',
     question: 'How do I get access to Agent 365 today?',
-    shortAnswer: 'Agent 365 is available through the Frontier preview program for tenants with at least one Microsoft 365 Copilot license. Enable it via Microsoft 365 Admin Center > Copilot > Settings > Copilot Frontier.',
-    detailedAnswer: `**Current availability (as of Feb 2026):**
+    shortAnswer: 'Agent 365 is generally available on May 1, 2026, priced at $15 per user per month. Until then, it is available through the Frontier preview program for tenants with at least one Microsoft 365 Copilot license.',
+    detailedAnswer: `**General availability: May 1, 2026**
 
-Agent 365 is in the **Frontier preview program**, not generally available.
+Microsoft announced on March 9, 2026 that Agent 365 will be **generally available on May 1, 2026**, priced at **$15 per user per month**.
 
-**Prerequisites:**
+Agent 365 is also included in **Microsoft 365 E7: The Frontier Suite** ($99 per user per month), which bundles Microsoft 365 Copilot, Agent 365, Microsoft Entra Suite, and Microsoft 365 E5.
+
+**Current availability (before May 1):**
+
+Agent 365 remains in the **Frontier preview program** until GA.
+
+**Prerequisites for Frontier access:**
 - At least one Microsoft 365 Copilot license on the tenant
 - Global Admin or Copilot Admin access to Microsoft 365 Admin Center
 
-**Exact steps to enable:**
+**Exact steps to enable Frontier:**
 1. Sign into Microsoft 365 admin center
 2. Select **Copilot** in the left navigation
 3. Select **Settings**
@@ -345,61 +387,65 @@ Agent 365 is in the **Frontier preview program**, not generally available.
 6. Go to **Agents** from the left pane to get started
 7. If prompted, agree to the terms of service
 
-**Important caveats:**
-- Frontier is for early adopters who want to test new features
-- Not recommended for production-critical scenarios yet
+**Important caveats for Frontier:**
+- Frontier is for early adopters who want to test new features before GA
+- Some Agent 365 capabilities (Defender risk signals, Purview insider risk, runtime threat protection) will remain in public preview at GA
 - Features and capabilities are still evolving
-- No public SLA or support commitments for Frontier features
 
 **Next steps after enabling:**
 - Take a tour of your Agent 365 overview page
 - Use the Agent 365 documentation hub on Microsoft Learn
-- For developers: explore the Agent 365 SDK and CLI
-
-**Editor's note:** Microsoft has not announced a general availability (GA) date or detailed standalone pricing for Agent 365.`,
+- For developers: explore the Agent 365 SDK and CLI`,
     audiences: ['IT Admin', 'Business & Licensing'],
     categories: ['Licensing & Availability', 'Rollout & Adoption'],
     difficulty: 'Intro',
     sources: [
       {
-        label: 'Microsoft Agent 365 overview — prerequisites and access (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
         type: 'Official',
       },
       {
-        label: 'Hello, world. — Agent 365 Blog (Feb 2026)',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
+        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
         type: 'Official',
       },
     ],
     status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['frontier', 'early access', 'availability', 'admin center'],
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['general availability', 'pricing', 'availability', 'admin center', 'e7'],
   },
   {
     id: 'licensing-002',
     question: 'Is Agent 365 a separate paid product, or included in existing Microsoft 365 plans?',
-    shortAnswer: 'Microsoft has not disclosed final licensing or pricing. Currently, it requires a Copilot license to access via Frontier. Whether it will be included, bundled, or sold separately at GA is unknown.',
-    detailedAnswer: `**What we know:**
-- Agent 365 is currently accessible only with a Microsoft 365 Copilot license
-- It is delivered through the Frontier early access program
-- No separate SKU or pricing has been announced
+    shortAnswer: 'Agent 365 is a separate paid product at $15 per user per month, generally available May 1, 2026. It is also included in the new Microsoft 365 E7: The Frontier Suite at $99 per user per month.',
+    detailedAnswer: `**Pricing announced (March 9, 2026):**
+- **Agent 365 standalone:** $15 per user per month (GA May 1, 2026)
+- **Microsoft 365 E7: The Frontier Suite:** $99 per user per month (GA May 1, 2026)
 
-**What we don't know:**
-- Will Agent 365 be included in Copilot licenses at GA?
-- Will there be a separate Agent 365 SKU?
-- Will pricing be per-user, per-agent, or tenant-wide?
-- Will there be different tiers (e.g., basic registry vs. advanced security)?
+**What is included in Agent 365 ($15/user/month):**
+- Agent Registry and observability
+- Agent ID (Entra-based unique identity for agents)
+- Identity Protection and Conditional Access for agents
+- Identity Governance for agents
+- Microsoft Purview capabilities: Data Security Posture Management, Information Protection, Inline DLP, Insider Risk Management, Data Lifecycle Management, Audit & eDiscovery, Communication Compliance
+- Microsoft Defender protections for agents: security posture management, detection/investigation/response, runtime threat protection
+- Security policy templates
 
-**Speculation (not official):**
-Given Microsoft's product strategy, Agent 365 could follow patterns like:
-- **Included in E5**: Core agent management included in Microsoft 365 E5 (similar to Entra ID P2)
-- **Add-on for E3**: Available as an add-on for E3 customers
-- **Copilot-bundled**: Included with Copilot licenses as an agent management layer
-- **Per-agent pricing**: Some features might be priced per registered agent
+**What is included in Microsoft 365 E7 ($99/user/month):**
+- Everything in Microsoft 365 E5
+- Microsoft 365 Copilot
+- Agent 365
+- Microsoft Entra Suite
+- Advanced Defender, Entra, Intune, and Purview security capabilities
 
-**Recommendation:** If you're evaluating Agent 365, ask your Microsoft account team about roadmap and pricing plans specific to your licensing agreement.
+**What this means for existing customers:**
+- E5 customers: Agent 365 is NOT included — purchase as add-on or upgrade to E7
+- E3 customers: Agent 365 is available as add-on, or upgrade path to E7
+- Copilot customers: Agent 365 is separate — governs Copilot agents but is not bundled with the Copilot license itself
+
+**Note:** Some capabilities (Defender risk signals, Purview insider risk, runtime threat protection) will remain in public preview on May 1.
 
 **Learn more:** <a href="https://licensing.guide/tag/agent-365/" target="_blank" rel="noopener noreferrer" style="color: #0078d4; text-decoration: underline;">Read more about Microsoft Agent 365 licensing in The Licensing Guide blog</a>`,
     audiences: ['Business & Licensing', 'IT Admin'],
@@ -407,14 +453,20 @@ Given Microsoft's product strategy, Agent 365 could follow patterns like:
     difficulty: 'Intermediate',
     sources: [
       {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+      {
         label: 'Microsoft Agent 365 landing page',
         url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
         type: 'Official',
       },
     ],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['pricing', 'licensing', 'SKU'],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['pricing', 'licensing', 'SKU', 'e7'],
   },
 
   // DEVELOPER EXPERIENCE
@@ -613,9 +665,11 @@ If you need to govern third-party agents today:
   // ROLLOUT & ADOPTION
   {
     id: 'rollout-001',
-    question: 'What should I do to prepare for Agent 365 if I am not in Frontier yet?',
-    shortAnswer: 'Start by inventorying existing agents in your environment, documenting their purpose and data access, reviewing your Entra and Purview governance policies, and establishing an agent approval process.',
-    detailedAnswer: `**Preparation checklist:**
+    question: 'What should I do to prepare for Agent 365 before general availability on May 1?',
+    shortAnswer: 'Start by inventorying existing agents in your environment, documenting their purpose and data access, reviewing your Entra and Purview governance policies, and establishing an agent approval process. GA is May 1, 2026.',
+    detailedAnswer: `**Agent 365 is generally available May 1, 2026** at $15/user/month. Here's how to prepare:
+
+**Preparation checklist:**
 
 **1. Inventory existing agents**
 - Identify agents built in Copilot Studio and Power Platform
@@ -641,36 +695,55 @@ If you need to govern third-party agents today:
 - Create dashboards for visibility
 - Train security team on agent-related threats
 
-**5. Pilot planning**
+**5. Pilot planning (use Frontier now)**
+- If not already in Frontier, enable it to test Agent 365 before GA
 - Identify low-risk use cases for initial agent deployments
 - Select pilot users and teams
 - Create feedback mechanisms
 - Plan for iterative rollout
 
-**6. Training and communication**
+**6. Budget and licensing**
+- Agent 365: $15/user/month standalone
+- Microsoft 365 E7: $99/user/month (includes Copilot + Agent 365 + E5 + Entra Suite)
+- Determine which users need Agent 365 licensing
+- Engage your Microsoft account team for volume licensing
+
+**7. Training and communication**
 - Educate users on what agents are and how to use them safely
 - Train IT/security teams on Agent 365 capabilities
 - Document procedures and best practices
 - Set expectations about what is/isn't allowed
 
-Starting now positions you to move quickly when Agent 365 becomes generally available.`,
+Starting preparation now positions you to move quickly at GA on May 1.`,
     audiences: ['IT Admin', 'Security & Compliance'],
     categories: ['Rollout & Adoption', 'Governance & Shadow Agents'],
     difficulty: 'Intermediate',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['preparation', 'planning', 'rollout'],
+    sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['preparation', 'planning', 'rollout', 'ga'],
   },
   {
     id: 'rollout-002',
     question: 'Should I enable Agent 365 for my entire tenant or start with a pilot group?',
-    shortAnswer: 'Start with a pilot group. Enable Agent 365 for a limited set of users and use cases first, learn from the experience, then expand gradually.',
+    shortAnswer: 'Start with a pilot group. Use Frontier now to test before GA on May 1, then expand gradually. Enable Agent 365 for a limited set of users and use cases first, learn from the experience, then expand.',
     detailedAnswer: `**Recommended approach: Phased rollout**
 
-**Phase 1: IT and Security pilot (2-4 weeks)**
-- Enable Agent 365 for IT admins and security team only
-- Register a few test agents
+**Phase 0: Frontier testing (now through May 1)**
+- Enable Frontier for IT admins and security team
+- Test Agent 365 features with non-production agents
+- Familiarize your team before GA
+
+**Phase 1: IT and Security pilot (GA + 2-4 weeks)**
+- Enable Agent 365 for IT admins and security team
+- Register a few production agents
 - Familiarize team with dashboards, policies, and controls
 - Identify any issues or gaps
 
@@ -687,9 +760,9 @@ Starting now positions you to move quickly when Agent 365 becomes generally avai
 - Allow users to request custom agents
 - Continuously monitor and adjust policies
 
-**Why not tenant-wide from the start?**
-- Agent 365 is still in Frontier (early access)
-- Features and best practices are evolving
+**Why phased rollout?**
+- Some Agent 365 features will still be in public preview at GA (Defender risk signals, Purview insider risk, runtime threat protection)
+- Best practices are evolving
 - Risk of disrupting existing workflows
 - Opportunity to learn before widespread adoption
 - Easier to troubleshoot issues with smaller group
@@ -698,10 +771,17 @@ Starting now positions you to move quickly when Agent 365 becomes generally avai
     audiences: ['IT Admin'],
     categories: ['Rollout & Adoption'],
     difficulty: 'Intermediate',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['pilot', 'rollout strategy', 'adoption'],
+    sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['pilot', 'rollout strategy', 'adoption', 'ga'],
   },
 
   // ARCHITECTURE
@@ -1036,44 +1116,100 @@ Your agent (Azure / AWS / GCP) → Agent 365 SDK → MCP Tooling Gateway → Mic
   {
     id: 'licensing-003',
     question: 'If I already have Microsoft 365 E5, do I automatically get Agent 365?',
-    shortAnswer: 'Not automatically. Currently, Agent 365 requires a Copilot license and enrollment in Frontier. Microsoft has not clarified if E5 will include Agent 365 at general availability.',
-    detailedAnswer: `**Current state (Frontier early access):**
-- Microsoft 365 E5 alone does NOT give you Agent 365 access
-- You need Microsoft 365 Copilot license
-- Plus enrollment in Frontier early access program
+    shortAnswer: 'No. Agent 365 is not included in Microsoft 365 E5. It is available as a standalone add-on at $15/user/month, or as part of the new Microsoft 365 E7: The Frontier Suite at $99/user/month.',
+    detailedAnswer: `**Confirmed as of March 2026:**
+- Microsoft 365 E5 does **NOT** include Agent 365
+- Agent 365 is a **separate product** priced at $15 per user per month
+- Agent 365 is included in the new **Microsoft 365 E7: The Frontier Suite** at $99 per user per month
 
-**Possible scenarios at GA:**
-Microsoft could take several approaches:
+**Options for E5 customers:**
 
-**Scenario 1: Included in E5**
-- Core Agent 365 features included in E5 (similar to Entra ID P2)
-- Makes sense given E5 positioning as premium security/compliance tier
+**Option 1: Add Agent 365 as standalone**
+- Purchase Agent 365 at $15/user/month as add-on to your E5 subscription
+- Get full Agent 365 capabilities for managing agents
 
-**Scenario 2: Included with Copilot**
-- Agent 365 bundled with all Copilot licenses
-- Positions Agent 365 as essential for Copilot ecosystem
+**Option 2: Upgrade to Microsoft 365 E7**
+- $99/user/month includes E5 + Copilot + Agent 365 + Entra Suite
+- Best value if you also need Microsoft 365 Copilot
+- Comprehensive protection across both users and agents
 
-**Scenario 3: Separate add-on**
-- Agent 365 sold as standalone SKU
-- Available as add-on for E3, E5, and Copilot customers
-
-**Scenario 4: Tiered approach**
-- Basic registry in E5
-- Advanced features (Defender integration, advanced analytics) require add-on
+**What E7 includes that E5 does not:**
+- Microsoft 365 Copilot
+- Agent 365 (full agent governance)
+- Microsoft Entra Suite
+- Advanced Defender, Entra, Intune, and Purview security capabilities
 
 **What to do now:**
-- If evaluating E5: Ask Microsoft about Agent 365 inclusion plans
-- If planning Copilot: Assume Agent 365 will be available
-- If budget-constrained: Wait for official licensing announcement
+- If you have E5 and use agents: Plan for Agent 365 add-on ($15/user/month)
+- If you have E5 and want Copilot + agent governance: Consider E7 ($99/user/month)
+- If budget is a concern: Evaluate which users need Agent 365 (may not need it for all users)
+- Talk to your Microsoft account team about volume licensing options
 
-**Editor's note:** This is purely speculation. Wait for official announcements before making purchasing decisions.`,
+**Timeline:** Both Agent 365 standalone and Microsoft 365 E7 are generally available May 1, 2026.`,
     audiences: ['Business & Licensing'],
     categories: ['Licensing & Availability'],
     difficulty: 'Intermediate',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['E5', 'licensing', 'copilot'],
+    sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['E5', 'E7', 'licensing', 'copilot', 'pricing'],
+  },
+  {
+    id: 'licensing-004',
+    question: 'What is Microsoft 365 E7: The Frontier Suite and how does it relate to Agent 365?',
+    shortAnswer: 'Microsoft 365 E7 is a new premium bundle at $99/user/month that includes Microsoft 365 Copilot, Agent 365, Microsoft Entra Suite, and Microsoft 365 E5—delivering comprehensive protection across both users and agents. Available May 1, 2026.',
+    detailedAnswer: `**Microsoft 365 E7: The Frontier Suite**
+
+Announced March 9, 2026, Microsoft 365 E7 is Microsoft's most comprehensive enterprise offering, designed for organizations pursuing "Frontier Transformation" with AI.
+
+**What E7 includes:**
+- **Microsoft 365 E5** — the full E5 suite with advanced Defender, Entra, Intune, and Purview security
+- **Microsoft 365 Copilot** — AI assistant embedded in Word, Excel, Teams, and other M365 apps
+- **Agent 365** — the control plane for AI agents (observability, governance, security)
+- **Microsoft Entra Suite** — comprehensive identity and access management
+
+**Pricing:**
+- $99 per user per month (retail)
+- Available for purchase May 1, 2026
+
+**Who should consider E7:**
+- Organizations that want both Copilot and Agent 365 (buying separately would cost more)
+- Enterprises already on E5 looking to add AI capabilities with full security
+- Organizations that need comprehensive protection across both users and agents
+- Companies pursuing agentic AI at enterprise scale
+
+**E7 vs. buying components separately:**
+- E5 alone: Does not include Copilot or Agent 365
+- E5 + Copilot ($30/user/month) + Agent 365 ($15/user/month) = separate purchases
+- E7 bundles everything at $99/user/month for a simplified licensing experience
+
+**Important:** E7 positions AI governance (Agent 365) alongside AI productivity (Copilot) as a single enterprise offering—reflecting Microsoft's view that intelligence and trust must go together.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Intro',
+    sources: [
+      {
+        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
+        type: 'Official',
+      },
+      {
+        label: 'Microsoft 365 E7: The Frontier Suite',
+        url: 'https://www.microsoft.com/en-us/microsoft-365/microsoft-365-enterprise',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    isNew: true,
+    tags: ['E7', 'frontier suite', 'licensing', 'pricing', 'copilot', 'bundle'],
   },
   {
     id: 'rollout-003',

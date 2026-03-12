@@ -21,7 +21,7 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
     'Advanced': 'bg-red-100 text-red-800',
   };
 
-  const isUpdated = faq.updatedAt === '2026-02-19';
+  const isUpdated = faq.updatedAt === '2026-03-12' || faq.updatedAt === '2026-02-19';
   const isNew = faq.isNew === true;
 
   return (
@@ -97,7 +97,7 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
             Last reviewed: {new Date(faq.lastReviewed).toLocaleDateString()}
             {(isNew || isUpdated) && (
               <span className="ml-2 font-medium text-amber-600">
-                · February 2026 refresh
+                · {faq.updatedAt === '2026-03-12' || (faq.isNew && faq.lastReviewed === '2026-03-12') ? 'March 2026 GA update' : 'February 2026 refresh'}
               </span>
             )}
           </div>
