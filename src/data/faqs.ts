@@ -473,7 +473,7 @@ Agent 365 remains in the **Frontier preview program** until GA.
   {
     id: 'dev-001',
     question: 'If I build an agent in Copilot Studio or Microsoft Foundry, what do I need to do to make it Agent 365 compatible?',
-    shortAnswer: 'Agents built in Copilot Studio and Microsoft Foundry integrate with Agent 365 automatically. For custom agents built on any SDK, use the Agent 365 SDK and CLI to add enterprise identity, observability, and governed MCP tool access.',
+    shortAnswer: 'Agents built in Copilot Studio and Microsoft Foundry integrate with Agent 365 automatically. For custom agents built on any SDK, use the Agent 365 SDK and CLI to add enterprise identity, observability, and governed Work IQ MCP tool access.',
     detailedAnswer: `**For Copilot Studio agents:**
 - Agents built in Copilot Studio can be published to Microsoft 365 Copilot
 - Once published, they automatically appear in the Agent 365 registry
@@ -487,7 +487,7 @@ Agent 365 remains in the **Frontier preview program** until GA.
 **For custom or open-source agents (any framework):**
 - Use the **Agent 365 SDK** to extend your agent with enterprise capabilities:
   - Entra-based Agent identity
-  - Governed MCP tool access (Outlook, Teams, SharePoint, etc.)
+  - Governed Work IQ MCP tool access (Outlook, Teams, SharePoint, etc.)
   - OpenTelemetry-based observability
   - Notifications via Activity protocol
 - Use the **Agent 365 CLI** (a365) to automate setup, blueprint creation, MCP integration, publishing, and Azure deployment
@@ -788,7 +788,7 @@ Starting preparation now positions you to move quickly at GA on May 1.`,
   {
     id: 'arch-001',
     question: 'Where does Agent 365 fit in the Microsoft 365 architecture?',
-    shortAnswer: 'Agent 365 sits alongside Microsoft 365 Admin Center as a management layer, integrating with Entra ID for identity, Defender for security, Purview for compliance, and Windows 365 for Agents for secure agent execution environments.',
+    shortAnswer: 'Agent 365 sits alongside Microsoft 365 Admin Center as a management layer, integrating with Entra ID for identity, Defender for security, Purview for compliance, Work IQ for intelligence, and Windows 365 for Agents for secure agent execution environments.',
     detailedAnswer: `**Architectural layers:**
 
 **Layer 1: Agents (the workload)**
@@ -806,17 +806,23 @@ Starting preparation now positions you to move quickly at GA on May 1.`,
 - Monitoring and telemetry via OpenTelemetry / observability dashboards
 - Admin interfaces in Microsoft 365 Admin Center
 
-**Layer 3: Security and compliance integrations**
+**Layer 3: Work IQ (intelligence layer)**
+- **Data**: Unifies signals from files, emails, meetings, chats, and business systems across M365
+- **Memory**: Persistent understanding of people, teams, and work patterns
+- **Inference**: Models, skills, and tools for reasoning and action
+- Work IQ MCP servers: governed access to M365 services (Outlook, Teams, SharePoint, Word, etc.)
+- MCP Management Server for custom MCP server creation
+
+**Layer 4: Security and compliance integrations**
 - **Microsoft Entra** (identity and access via Entra Agent IDs)
 - **Microsoft Defender** (threat protection, runtime security)
 - **Microsoft Purview** (data governance, DLP)
 - **Windows 365 for Agents** (secure execution environment for computer-using AI agents)
-- MCP Tooling Gateway (governed access to M365 services via MCP servers)
 
-**Layer 4: Data and services**
+**Layer 5: Data and services**
 - Microsoft Graph (data access)
 - SharePoint, OneDrive, Exchange (data stores)
-- Microsoft 365 apps (Word, Excel, Teams, etc.) via MCP Tooling Servers
+- Microsoft 365 apps (Word, Excel, Teams, etc.) via Work IQ MCP servers
 - Dataverse / Dynamics 365
 - External data sources (via connectors)
 - Any cloud endpoint: Azure, AWS, GCP
@@ -826,10 +832,11 @@ Starting preparation now positions you to move quickly at GA on May 1.`,
 2. Agent authenticates with Entra Agent ID
 3. Agent 365 checks Blueprint policies (is agent approved? can it run now?)
 4. Defender monitors the request for threats
-5. Agent calls MCP Tooling Server to access data safely (Outlook, SharePoint, etc.)
-6. Purview applies sensitivity labels and DLP
-7. Agent performs task and responds
-8. Activity is logged via OpenTelemetry for audit and observability
+5. Agent calls Work IQ MCP server to access data safely (Outlook, SharePoint, etc.)
+6. Work IQ provides organizational context (Data + Memory + Inference)
+7. Purview applies sensitivity labels and DLP
+8. Agent performs task and responds
+9. Activity is logged via OpenTelemetry for audit and observability
 
 This architecture enables centralized governance without requiring changes to each individual agent's business logic.`,
     audiences: ['Developer / Architect', 'IT Admin'],
@@ -846,11 +853,66 @@ This architecture enables centralized governance without requiring changes to ea
         url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
         type: 'Official',
       },
+      {
+        label: 'A closer look at Work IQ (Microsoft Tech Community)',
+        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
+        type: 'Official',
+      },
     ],
     status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['architecture', 'integration', 'layers', 'windows 365 for agents', 'mcp', 'blueprint'],
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['architecture', 'integration', 'layers', 'windows 365 for agents', 'mcp', 'blueprint', 'work iq'],
+  },
+  {
+    id: 'arch-002',
+    question: 'What is Work IQ and what role does it play in Agent 365?',
+    shortAnswer: 'Work IQ is the intelligence layer that grounds Microsoft 365 Copilot and Agent 365–managed agents in real-time organizational context. It provides personalized search, advanced reasoning, and semantic understanding through three tightly integrated layers: Data, Memory, and Inference.',
+    detailedAnswer: `**What Work IQ is:**
+Work IQ is the "brain" behind Microsoft 365 Copilot and your custom agents. It understands context, relationships, and work patterns so agents can deliver insights, recommendations, and actions that align with the reality of your business—not just generic AI outputs.
+
+**Three layers of Work IQ:**
+
+**1. Data** — Unifies signals from files, emails, meetings, chats, and business systems across Microsoft 365, including Dynamics 365 and Dataverse. Captures how work happens across the organization.
+
+**2. Memory** — Builds persistent understanding of how people and teams work. Includes explicit memory (user-set instructions and saved preferences) and implicit memory (inferred from chat history and activity patterns). Keeps agents aligned to priorities and consistent across sessions.
+
+**3. Inference** — Brings together models, skills, and tools so agents can reason and act. Work IQ MCP tools provide the execution layer, while Agent 365 ensures those actions remain observable, governed, and compliant.
+
+**How Work IQ connects to Agent 365:**
+- Work IQ provides the **intelligence and context** that make agents useful
+- Agent 365 provides the **governance, security, and compliance** that make agents safe
+- Together, they form a complete platform: agents that understand your work *and* operate within policy boundaries
+- Work IQ MCP servers are the mechanism through which agents access organizational data under Agent 365 governance
+
+**Work IQ MCP servers:**
+Microsoft exposes Work IQ capabilities as enterprise-grade **Model Context Protocol (MCP)** servers. These give agents governed access to:
+- Work IQ Mail, Calendar, Teams, Word, User Profile, Copilot Search
+- SharePoint and OneDrive, Dataverse and Dynamics 365
+
+All Work IQ MCP tool calls are subject to Agent 365 policy enforcement, DLP, sensitivity labels, and Defender monitoring.
+
+**Licensing:** Work IQ MCP servers require a Microsoft 365 Copilot license. Agent 365 governance is separate (included in Agent 365 at $15/user/month or Microsoft 365 E7).`,
+    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing', 'Security & Compliance'],
+    categories: ['Architecture', 'Basics'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Work IQ MCP overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
+        type: 'Official',
+      },
+      {
+        label: 'A closer look at Work IQ (Microsoft Tech Community)',
+        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-12',
+    isNew: true,
+    updatedAt: '2026-03-12',
+    tags: ['work iq', 'intelligence layer', 'data', 'memory', 'inference', 'mcp', 'copilot'],
   },
 
   // Additional FAQs
@@ -970,8 +1032,8 @@ This architecture enables centralized governance without requiring changes to ea
 **2. Set up your environment**
 - Run \`a365 setup\` to create Azure resources, configure permissions, and register your agent blueprint
 
-**3. Add MCP tool servers (optional)**
-- Run \`a365 develop add-mcp-servers\` to wire in governed Microsoft 365 MCP tools (Outlook, Teams, SharePoint, etc.)
+**3. Add Work IQ MCP servers (optional)**
+- Run \`a365 develop add-mcp-servers\` to wire in governed Work IQ MCP tools (Outlook, Teams, SharePoint, etc.)
 
 **4. Add observability**
 - Agent 365 SDK wraps each agent invocation in an InferenceScope for automatic capture via OpenTelemetry
@@ -1065,7 +1127,7 @@ This architecture enables centralized governance without requiring changes to ea
   {
     id: 'ecosystem-003',
     question: 'Does Agent 365 work with agents built on Azure OpenAI, Azure AI Services, or Microsoft Foundry?',
-    shortAnswer: 'Yes. Microsoft Foundry (formerly Azure AI Foundry) integrates with Agent 365 out of the box. Agents on Azure OpenAI can also integrate via Entra Agent ID, the Agent 365 SDK, and MCP tooling servers. Agent code can be hosted on any cloud.',
+    shortAnswer: 'Yes. Microsoft Foundry (formerly Azure AI Foundry) integrates with Agent 365 out of the box. Agents on Azure OpenAI can also integrate via Entra Agent ID, the Agent 365 SDK, and Work IQ MCP servers. Agent code can be hosted on any cloud.',
     detailedAnswer: `**Integration path for Azure-based agents:**
 
 **Using Microsoft Foundry (formerly Azure AI Foundry):**
@@ -1079,7 +1141,7 @@ This architecture enables centralized governance without requiring changes to ea
 - Build your agent using Azure OpenAI API
 - Add the Agent 365 SDK to your project for enterprise capabilities
 - Run \`a365 setup\` via the CLI to configure identity and blueprint
-- Agent can access Microsoft 365 data via MCP Tooling Servers governed by Agent 365
+- Agent can access Microsoft 365 data via Work IQ MCP servers governed by Agent 365
 
 **Benefits of Azure integration:**
 - Data stays in Azure (no third-party LLM API calls if not desired)
@@ -1090,7 +1152,7 @@ This architecture enables centralized governance without requiring changes to ea
 **Note on multi-cloud:** Agent 365 also works with agents hosted on AWS or GCP—cloud location of the agent does not restrict Agent 365 governance.
 
 **Architecture:**
-Your agent (Azure / AWS / GCP) → Agent 365 SDK → MCP Tooling Gateway → Microsoft 365 data → Agent 365 governance & observability
+Your agent (Azure / AWS / GCP) → Agent 365 SDK → Work IQ MCP servers → Microsoft 365 data → Agent 365 governance & observability
 
 **Recommendation:** If you're building custom agents and already use Azure, this is the most natural integration path. Use the Agent 365 CLI quickstart for Python Agent Framework to get started quickly.`,
     audiences: ['Developer / Architect'],
@@ -1268,7 +1330,7 @@ Announced March 9, 2026, Microsoft 365 E7 is Microsoft's most comprehensive ente
 The Agent 365 SDK extends agents built on **any** agent platform or SDK by adding:
 
 - **Entra-based Agent identity** — each agent gets its own managed Entra ID
-- **Governed MCP tool access** — safe, policy-enforced connections to Microsoft 365 services (Outlook, Teams, SharePoint, etc.)
+- **Governed Work IQ MCP tool access** — safe, policy-enforced connections to Microsoft 365 services (Outlook, Teams, SharePoint, etc.)
 - **OpenTelemetry-based observability** — automatic tracing of inputs, outputs, and inference events
 - **Activity protocol notifications** — proactive messaging to users and systems
 - **Agent ID-driven governance** — integration with Agent 365 policy enforcement
@@ -1305,29 +1367,38 @@ The Microsoft 365 Agents SDK builds conversational agents that run across Teams,
   },
   {
     id: 'dev-005',
-    question: 'What are Agent 365 MCP Tooling Servers and why do they matter?',
-    shortAnswer: 'Agent 365 tooling servers are enterprise-grade Model Context Protocol (MCP) servers that give agents safe, policy-enforced access to Microsoft 365 services like Outlook, Teams, SharePoint, OneDrive, and Dataverse—replacing the need for each agent to implement its own M365 integrations.',
-    detailedAnswer: `**What MCP Tooling Servers are:**
-Agent 365 tooling servers implement the **Model Context Protocol (MCP)**—an open standard for providing AI agents with access to external tools and data sources. Microsoft pre-built and pre-certified these servers for core M365 services.
+    question: 'What are Work IQ MCP servers and how do agents use them?',
+    shortAnswer: 'Work IQ MCP servers are enterprise-grade Model Context Protocol (MCP) servers, powered by the Work IQ intelligence layer, that give agents safe, policy-enforced access to Microsoft 365 services like Outlook, Teams, SharePoint, OneDrive, Word, and Dataverse—all governed by Agent 365.',
+    detailedAnswer: `**What Work IQ MCP servers are:**
+Work IQ MCP servers implement the **Model Context Protocol (MCP)**—an open standard for providing AI agents with access to external tools and data sources. They are powered by **Work IQ**, the intelligence layer that grounds Copilot and agents in real-time organizational context across Data, Memory, and Inference layers. Microsoft pre-built and pre-certified these servers for core M365 services.
 
-**Available tooling servers (as of Feb 2026):**
-- **Outlook Calendar**: Create, list, update, and delete events; accept/decline invites; resolve scheduling conflicts
-- **Outlook Mail**: Create, update, delete messages; reply/reply-all; semantic search
-- **SharePoint and OneDrive**: Upload files; get metadata; search; manage lists
-- **Teams**: Create, update, delete chats; add members; post messages; channel operations
-- **User Profile**: Get manager, direct reports, and profile info; search users
-- **Word**: Create and read documents; add comments; reply to comments
-- **Dataverse and Dynamics 365**: CRUD operations and domain-specific actions
-- **Copilot Search**: Chat with M365 Copilot; start and continue multi-turn threads
+**Available Work IQ MCP servers (preview):**
+- **Work IQ Copilot**: Chat with Microsoft 365 Copilot; start conversations and continue multi-turn threads; ground responses with files
+- **Work IQ Mail**: Create, update, delete messages; reply and reply-all; semantic search across emails
+- **Work IQ Calendar**: Create, list, update, and delete events; accept/decline invites; resolve scheduling conflicts
+- **Work IQ Teams**: Create, update, delete chats; add members; post messages; channel operations
+- **Work IQ User**: Get manager, direct reports, and profile info; search users across the organization
+- **Work IQ Word**: Create and read documents; add comments; reply to comments
+- **SharePoint and OneDrive MCP Server**: File and folder operations, metadata retrieval, sharing
+- **Dataverse and Dynamics 365 MCP Server**: CRUD operations and domain-specific actions
 
-**Why they matter:**
-- **Policy enforcement built-in**: DLP, MIP sensitivity labels, and Defender monitoring are enforced at the tooling gateway—not left to each agent to implement
-- **Auditable**: All tool calls are logged for compliance and observability
-- **No custom integration needed**: Agents get instant, governed access to M365 without writing custom Graph API code
-- **Works with any framework**: Use from Agent 365 SDK, Copilot Studio, LangChain, Claude SDK, or any MCP-compatible client
+**Key features:**
+- **Centralized governance**: Admins manage MCP servers in the Microsoft 365 admin center—allow or block servers across the organization
+- **Enterprise-grade security**: Scoped permissions, policy enforcement, and runtime observability ensure agents operate within compliance boundaries
+- **Continuous evaluation**: All servers undergo rigorous testing for accuracy, latency, and reliability
+- **Policy enforcement built-in**: DLP, MIP sensitivity labels, and Defender monitoring at the tooling gateway
+- **Full observability**: All tool calls are traceable via Microsoft Defender Advanced Hunting for audits and anomaly detection
+- **Works with any framework**: Use from Agent 365 SDK, Copilot Studio, Microsoft Foundry, LangChain, Claude SDK, or any MCP-compatible client
 
-**How to add MCP servers to your agent:**
-Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI. Authentication scopes are configured automatically via the Blueprint.
+**How to add Work IQ MCP servers to your agent:**
+- **Low-code (Copilot Studio)**: Add tools via the Tools tab → Model Context Protocol → select Work IQ servers
+- **Pro-code (Microsoft Foundry)**: Browse the tool catalog, filter by Microsoft, and connect MCP servers
+- **CLI**: Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI
+- **VS Code**: Connect directly to the MCP Management Server for custom server creation
+
+**Custom MCP servers:** Use the **MCP Management Server** to build scenario-focused custom MCP servers using 1,500+ connectors, Microsoft Graph APIs, Dataverse custom APIs, and REST endpoints.
+
+**Licensing:** Requires a Microsoft 365 Copilot license to use Work IQ MCP servers.
 
 **Local testing:** Use the Agent 365 CLI mock tooling server for offline development—no real M365 connection needed.`,
     audiences: ['Developer / Architect', 'IT Admin', 'Security & Compliance'],
@@ -1335,7 +1406,7 @@ Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI. Authentication scope
     difficulty: 'Intermediate',
     sources: [
       {
-        label: 'Agent 365 tooling servers overview (Microsoft Learn)',
+        label: 'Work IQ MCP overview (Microsoft Learn)',
         url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
         type: 'Official',
       },
@@ -1344,11 +1415,16 @@ Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI. Authentication scope
         url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/tooling',
         type: 'Official',
       },
+      {
+        label: 'A closer look at Work IQ (Microsoft Tech Community)',
+        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
+        type: 'Official',
+      },
     ],
     status: 'Documented',
-    lastReviewed: '2026-02-19',
-    isNew: true,
-    tags: ['mcp', 'tooling servers', 'outlook', 'teams', 'sharepoint', 'governance', 'dlp'],
+    lastReviewed: '2026-03-12',
+    updatedAt: '2026-03-12',
+    tags: ['work iq', 'mcp', 'tooling servers', 'outlook', 'teams', 'sharepoint', 'governance', 'dlp', 'copilot studio', 'foundry'],
   },
   {
     id: 'dev-006',

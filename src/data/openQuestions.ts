@@ -97,11 +97,14 @@ export const openQuestions: OpenQuestion[] = [
   },
   {
     id: 'oq-006',
-    question: 'What developer tools, SDKs, and documentation are available? (Largely answered as of Feb 2026)',
+    question: 'What developer tools, SDKs, and documentation are available? (Largely answered as of March 2026)',
     whatWeKnow: [
       'Microsoft Learn now hosts comprehensive Agent 365 developer documentation (learn.microsoft.com/en-us/microsoft-agent-365/)',
       'Agent 365 SDK available — adds identity, observability, MCP tool access, notifications to any agent',
       'Agent 365 CLI (a365) available via dotnet tool install — automates setup, blueprint creation, MCP integration, publishing',
+      'Work IQ MCP servers now documented — named Work IQ Mail, Calendar, Teams, User, Word, Copilot plus SharePoint/OneDrive and Dataverse servers',
+      'MCP Management Server available for building custom MCP servers using connectors, Graph APIs, Dataverse, and REST endpoints',
+      'Work IQ MCP servers available in Copilot Studio (low-code), Microsoft Foundry (pro-code), and VS Code (API-first)',
       'Quickstarts published for: LangChain (Node.js), Claude Agent SDK (Node.js), Python Agent Framework',
       'Mock tooling server available in CLI for local/offline testing',
       'AI-guided setup available using GitHub Copilot, Claude Code, or OpenAI Codex',
@@ -113,9 +116,10 @@ export const openQuestions: OpenQuestion[] = [
       'What is the API versioning and breaking-change policy for the Agent 365 SDK?',
       'Will there be additional quickstarts (C#, Python LangChain, CrewAI)?',
       'When will a developer sandbox or isolated test tenant be available?',
+      'When will custom MCP server publishing be available to non-admin developers?',
     ],
     category: 'Developer Experience',
-    lastUpdated: '2026-02-19',
+    lastUpdated: '2026-03-12',
   },
   {
     id: 'oq-007',
