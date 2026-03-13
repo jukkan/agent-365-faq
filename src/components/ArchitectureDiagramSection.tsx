@@ -343,7 +343,7 @@ graph TB
             {/* Diagram Area */}
             <div
               ref={fullscreenDiagramRef}
-              className="flex-1 overflow-hidden cursor-grab active:cursor-grabbing"
+              className="flex-1 overflow-hidden cursor-grab active:cursor-grabbing bg-white"
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
