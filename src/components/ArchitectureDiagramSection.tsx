@@ -6,7 +6,9 @@ export const ArchitectureDiagramSection: React.FC = () => {
   const fullscreenDiagramRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
-  const [svgContent, setSvgContent] = useState<string>('');
+  const panRef = useRef({ x: 0, y: 0 });
+  const rafIdRef = useRef<number>(0);
+  const [fullscreenSvg, setFullscreenSvg] = useState<string>('');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -129,7 +131,7 @@ graph TB
         try {
           const { svg } = await mermaid.render('architecture-diagram', diagramDefinition);
           mermaidRef.current.innerHTML = svg;
-          setSvgContent(svg);
+          setFullscreenSvg(svg.replace('id="architecture-diagram"', 'id="architecture-diagram-fullscreen"'));
         } catch (error) {
           console.error('Mermaid rendering error:', error);
         }
@@ -143,6 +145,7 @@ graph TB
     setIsFullscreen(true);
     setZoom(1);
     setPan({ x: 0, y: 0 });
+    panRef.current = { x: 0, y: 0 };
   }, []);
 
   const closeFullscreen = useCallback(() => {
@@ -160,6 +163,7 @@ graph TB
   const resetView = useCallback(() => {
     setZoom(1);
     setPan({ x: 0, y: 0 });
+    panRef.current = { x: 0, y: 0 };
   }, []);
 
   // Escape key and body scroll lock
@@ -192,15 +196,18 @@ graph TB
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (e.button !== 0) return;
     isDraggingRef.current = true;
-    dragStartRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+    dragStartRef.current = { x: e.clientX - panRef.current.x, y: e.clientY - panRef.current.y };
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
-  }, [pan]);
+  }, []);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDraggingRef.current) return;
-    setPan({
-      x: e.clientX - dragStartRef.current.x,
-      y: e.clientY - dragStartRef.current.y,
+    const x = e.clientX - dragStartRef.current.x;
+    const y = e.clientY - dragStartRef.current.y;
+    panRef.current = { x, y };
+    cancelAnimationFrame(rafIdRef.current);
+    rafIdRef.current = requestAnimationFrame(() => {
+      setPan({ x, y });
     });
   }, []);
 
@@ -277,7 +284,7 @@ graph TB
             className="absolute top-2 right-2 z-10 flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 transition-colors"
             aria-label="View diagram in full screen"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
             </svg>
             Full Screen
@@ -291,7 +298,7 @@ graph TB
         </div>
 
         {/* Fullscreen Overlay */}
-        {isFullscreen && svgContent && (
+        {isFullscreen && fullscreenSvg && (
           <div className="fixed inset-0 z-50 bg-black/80 flex flex-col" role="dialog" aria-label="Architecture diagram full screen view">
             {/* Toolbar */}
             <div className="flex items-center justify-between px-4 py-2 bg-gray-900 text-white border-b border-gray-700">
@@ -348,7 +355,7 @@ graph TB
                   transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
                   transformOrigin: 'center center',
                 }}
-                dangerouslySetInnerHTML={{ __html: svgContent.replace('id="architecture-diagram"', 'id="architecture-diagram-fullscreen"') }}
+                dangerouslySetInnerHTML={{ __html: fullscreenSvg }}
               />
             </div>
           </div>
