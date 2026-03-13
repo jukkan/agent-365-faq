@@ -131,7 +131,7 @@ graph TB
         try {
           const { svg } = await mermaid.render('architecture-diagram', diagramDefinition);
           mermaidRef.current.innerHTML = svg;
-          setFullscreenSvg(svg.replace('id="architecture-diagram"', 'id="architecture-diagram-fullscreen"'));
+          setFullscreenSvg(svg.replaceAll('architecture-diagram', 'architecture-diagram-fullscreen'));
         } catch (error) {
           console.error('Mermaid rendering error:', error);
         }
