@@ -1,8 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import mermaid from 'mermaid';
 
 export const ArchitectureDiagramSection: React.FC = () => {
   const mermaidRef = useRef<HTMLDivElement>(null);
+  const fullscreenDiagramRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const [svgContent, setSvgContent] = useState<string>('');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
 
   const diagramDefinition = `%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#cfe2f3','primaryTextColor':'#000','primaryBorderColor':'#0078d4','lineColor':'#323130','secondaryColor':'#fce5cd','secondaryTextColor':'#000','secondaryBorderColor':'#ff8c00','tertiaryColor':'#f5f5f5','tertiaryTextColor':'#000','tertiaryBorderColor':'#666666','quaternaryColor':'#f3e5f5','quaternaryTextColor':'#000','quaternaryBorderColor':'#9c27b0','fontSize':'13px','fontFamily':'Segoe UI, system-ui, sans-serif','nodeSpacing':'50','rankSpacing':'80','curve':'basis'}, 'flowchart': {'nodeSpacing': 25, 'rankSpacing': 50, 'curve': 'basis', 'padding': 20, 'useMaxWidth': true}}}%%
 
@@ -122,6 +129,7 @@ graph TB
         try {
           const { svg } = await mermaid.render('architecture-diagram', diagramDefinition);
           mermaidRef.current.innerHTML = svg;
+          setSvgContent(svg);
         } catch (error) {
           console.error('Mermaid rendering error:', error);
         }
@@ -129,6 +137,75 @@ graph TB
     };
 
     renderDiagram();
+  }, []);
+
+  const openFullscreen = useCallback(() => {
+    setIsFullscreen(true);
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, []);
+
+  const closeFullscreen = useCallback(() => {
+    setIsFullscreen(false);
+  }, []);
+
+  const zoomIn = useCallback(() => {
+    setZoom(prev => Math.min(prev + 0.25, 5));
+  }, []);
+
+  const zoomOut = useCallback(() => {
+    setZoom(prev => Math.max(prev - 0.25, 0.25));
+  }, []);
+
+  const resetView = useCallback(() => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, []);
+
+  // Escape key and body scroll lock
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeFullscreen();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isFullscreen, closeFullscreen]);
+
+  // Mouse wheel zoom (non-passive to allow preventDefault)
+  useEffect(() => {
+    const el = fullscreenDiagramRef.current;
+    if (!el || !isFullscreen) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      setZoom(prev => Math.min(Math.max(0.25, prev + delta), 5));
+    };
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, [isFullscreen]);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (e.button !== 0) return;
+    isDraggingRef.current = true;
+    dragStartRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, [pan]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    setPan({
+      x: e.clientX - dragStartRef.current.x,
+      y: e.clientY - dragStartRef.current.y,
+    });
+  }, []);
+
+  const handlePointerUp = useCallback(() => {
+    isDraggingRef.current = false;
   }, []);
 
   return (
@@ -194,12 +271,88 @@ graph TB
         </div>
 
         {/* Mermaid Diagram Container */}
-        <div className="overflow-x-auto">
-          <div
-            ref={mermaidRef}
-            className="mermaid-container min-w-full flex justify-center"
-          />
+        <div className="relative">
+          <button
+            onClick={openFullscreen}
+            className="absolute top-2 right-2 z-10 flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 transition-colors"
+            aria-label="View diagram in full screen"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+            </svg>
+            Full Screen
+          </button>
+          <div className="overflow-x-auto">
+            <div
+              ref={mermaidRef}
+              className="mermaid-container min-w-full flex justify-center"
+            />
+          </div>
         </div>
+
+        {/* Fullscreen Overlay */}
+        {isFullscreen && svgContent && (
+          <div className="fixed inset-0 z-50 bg-black/80 flex flex-col" role="dialog" aria-label="Architecture diagram full screen view">
+            {/* Toolbar */}
+            <div className="flex items-center justify-between px-4 py-2 bg-gray-900 text-white border-b border-gray-700">
+              <span className="text-sm font-medium">Agent 365 Architecture Diagram</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-400 mr-2">{Math.round(zoom * 100)}%</span>
+                <button
+                  onClick={zoomOut}
+                  className="px-2 py-1 text-sm rounded hover:bg-gray-700 transition-colors"
+                  aria-label="Zoom out"
+                >
+                  −
+                </button>
+                <button
+                  onClick={zoomIn}
+                  className="px-2 py-1 text-sm rounded hover:bg-gray-700 transition-colors"
+                  aria-label="Zoom in"
+                >
+                  +
+                </button>
+                <button
+                  onClick={resetView}
+                  className="px-2 py-1 text-sm rounded hover:bg-gray-700 transition-colors"
+                  aria-label="Reset zoom and position"
+                >
+                  Reset
+                </button>
+                <div className="w-px h-5 bg-gray-600 mx-1" />
+                <button
+                  onClick={closeFullscreen}
+                  className="px-2 py-1 text-sm rounded hover:bg-gray-700 transition-colors"
+                  aria-label="Close full screen view"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            {/* Hint */}
+            <div className="text-center text-xs text-gray-400 py-1 bg-gray-900">
+              Scroll to zoom · Drag to pan · Press Esc to close
+            </div>
+            {/* Diagram Area */}
+            <div
+              ref={fullscreenDiagramRef}
+              className="flex-1 overflow-hidden cursor-grab active:cursor-grabbing"
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+            >
+              <div
+                className="fullscreen-diagram w-full h-full flex items-center justify-center"
+                style={{
+                  transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                  transformOrigin: 'center center',
+                }}
+                dangerouslySetInnerHTML={{ __html: svgContent.replace('id="architecture-diagram"', 'id="architecture-diagram-fullscreen"') }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Key Benefits */}

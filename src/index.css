@@ -37,3 +37,11 @@
     min-width: 800px;
   }
 }
+
+/* Fullscreen diagram styles */
+.fullscreen-diagram svg {
+  max-width: none;
+  width: auto;
+  height: auto;
+  max-height: 85vh;
+}
