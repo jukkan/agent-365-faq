@@ -304,10 +304,11 @@ This is similar to how endpoint management tools quarantine unmanaged devices.`,
     detailedAnswer: `These four products form Microsoft's AI agent security and governance stack:
 
 **Microsoft Entra Agent ID (included in Agent 365):**
-- **Agent ID**: Gives each agent a unique identity designed specifically for agents
-- **Identity Protection and Conditional Access**: Extends user policies to agents—real-time access decisions based on risk, device compliance, and security attributes
-- **Identity Governance**: Limits agent access with scoped access packages and audit capabilities
-- **Security policy templates**: Automates collaboration between IT and security teams
+- **Agent identities**: Gives each agent a unique identity with a dedicated hierarchy—agent blueprints define agent types, agent identities are instantiated instances, and agent users provide user-like accounts when needed
+- **Conditional Access for agents**: Treats agents as first-class identities. Enforces adaptive access policies based on agent risk level, custom security attributes, and blueprint grouping. Supports both agent identities and agent users
+- **Identity Protection for agents**: Detects risky agent behavior—unfamiliar resource access, sign-in spikes, failed access attempts, risky user sign-ins—and feeds risk signals into Conditional Access and the Agent Registry
+- **Identity Governance for agents**: Manages agent lifecycle from deployment to expiration. Requires human sponsors for oversight, supports access packages for time-bound resource access, and auto-transfers sponsorship when sponsors leave
+- **Network controls (Global Secure Access)**: Enforces network security on agent traffic—web content filtering, threat intelligence filtering, file-type policies, and prompt injection detection at the network level
 
 **Agent 365 (the control plane):**
 - **Agent Registry**: Central inventory of all agents (Microsoft, ecosystem partners, API-registered)
@@ -331,13 +332,14 @@ This is similar to how endpoint management tools quarantine unmanaged devices.`,
 - **Communication Compliance**: Extends to agent interactions
 
 **How they work together:**
-1. An agent is given an **Entra Agent ID** identity
+1. An agent is given an **Entra Agent ID** identity (blueprint → agent identity → optional agent user)
 2. **Agent 365** registers the agent, applies Blueprint policies, and provides observability
-3. **Purview** enforces data protection—sensitivity labels, DLP, insider risk
-4. **Defender** monitors for threats—posture assessment, detection, runtime protection
-5. All activity is logged and auditable across the stack
+3. **Entra** enforces Conditional Access, detects risky behavior, and governs access lifecycle with human sponsors
+4. **Purview** enforces data protection—sensitivity labels, DLP, insider risk
+5. **Defender** monitors for threats—posture assessment, detection, runtime protection
+6. All activity is logged and auditable across the stack
 
-Think of it as: Entra = ID card, Agent 365 = HR system, Defender = security guard, Purview = compliance officer.`,
+Think of it as: Entra = ID card + access policies, Agent 365 = HR system, Defender = security guard, Purview = compliance officer.`,
     audiences: ['Security & Compliance', 'IT Admin', 'Developer / Architect'],
     categories: ['Security & Compliance', 'Architecture', 'Ecosystem & Integrations'],
     difficulty: 'Advanced',
@@ -352,11 +354,16 @@ Think of it as: Entra = ID card, Agent 365 = HR system, Defender = security guar
         url: 'https://techcommunity.microsoft.com/blog/microsoft-entra-blog/announcing-microsoft-entra-agent-id-secure-and-manage-your-ai-agents/3827392',
         type: 'Official',
       },
+      {
+        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
+        type: 'Official',
+      },
     ],
     status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['entra', 'defender', 'purview', 'architecture', 'integration', 'agent id'],
+    lastReviewed: '2026-03-14',
+    updatedAt: '2026-03-14',
+    tags: ['entra', 'defender', 'purview', 'architecture', 'integration', 'agent id', 'conditional access', 'identity protection', 'identity governance'],
   },
 
   // LICENSING & AVAILABILITY
@@ -522,51 +529,82 @@ Agent 365 remains in the **Frontier preview program** until GA.
   {
     id: 'dev-002',
     question: 'How do Entra Agent ID and Agent 365 work together for custom agents?',
-    shortAnswer: 'Entra Agent ID provides the identity and authentication mechanism for your custom agent. Agent 365 registers that identity and applies governance, security, and monitoring policies.',
-    detailedAnswer: `**The workflow for custom agents:**
+    shortAnswer: 'Entra Agent ID provides the identity and authentication mechanism for your custom agent. Agent 365 registers that identity and applies governance, security, and monitoring policies. The identity hierarchy uses agent blueprints, agent identities, and optional agent users.',
+    detailedAnswer: `**Agent identity architecture:**
 
-1. **Create an Entra Agent ID**
-   - Navigate to Microsoft Entra admin center
-   - Create a new "Agent" identity (similar to app registrations)
-   - Configure authentication method (certificate, secret, federated)
-   - Grant necessary API permissions
+Entra Agent ID introduces a purpose-built identity hierarchy for AI agents:
 
-2. **Build your agent**
-   - Develop using your preferred framework (LangChain, Semantic Kernel, custom)
-   - Configure the agent to authenticate using the Entra Agent ID
-   - Implement required interfaces for telemetry and logging
+- **Agent blueprint**: A logical definition of an agent type (like a template). Registered as an application in Entra
+- **Agent identity blueprint principal**: A service principal representing the blueprint in the tenant—used only to create agent identities and agent users
+- **Agent identity**: An instantiated agent identity that authenticates and accesses resources
+- **Agent user**: An optional nonhuman user account for agents that need user-like capabilities (mailbox, Teams, calendar access)
 
-3. **Register with Agent 365**
-   - Submit agent metadata to Agent 365 registry
-   - Provide description, capabilities, data access requirements
-   - Agent 365 links the Entra identity to the registry entry
+Each blueprint can create multiple agent identities, and each agent identity can optionally have one agent user.
 
-4. **Apply policies**
-   - Configure conditional access (when can the agent run?)
-   - Set data access policies via Purview
-   - Enable Defender monitoring
+**The workflow for custom agents:**
 
-5. **Deploy and monitor**
-   - Deploy agent to your environment
-   - Monitor via Agent 365 dashboards
-   - Receive alerts if security issues arise
+1. **Create an Agent Blueprint**
+   - Register your agent type in the Microsoft Entra admin center or via the Microsoft agent identity platform APIs
+   - Define the blueprint with capabilities, permissions, and metadata
+   - The blueprint acts as a template for creating agent instances
 
-**Key benefit:** Your custom agent now has the same governance and security as Microsoft-built agents, creating a unified management experience.
+2. **Instantiate Agent Identities**
+   - Create agent identities from the blueprint
+   - Each identity authenticates via OAuth 2.0/OIDC (certificate, secret, or federated credentials)
+   - Optionally create an agent user if the agent needs user-like access (mailbox, Teams participation)
 
-**Technical note:** Entra Agent IDs work like managed identities with no default permissions - you must explicitly grant access to each resource.`,
+3. **Assign a Sponsor**
+   - Every agent identity should have a human sponsor responsible for oversight
+   - Sponsors manage the agent's lifecycle and access decisions
+   - If a sponsor leaves, sponsorship auto-transfers to their manager
+
+4. **Configure Access**
+   - Use access packages in Entra ID Governance for time-bound, auditable resource access
+   - Apply Conditional Access policies (risk-based, attribute-based, or blueprint-grouped)
+   - Grant Microsoft Graph permissions, Azure RBAC roles, or app roles as needed
+
+5. **Register with Agent 365**
+   - Agent 365 links the Entra identity to the central Agent Registry
+   - Apply blueprint-level policies, enable observability, configure monitoring
+
+6. **Deploy and monitor**
+   - Deploy agent to your environment (Azure, AWS, GCP, or on-premises)
+   - Entra Identity Protection monitors for risky behavior (sign-in spikes, unfamiliar resource access)
+   - Monitor via Agent 365 dashboards and receive alerts if security issues arise
+
+**Platform integration:**
+- **Microsoft Foundry** automatically provisions agent blueprints and identities when you create agents
+- **Copilot Studio** can automatically assign agent identities to agents created in Power Platform
+- **Azure App Service / Functions** can use agent identities for secure resource access
+- **Teams** developers can manage agent blueprints in the Developer Portal
+
+**Key benefit:** Your custom agent gets the same governance and security as Microsoft-built agents—Conditional Access, Identity Protection, Identity Governance, and network controls all apply.
+
+**Technical note:** Agent identities start with no permissions—you must explicitly grant access. They support both autonomous access (application-only) and delegated access (on behalf of a user).`,
     audiences: ['Developer / Architect', 'Security & Compliance'],
     categories: ['Developer Experience', 'Architecture', 'Security & Compliance'],
     difficulty: 'Advanced',
     sources: [
       {
-        label: 'Microsoft Entra Agent ID launch',
-        url: 'https://office365itpros.com/2025/05/27/entra-agent-id/',
-        type: 'Analysis',
+        label: 'What are agent identities? — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/what-is-agent-id',
+        type: 'Official',
+      },
+      {
+        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
+        type: 'Official',
+      },
+      {
+        label: 'Identity Governance for agent identities — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview',
+        type: 'Official',
       },
     ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['entra agent id', 'custom agents', 'development'],
+    status: 'Documented',
+    lastReviewed: '2026-03-14',
+    updatedAt: '2026-03-14',
+    tags: ['entra agent id', 'custom agents', 'development', 'agent blueprint', 'agent identity', 'agent user'],
   },
 
   // ECOSYSTEM & INTEGRATIONS
@@ -1005,6 +1043,100 @@ All Work IQ MCP tool calls are subject to Agent 365 policy enforcement, DLP, sen
     status: 'Partially documented',
     lastReviewed: '2025-11-18',
     tags: ['security risks', 'threat mitigation'],
+  },
+  {
+    id: 'security-005',
+    question: 'What is Microsoft Entra Agent ID and how does it secure AI agents?',
+    shortAnswer: 'Microsoft Entra Agent ID is a dedicated identity and security framework for AI agents. It extends Entra\'s Zero Trust capabilities to agents through Conditional Access, Identity Protection, Identity Governance, and network controls via Global Secure Access.',
+    detailedAnswer: `**Microsoft Entra Agent ID** extends the security capabilities of Microsoft Entra ID to AI agents. It is part of Microsoft Agent 365 and currently in preview.
+
+**Core concept:** Just as human users need identities to access organizational resources securely, AI agents need their own identities. Entra Agent ID provides purpose-built identity constructs for agents rather than reusing application or user identities.
+
+**Agent identity hierarchy:**
+- **Agent blueprint**: A template defining an agent type (capabilities, permissions, metadata)
+- **Agent identity blueprint principal**: A service principal representing the blueprint in a tenant—only used for creating agent identities
+- **Agent identity**: An instantiated agent that authenticates and accesses resources via OAuth 2.0/OIDC
+- **Agent user**: An optional nonhuman user account for agents needing user-like capabilities (mailbox, Teams, calendar)
+
+**Four security pillars:**
+
+**1. Conditional Access for agents**
+- Treats agents as first-class identities alongside users and workload identities
+- Enforces adaptive access policies based on agent risk, custom security attributes, or blueprint grouping
+- Supports both agent identities and agent users
+- Can block all unapproved agents, allow only specifically tagged agents, or block high-risk agents
+
+**2. Identity Protection for agents**
+- Detects risky agent behavior through anomaly detection:
+  - Unfamiliar resource access (agent targets resources it doesn't usually access)
+  - Sign-in spikes (unusual volume of sign-ins)
+  - Failed access attempts (repeated unauthorized resource access)
+  - Risky user sign-in (agent acts on behalf of a compromised user)
+- Feeds risk signals to Conditional Access for automated blocking
+- Risky Agents report available in the Entra admin center
+
+**3. Identity Governance for agents**
+- Manages agent lifecycle from deployment to expiration
+- Requires human sponsors for every agent identity (accountability)
+- Sponsors can manage agents via the My Account and My Access portals
+- Access packages provide time-bound, auditable resource access
+- Auto-transfers sponsorship to the sponsor's manager if they leave the organization
+
+**4. Network controls (Global Secure Access)**
+- Enforces network security policies on agent traffic
+- Logs agent network activity for audit and threat detection
+- Applies web categorization to control access to APIs and MCP servers
+- Restricts file uploads/downloads using file-type policies
+- Detects and blocks prompt injection attacks at the network level
+
+**Platform integration:**
+- **Microsoft Foundry**: Automatically provisions agent blueprints and identities
+- **Copilot Studio**: Can auto-assign agent identities to agents
+- **Azure App Service / Functions**: Supports agent identity authentication
+- **Teams Developer Portal**: Manage agent blueprints
+
+**How to get started:**
+Entra Agent ID is part of Microsoft Agent 365 and available through the Frontier program. Requires a Microsoft 365 Copilot license with Frontier enabled.`,
+    audiences: ['Security & Compliance', 'IT Admin', 'Developer / Architect'],
+    categories: ['Security & Compliance', 'Architecture'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Security for AI with Microsoft Entra Agent ID — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/security-for-ai',
+        type: 'Official',
+      },
+      {
+        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
+        type: 'Official',
+      },
+      {
+        label: 'Conditional Access for Agent ID — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id',
+        type: 'Official',
+      },
+      {
+        label: 'Identity Governance for agent identities — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview',
+        type: 'Official',
+      },
+      {
+        label: 'Identity Protection for agents — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents',
+        type: 'Official',
+      },
+      {
+        label: 'Network controls for agents — Microsoft Learn',
+        url: 'https://learn.microsoft.com/en-us/entra/global-secure-access/concept-secure-web-ai-gateway-agents',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-03-14',
+    isNew: true,
+    updatedAt: '2026-03-14',
+    tags: ['entra agent id', 'conditional access', 'identity protection', 'identity governance', 'global secure access', 'network controls', 'agent blueprint', 'agent identity'],
   },
   {
     id: 'dev-003',

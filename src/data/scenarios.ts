@@ -34,7 +34,7 @@ export const scenarios: Scenario[] = [
     description: 'Agent 365 integrates with Microsoft Purview for data governance and compliance, and Defender for security monitoring - critical for regulated industries.',
     icon: '🏛️',
     targetAudiences: ['Security & Compliance', 'Business & Licensing'],
-    relatedFaqIds: ['security-001', 'security-002', 'security-003', 'governance-003'],
+    relatedFaqIds: ['security-001', 'security-002', 'security-003', 'security-005', 'governance-003'],
     relatedCategories: ['Security & Compliance', 'Governance & Shadow Agents'],
   },
   {
@@ -43,7 +43,7 @@ export const scenarios: Scenario[] = [
     description: 'Agent 365 supports custom agents built with Azure OpenAI, LangChain, or other frameworks through Entra Agent ID integration.',
     icon: '👨‍💻',
     targetAudiences: ['Developer / Architect'],
-    relatedFaqIds: ['dev-002', 'dev-003', 'ecosystem-003'],
+    relatedFaqIds: ['dev-002', 'dev-003', 'security-005', 'ecosystem-003'],
     relatedCategories: ['Developer Experience', 'Ecosystem & Integrations'],
   },
   {
