@@ -766,6 +766,170 @@ If you need to govern third-party agents today:
     lastReviewed: '2025-11-18',
     tags: ['agent store', 'copilot', 'marketplace'],
   },
+  {
+    id: 'ecosystem-004',
+    question: 'Does Copilot support multi-model selection (Claude, OpenAI, etc.) in Agent 365?',
+    shortAnswer: 'Yes. As of May 2026, Copilot now allows users to select between Claude models, OpenAI models, or let Copilot automatically pick the best model for each task.',
+    detailedAnswer: `**Multi-model support launched May 2026:**
+
+Microsoft 365 Copilot now supports multiple AI models, giving users and agents flexibility in choosing the right model for different tasks.
+
+**Available options:**
+- **Claude models** (Anthropic)
+- **OpenAI models** (GPT-4o and successors)
+- **Automatic selection** — Copilot picks the best model for the task
+
+**How it works:**
+- Users can select their preferred model in Copilot settings
+- Agents can specify model preferences via the Agent 365 SDK
+- Copilot can automatically route requests to the most appropriate model based on task type
+
+**Benefits:**
+- **Performance optimization** — different models excel at different tasks
+- **Cost optimization** — use less expensive models for simpler tasks
+- **Flexibility** — organizations can choose based on compliance, performance, or cost requirements
+- **Future-proofing** — easily adopt new models as they become available
+
+**Governance considerations:**
+- IT admins can restrict which models are available in the tenant
+- Model usage is tracked in Agent 365 observability dashboards
+- Data residency and compliance policies apply to all models
+
+**Note:** Model availability and pricing may vary by region and license type. Check Microsoft 365 admin center for model availability in your tenant.`,
+    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
+    categories: ['Ecosystem & Integrations', 'Basics'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['multi-model', 'claude', 'openai', 'model selection', 'copilot'],
+  },
+  {
+    id: 'ecosystem-005',
+    question: 'What is the Legal Agent for Word and how does it work with Agent 365?',
+    shortAnswer: 'Legal Agent for Word is a specialized Copilot experience for legal teams in the US (Frontier public preview May 2026). It helps review contracts, compare clauses to playbooks, and suggest edits with tracked changes—all within Word.',
+    detailedAnswer: `**Legal Agent for Word (Frontier public preview):**
+
+Announced in May 2026, the Legal Agent is a new specialized agent designed specifically for legal professionals working in Microsoft Word.
+
+**Key capabilities:**
+- **Contract review** — analyze contracts for common issues, missing clauses, and non-standard terms
+- **Playbook comparison** — compare contract clauses against your organization's legal playbooks and standards
+- **Tracked changes suggestions** — suggest edits directly in Word with tracked changes enabled
+- **Clause library** — access common legal clauses and templates
+- **Risk assessment** — highlight high-risk terms and conditions
+
+**How it works:**
+1. Open a contract in Microsoft Word
+2. Activate Legal Agent from the Copilot pane
+3. Agent analyzes the document against your playbooks
+4. Suggestions appear as tracked changes
+5. Legal team reviews and accepts/rejects changes
+
+**Agent 365 integration:**
+- Legal Agent appears in the Agent 365 registry
+- Access controlled via Agent 365 policies (can be restricted to legal department)
+- All actions are logged for audit and compliance
+- Data access governed by Microsoft Purview policies
+
+**Availability:**
+- **Frontier public preview** as of May 2026
+- Available in the **United States** initially
+- Requires Microsoft 365 Copilot license
+- Agent 365 license recommended for full governance capabilities
+
+**Important notes:**
+- This is a specialized agent, not a general-purpose legal AI
+- Organizations should still have human legal review processes
+- Data residency and compliance requirements apply
+- Preview features may change before GA`,
+    audiences: ['Business & Licensing', 'IT Admin', 'Security & Compliance'],
+    categories: ['Ecosystem & Integrations', 'Governance & Shadow Agents'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+      {
+        label: 'Microsoft 365 Copilot: Legal Agent for Word',
+        url: 'https://m365admin.handsontek.net/microsoft-365-copilot-legal-agent-word/',
+        type: 'News',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['legal agent', 'word', 'copilot', 'specialized agent', 'frontier', 'preview'],
+  },
+  {
+    id: 'ecosystem-006',
+    question: 'What are SharePoint Skills and how do they work with Agent 365?',
+    shortAnswer: 'SharePoint Skills (public preview May 2026) are AI-powered capabilities that help agents understand and work with SharePoint content. They are included in Microsoft 365 and SharePoint AI licensing.',
+    detailedAnswer: `**SharePoint Skills announced May 2026:**
+
+SharePoint Skills are a new set of AI capabilities that enable agents to better understand, search, and interact with content stored in SharePoint.
+
+**Key capabilities:**
+- **Enhanced content understanding** — agents can better comprehend document structure, metadata, and relationships
+- **Intelligent search** — agents can find relevant content across SharePoint sites using natural language
+- **Content synthesis** — agents can summarize and extract insights from multiple SharePoint documents
+- **Workflow integration** — agents can trigger SharePoint workflows and update content programmatically
+
+**How agents use SharePoint Skills:**
+1. Agent receives a request that requires SharePoint data
+2. Agent uses SharePoint Skills APIs via Work IQ MCP servers
+3. Skills handle authentication, search, and content retrieval
+4. Agent processes the information and responds to the user
+
+**Agent 365 integration:**
+- SharePoint Skills access is governed by Agent 365 policies
+- All SharePoint Skills usage is logged in Agent 365 audit logs
+- Access control follows least-privilege principles
+- Data access respects existing SharePoint permissions and Purview policies
+
+**Licensing:**
+- **Public preview** as of May 2026
+- Included in **Microsoft 365** licensing
+- Also included in **SharePoint AI** licensing
+- No additional Agent 365 license required for basic usage, but recommended for governance
+
+**Use cases:**
+- **Knowledge management** — agents help users find and summarize organizational knowledge
+- **Document automation** — agents can process and categorize documents
+- **Compliance** — agents can identify and flag documents for review
+- **Team collaboration** — agents can surface relevant content in Teams based on SharePoint data
+
+**Important notes:**
+- Preview features may change before general availability
+- Organizations should review data governance policies before enabling
+- SharePoint Skills respect existing site permissions and sensitivity labels`,
+    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
+    categories: ['Ecosystem & Integrations', 'Developer Experience'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['sharepoint skills', 'sharepoint', 'skills', 'public preview', 'licensing'],
+  },
 
   // ROLLOUT & ADOPTION
   {
@@ -1791,6 +1955,227 @@ This tiered model allows organizations to start governing agents immediately, wh
     lastReviewed: '2025-11-18',
     tags: ['mistakes', 'best practices', 'lessons learned'],
   },
+  {
+    id: 'rollout-004',
+    question: 'What is the Shadow AI Pane in the Microsoft 365 admin center?',
+    shortAnswer: 'The Shadow AI Pane is a new dashboard (May 2026) in the Microsoft 365 admin center that helps IT admins discover and control unsanctioned AI usage using Intune policies, including detection of OpenClaw agents.',
+    detailedAnswer: `**Shadow AI Pane launched May 2026:**
+
+The Shadow AI Pane is a new governance dashboard that provides visibility into unsanctioned AI agent usage across your organization.
+
+**Key capabilities:**
+- **Discovery** — identifies unsanctioned AI agents and tools being used in your environment
+- **Risk assessment** — categorizes shadow agents by risk level
+- **Control actions** — block or quarantine unsanctioned agents using Intune policies
+- **OpenClaw detection** — specifically detects Windows devices running OpenClaw (an open-source agent framework)
+- **Usage insights** — shows which users are using shadow AI and how frequently
+
+**How it works:**
+1. Intune scans managed Windows devices for AI agent frameworks and tools
+2. Detected agents appear in the Shadow AI Pane
+3. IT admins review the agents and assess risk
+4. Admins can:
+   - Approve and register the agent in Agent 365
+   - Block the agent using Intune device policies
+   - Quarantine the agent for further investigation
+
+**Integration with Agent 365:**
+- Shadow agents detected in the pane can be promoted to sanctioned agents
+- Once sanctioned, agents appear in the Agent 365 registry
+- Full governance policies then apply
+- Audit logs track all shadow AI discoveries and actions
+
+**Intune integration:**
+- Links directly to Intune admin center for advanced controls
+- Leverages Intune device compliance policies
+- Works with Windows device management
+- Requires Intune licensing (included in E5/E7 or Frontier)
+
+**OpenClaw detection:**
+- OpenClaw is an open-source agent framework
+- Frontier customers with Intune can discover OpenClaw agents
+- Helps IT understand what agents developers are building outside official channels
+
+**Best practices:**
+- Review Shadow AI Pane weekly during initial rollout
+- Create an approval process for discovered agents
+- Educate users about sanctioned agent options
+- Don't just block—provide approved alternatives
+
+**Availability:**
+- Generally available as of May 2026
+- Requires Agent 365 license for full capabilities
+- Basic shadow AI detection included with Microsoft 365`,
+    audiences: ['IT Admin', 'Security & Compliance'],
+    categories: ['Governance & Shadow Agents', 'Rollout & Adoption'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['shadow ai', 'governance', 'intune', 'openclaw', 'dashboard', 'admin center'],
+  },
+  {
+    id: 'rollout-005',
+    question: 'What is the Copilot Dashboard and what adoption insights does it provide?',
+    shortAnswer: 'The Copilot Dashboard (May 2026) provides measurable adoption insights and configuration progress for Copilot and Agent 365, helping IT admins track usage, identify opportunities, and measure ROI.',
+    detailedAnswer: `**Copilot Dashboard launched May 2026:**
+
+The Copilot Dashboard is a new analytics and reporting tool in the Microsoft 365 admin center that helps organizations measure and optimize their Copilot and Agent 365 adoption.
+
+**Key metrics tracked:**
+- **Usage analytics** — how many users are actively using Copilot and agents
+- **Feature adoption** — which Copilot features and agents are most popular
+- **Productivity impact** — estimated time savings and task automation
+- **Configuration progress** — setup completion percentage and readiness scores
+- **Agent activity** — which agents are most used and by whom
+- **Compliance status** — governance policy coverage and exceptions
+
+**Adoption insights:**
+- **User engagement trends** — daily/weekly/monthly usage patterns
+- **Department-level breakdowns** — which teams are adopting fastest
+- **Feature recommendations** — suggests underutilized features based on user behavior
+- **Training needs** — identifies users who might benefit from additional training
+- **License optimization** — helps right-size Copilot and Agent 365 licensing
+
+**Configuration progress tracking:**
+- **Setup checklist** — shows which configuration steps are complete
+- **Policy coverage** — percentage of agents with governance policies applied
+- **Integration status** — Entra, Defender, Purview integration health
+- **Shadow agent ratio** — sanctioned vs. unsanctioned agents
+- **Blueprint coverage** — percentage of agents using approved blueprints
+
+**How IT admins use it:**
+1. Monitor adoption trends weekly
+2. Identify departments lagging in adoption
+3. Target training and support where needed
+4. Justify ROI to leadership
+5. Plan license expansion based on usage data
+
+**Integration with Agent 365:**
+- Agent-specific metrics included in the dashboard
+- Filter views by agent type, department, or user group
+- Export data for executive reports
+- Set up automated alerts for adoption milestones
+
+**Best practices:**
+- Review dashboard weekly during rollout
+- Share insights with department leaders
+- Use data to celebrate adoption wins
+- Identify and address adoption barriers early
+
+**Availability:**
+- Generally available as of May 2026
+- Included with Microsoft 365 Copilot license
+- Enhanced metrics require Agent 365 license`,
+    audiences: ['IT Admin', 'Business & Licensing'],
+    categories: ['Rollout & Adoption', 'Basics'],
+    difficulty: 'Intro',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['copilot dashboard', 'adoption', 'analytics', 'insights', 'roi', 'admin center'],
+  },
+  {
+    id: 'rollout-006',
+    question: 'What are Teams Channel Agent Workflows and how do they integrate with external tools?',
+    shortAnswer: 'Teams Channel Agent Workflows (May 2026) allow agents to trigger automations in Azure DevOps, GitHub, Asana, Jira, and other tools directly from Teams messages, streamlining cross-platform collaboration.',
+    detailedAnswer: `**Teams Channel Agent Workflows launched May 2026:**
+
+Teams Channel Agent Workflows enable AI agents to act as integration hubs between Microsoft Teams and external development and project management tools.
+
+**How it works:**
+1. User mentions an agent in a Teams channel or chat
+2. Agent processes the request and determines the required action
+3. Agent triggers workflows in connected external tools
+4. Agent reports results back to the Teams conversation
+5. All actions are logged in Agent 365 for audit and compliance
+
+**Supported integrations (May 2026):**
+- **Azure DevOps** — create work items, update pipelines, trigger builds
+- **GitHub** — create issues, review PRs, trigger actions, update project boards
+- **Asana** — create tasks, update project status, assign work
+- **Jira** — create tickets, update stories, link issues
+- **Additional tools** — extensible via custom integrations
+
+**Example workflows:**
+
+**Software development:**
+- "@DevAgent create a GitHub issue for the login bug discussed above"
+- Agent creates issue with context from Teams conversation
+- Links back to Teams thread in GitHub issue
+
+**Project management:**
+- "@ProjectAgent add this feature request to our Asana backlog"
+- Agent creates Asana task with details from Teams discussion
+- Assigns to appropriate team member based on workload
+
+**DevOps:**
+- "@DeployAgent trigger staging deployment"
+- Agent initiates Azure DevOps pipeline
+- Reports deployment status back to Teams channel
+
+**Agent 365 integration:**
+- All workflow triggers are logged in Agent 365
+- Access to external tools governed by Agent 365 policies
+- Agents must have appropriate permissions (OAuth tokens managed securely)
+- Audit logs show which agent triggered which external action
+
+**Security and governance:**
+- Agents authenticate to external tools using OAuth 2.0
+- Credentials stored securely in Azure Key Vault
+- Access can be restricted by agent blueprint
+- IT admins can revoke external tool access per agent
+
+**Setup requirements:**
+1. Install Teams Channel Agent from agent store
+2. Configure external tool connections (OAuth)
+3. Define workflow templates for common actions
+4. Set governance policies in Agent 365
+5. Train users on agent commands
+
+**Benefits:**
+- Reduces context switching between tools
+- Keeps conversation and action together
+- Provides audit trail across platforms
+- Speeds up cross-functional collaboration
+
+**Availability:**
+- Generally available as of May 2026
+- Requires Microsoft 365 Copilot license
+- Agent 365 license recommended for governance
+- External tool licenses required separately`,
+    audiences: ['Developer / Architect', 'IT Admin', 'Business & Licensing'],
+    categories: ['Ecosystem & Integrations', 'Rollout & Adoption'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['teams', 'workflows', 'azure devops', 'github', 'jira', 'asana', 'integrations'],
+  },
   // NEW IN FEBRUARY 2026 REFRESH
   {
     id: 'dev-004',
@@ -1984,6 +2369,67 @@ Windows 365 for Agents provides a dedicated, managed cloud PC environment specif
     lastReviewed: '2026-02-19',
     isNew: true,
     tags: ['windows 365 for agents', 'computer-using agents', 'execution environment', 'rpa'],
+  },
+  {
+    id: 'basics-007',
+    question: 'What is Agent Mode in Office apps (Word, Excel, PowerPoint)?',
+    shortAnswer: 'Agent Mode is a new feature in Office apps (May 2026) where Copilot works iteratively, making edits and refinements in multiple steps—helping users move from simple one-off assistance to multi-step, guided workflows.',
+    detailedAnswer: `**Agent Mode launched May 2026:**
+
+Agent Mode represents an evolution of Copilot in Microsoft Office apps, enabling more sophisticated, multi-step workflows.
+
+**What Agent Mode does:**
+- **Iterative refinement** — Copilot makes multiple passes at a document, refining and improving with each iteration
+- **Multi-step workflows** — handles complex tasks that require several sequential actions
+- **Context preservation** — maintains understanding across multiple edits and refinements
+- **Guided assistance** — walks users through complex document creation or editing processes
+
+**Available in:**
+- **Microsoft Word** — draft documents, refine writing, restructure content
+- **Microsoft Excel** — build complex formulas, create data analyses, format workbooks
+- **Microsoft PowerPoint** — design presentations, refine layouts, improve visual consistency
+
+**How it differs from standard Copilot:**
+- **Standard Copilot:** Single-turn assistance ("write a summary of this document")
+- **Agent Mode:** Multi-turn collaboration ("create a report, then refine the executive summary, then add supporting data visualizations")
+
+**Example workflow in Word:**
+1. User: "Create a project proposal for a new marketing campaign"
+2. Agent Mode creates initial draft
+3. Agent Mode automatically refines tone and structure
+4. Agent Mode adds relevant data points from connected sources
+5. User reviews and provides feedback
+6. Agent Mode iterates based on feedback
+
+**Agent 365 integration:**
+- Agent Mode actions are logged in Agent 365
+- Organizations can set policies for Agent Mode usage
+- Data access is governed by existing Purview policies
+- Usage metrics appear in Copilot Dashboard
+
+**Availability:**
+- Generally available as of May 2026
+- Requires Microsoft 365 Copilot license
+- Works with Agent 365 for enhanced governance
+
+**Related features:**
+- **Copilot Notebook Grounding** — improved reference alignment
+- **Deeper Outlook Integration** — focused context for email assistance`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Basics', 'Rollout & Adoption'],
+    difficulty: 'Intro',
+    sources: [
+      {
+        label: 'What\'s new in Agent 365 - May 2026',
+        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    isNew: true,
+    tags: ['agent mode', 'copilot', 'word', 'excel', 'powerpoint', 'iterative', 'workflows'],
   },
 
   {
