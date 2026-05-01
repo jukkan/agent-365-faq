@@ -5,8 +5,8 @@ export const faqs: FaqItem[] = [
   {
     id: 'basics-001',
     question: 'What is Microsoft Agent 365 in simple terms?',
-    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms. Generally available May 1, 2026.',
-    detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities. It will be **generally available on May 1, 2026** at **$15 per user per month**.
+    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms. Now generally available.',
+    detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities. It became **generally available on May 1, 2026** at **$15 per user per month**.
 
 **Key capabilities:**
 - **Registry**: A central inventory of all agents in your organization, including shadow agents
@@ -47,8 +47,8 @@ Official documentation is available on Microsoft Learn - see the sources below.`
       },
     ],
     status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
     tags: ['control plane', 'registry', 'governance', 'windows 365 for agents', 'ga', 'pricing'],
   },
   {
@@ -194,6 +194,69 @@ This is similar to how endpoint management tools quarantine unmanaged devices.`,
     status: 'Partially documented',
     lastReviewed: '2025-11-18',
     tags: ['quarantine', 'policy enforcement'],
+  },
+  {
+    id: 'governance-003',
+    question: 'What workload-specific capabilities are included in Agent 365 GA, and what about OpenClaw shadow AI detection?',
+    shortAnswer: 'At GA, Agent 365 integrates with Microsoft 365 Admin Center, Entra (Identity Governance, Network Control), Defender (preview), Purview (preview continuing, full license required after Frontier), and Intune (OpenClaw shadow AI detection). Some capabilities remain in preview.',
+    detailedAnswer: `**Microsoft 365 Admin Center:**
+- No functional changes at GA
+- Preview and Frontier features remain clearly tagged in-product
+
+**Microsoft Entra:**
+- **Agent Identity Governance** (e.g., access packages, lifecycle workflows for agent sponsor maintenance) **requires Agent 365 license** at GA
+- **Conditional Access and Identity Protection** for agents continue without change (no new license requirement)
+- **Network Control for agents** (prompt injection protection, threat intelligence filtering, shadow AI detection, web/URL filtering, network file filtering) **requires Agent 365 license** at GA
+- Network Control on local endpoint devices continues to work if the Global Secure Access client is installed
+
+**Microsoft Defender:**
+- Agent protection features remain in **preview** for Defender for Cloud Apps and Defender for Cloud
+- Copilot Studio AI security posture, real-time protection, and investigation capabilities will require an Agent 365 license when each feature reaches GA in a future release
+
+**Microsoft Purview:**
+- Frontier participants retain access to Purview capabilities for agents (AI Observability, DLP, Insider Risk, Communication Compliance, Compliance Manager, Data Lifecycle Management, eDiscovery)
+- **After the Frontier program ends**, Purview coverage for all agents managed in Agent 365 will **require an Agent 365 license**
+
+**Microsoft Intune (OpenClaw Shadow AI Detection):**
+- Frontier customers licensed with Intune can discover Windows devices running **OpenClaw** (an open-source agent framework) via a new **Agent 365 Shadow AI page** in the Microsoft 365 admin center
+- Admins can apply policies to block common OpenClaw execution methods
+- Links to the Intune admin center for advanced controls
+
+**OpenClaw** is a popular open-source AI agent framework. Agent 365's ability to detect and govern OpenClaw agents demonstrates Microsoft's commitment to managing both first-party and third-party agents across the ecosystem.`,
+    audiences: ['IT Admin', 'Security & Compliance'],
+    categories: ['Governance & Shadow Agents', 'Security & Compliance', 'Rollout & Adoption'],
+    difficulty: 'Advanced',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+        type: 'Official',
+      },
+      {
+        label: 'Protect agent identities with Microsoft Entra | Agent 365',
+        url: 'https://learn.microsoft.com/microsoft-agent-365/admin/capabilities-entra',
+        type: 'Official',
+      },
+      {
+        label: 'Monitor agents with Microsoft Defender | Agent 365',
+        url: 'https://learn.microsoft.com/microsoft-agent-365/admin/threat-protection',
+        type: 'Official',
+      },
+      {
+        label: 'Use Microsoft Purview for Agent 365 data security',
+        url: 'https://learn.microsoft.com/purview/ai-agent-365',
+        type: 'Official',
+      },
+      {
+        label: 'Install Global Secure Access client for Windows',
+        url: 'https://learn.microsoft.com/entra/global-secure-access/how-to-install-windows-client',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['workloads', 'entra', 'defender', 'purview', 'intune', 'openclaw', 'shadow ai', 'ga'],
   },
 
   // SECURITY & COMPLIANCE
@@ -370,37 +433,36 @@ Think of it as: Entra = ID card + access policies, Agent 365 = HR system, Defend
   {
     id: 'licensing-001',
     question: 'How do I get access to Agent 365 today?',
-    shortAnswer: 'Agent 365 is generally available on May 1, 2026, priced at $15 per user per month. Until then, it is available through the Frontier preview program for tenants with at least one Microsoft 365 Copilot license.',
-    detailedAnswer: `**General availability: May 1, 2026**
+    shortAnswer: 'Agent 365 is generally available as of May 1, 2026, priced at $15 per user per month standalone or included in Microsoft 365 E7 at $99 per user per month. Trial and paid licenses are available across all commercial channels.',
+    detailedAnswer: `**Agent 365 is now generally available (May 1, 2026)**
 
-Microsoft announced on March 9, 2026 that Agent 365 will be **generally available on May 1, 2026**, priced at **$15 per user per month**.
+Agent 365 reached general availability on May 1, 2026, indicating it is ready for enterprise production use with clearer licensing boundaries, improved governance, and predictable support.
 
-Agent 365 is also included in **Microsoft 365 E7: The Frontier Suite** ($99 per user per month), which bundles Microsoft 365 Copilot, Agent 365, Microsoft Entra Suite, and Microsoft 365 E5.
+**Licensing options:**
+- **Agent 365 standalone:** $15 per user per month
+- **Microsoft 365 E7: The Frontier Suite:** $99 per user per month (includes E5, Copilot, Agent 365, and Entra Suite)
+- Available across all commercial channels (information about EDU, Charity, and Government SKUs will be shared later)
 
-**Current availability (before May 1):**
+**How to get started:**
 
-Agent 365 remains in the **Frontier preview program** until GA.
+**Option 1: Start a trial**
+- Visit the [Agent 365 trial page](https://m365-mcrp.azurewebsites.net/request/active/20640)
+- Trial licenses provide the GA, enterprise-ready experience
 
-**Prerequisites for Frontier access:**
-- At least one Microsoft 365 Copilot license on the tenant
-- Global Admin or Copilot Admin access to Microsoft 365 Admin Center
+**Option 2: Purchase licenses**
+- Contact your Microsoft account team
+- Purchase standalone ($15/user/month) or upgrade to E7 ($99/user/month)
 
-**Exact steps to enable Frontier:**
-1. Sign into Microsoft 365 admin center
-2. Select **Copilot** in the left navigation
-3. Select **Settings**
-4. Under **User access**, select **Copilot Frontier**
-5. Choose specific users, groups, or select all to grant access
-6. Go to **Agents** from the left pane to get started
-7. If prompted, agree to the terms of service
+**Frontier preview program (for early access to new features):**
 
-**Important caveats for Frontier:**
-- Frontier is for early adopters who want to test new features before GA
-- Some Agent 365 capabilities (Defender risk signals, Purview insider risk, runtime threat protection) will remain in public preview at GA
-- Features and capabilities are still evolving
+The Frontier program continues to provide early access to preview features alongside the GA product. Key differences:
+- **GA experience**: Trial and paid Agent 365 licenses represent the enterprise-ready, production-supported experience
+- **Frontier preview**: Provides early access to preview capabilities, clearly labeled in-product as "Preview" or "Frontier"
+- Frontier is **not intended for production deployment** and does not include SLAs
+- No action required to remain enrolled in Frontier if already participating
 
 **Next steps after enabling:**
-- Take a tour of your Agent 365 overview page
+- Take a tour of your Agent 365 overview page in the Microsoft 365 Admin Center
 - Use the Agent 365 documentation hub on Microsoft Learn
 - For developers: explore the Agent 365 SDK and CLI`,
     audiences: ['IT Admin', 'Business & Licensing'],
@@ -408,20 +470,25 @@ Agent 365 remains in the **Frontier preview program** until GA.
     difficulty: 'Intro',
     sources: [
       {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
         label: 'Microsoft Agent 365 overview (Microsoft Learn)',
         url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
         type: 'Official',
       },
+      {
+        label: 'Start an Agent 365 trial',
+        url: 'https://m365-mcrp.azurewebsites.net/request/active/20640',
+        type: 'Official',
+      },
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
     ],
     status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['general availability', 'pricing', 'availability', 'admin center', 'e7'],
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
+    tags: ['general availability', 'pricing', 'availability', 'admin center', 'e7', 'trial'],
   },
   {
     id: 'licensing-002',
@@ -1401,9 +1468,280 @@ Announced March 9, 2026, Microsoft 365 E7 is Microsoft's most comprehensive ente
       },
     ],
     status: 'Documented',
-    lastReviewed: '2026-03-12',
-    isNew: true,
+    lastReviewed: '2026-05-01',
+    updatedAt: '2026-05-01',
     tags: ['E7', 'frontier suite', 'licensing', 'pricing', 'copilot', 'bundle'],
+  },
+  {
+    id: 'licensing-005',
+    question: 'Is Agent 365 licensed per user or per agent?',
+    shortAnswer: 'Agent 365 is licensed per user, not per agent. A single licensed user can create, manage, and use multiple agents without additional per-agent charges.',
+    detailedAnswer: `**Agent 365 is licensed per user** ($15/user/month standalone or $99/user/month as part of Microsoft 365 E7).
+
+**What this means:**
+- Agents do not require their own licenses
+- Licensing is tied to the user associated with the agent (user, owner, sponsor, or manager)
+- A single licensed user can create, manage, and use multiple agents
+- No additional per-agent or per-instance charges
+- There is no fixed cap on the number of agents a licensed user can oversee
+- Standard service protections and usage limits may apply to ensure platform stability
+
+**When a license is needed:**
+- Users who interact with agents
+- Agent owners, sponsors, and managers
+- Microsoft 365 Copilot users (recommended for full compatibility)
+- Users who benefit from Agent 365 premium capabilities
+
+**Why per-user licensing?**
+Every agent is associated with a person in some capacity. Per-user licensing is familiar, predictable, and helps organizations plan and budget for agent adoption.
+
+**Important:** Blueprints, agents, and agent instances are not licensed separately—they do not count as individual licensing units.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Intro',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['licensing', 'per-user', 'pricing'],
+  },
+  {
+    id: 'licensing-006',
+    question: 'Which users in my organization should be licensed for Agent 365?',
+    shortAnswer: 'Microsoft recommends licensing all users who interact with, manage, or sponsor agents. At minimum, license users who interact with agents that use Agent 365 premium capabilities to maintain compliance.',
+    detailedAnswer: `**Microsoft's recommendation:**
+License all users who interact with, manage, or sponsor Agent 365-managed agents (agents registered in the Agent 365 control plane).
+
+**Why broad coverage is recommended:**
+- Supports compliance and scale
+- Ensures consistent governance across the organization
+- Avoids out-of-compliance scenarios
+
+**Users who should be licensed:**
+- Users interacting with agents
+- Agent owners, sponsors, and managers
+- Microsoft 365 Copilot users
+- Teams expanding beyond initial pilots into broader agent adoption
+
+**Minimum requirement:**
+A license is **required** for users who interact with, manage, or sponsor agents that use Agent 365 premium capabilities. If unlicensed users benefit from these capabilities, the organization may be out of compliance.
+
+**Important consideration:**
+Microsoft recognizes this guidance can be difficult to operationalize today, as there is limited visibility into user-level agent interactions during policy configuration. Microsoft is continuing to improve visibility, tracking, and the overall licensing experience.
+
+**Fleet-scale management:**
+Yes, a single licensed user can manage a large number of agents, including at fleet scale (1,000+ agents). There is no fixed cap, though standard service protections and usage limits may apply.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['licensing', 'compliance', 'users'],
+  },
+  {
+    id: 'licensing-007',
+    question: 'Do I need Microsoft 365 E3 or E5 as a prerequisite to use Agent 365?',
+    shortAnswer: 'No. Agent 365 has no licensing prerequisites. However, some security capabilities are limited without E3 or E5 licenses, including label-based data security, Conditional Access, Identity Protection, and advanced threat hunting.',
+    detailedAnswer: `**No prerequisite required** to purchase and use Agent 365. However, some capabilities require specific licenses:
+
+**Capabilities requiring E3/E5 licenses:**
+
+**Label-based data security (requires OE3+ or Purview PAYG):**
+- Label honoring, label inheritance, label-based DLP
+- Requires grounding data to be labeled
+- Requires Office E3+ licenses for Microsoft 365 data
+- Requires Purview pay-as-you-go for non-M365 data
+
+**Conditional Access (requires Microsoft 365 E3):**
+- For delegated access flows where agents are evaluated against a user's identity token
+- User must be licensed with Microsoft 365 E3 for these features to work
+
+**Identity Protection (requires Microsoft 365 E5):**
+- For delegated access flows
+- User must be licensed with Microsoft 365 E5
+
+**Advanced threat hunting and investigation:**
+- Depends on log data captured via Office connectors in Microsoft Defender for Cloud Apps (MDA)
+- User must have a license that includes MDA
+
+**What Agent 365 does NOT do:**
+- Agent 365 does not grant E5-level security features to a user
+- It does not elevate a user's seat capabilities
+- It provides no additional user security value beyond agent governance
+
+**Bottom line:** Agent 365 works standalone but integrates best with E3/E5 for full security capabilities.`,
+    audiences: ['Business & Licensing', 'Security & Compliance'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Advanced',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['licensing', 'prerequisites', 'E3', 'E5', 'security'],
+  },
+  {
+    id: 'licensing-008',
+    question: 'What Agent 365 capabilities are included with Microsoft 365, and which require an Agent 365 license?',
+    shortAnswer: 'Basic capabilities (agent identity, registry, shadow AI detection, admin governance actions, audit logs) are included with Microsoft 365. Premium capabilities (advanced observability, governance automation, data security, threat detection) require an Agent 365 license.',
+    detailedAnswer: `**Foundational capabilities (included with Microsoft 365):**
+- Agent Identity
+- Agent Registry
+- Basic agent usage insights
+- Shadow AI detection
+- Admin agent governance actions (publish, deploy, block, delete, approve, reassign, manage user access, pin)
+- Audit logs and eDiscovery for agent activity
+- Block unsanctioned, shadow AI agents
+
+**Premium capabilities (require Agent 365 license):**
+
+**Observability:**
+- Advanced agent usage insights
+- Agent Map
+- Registry sync
+- Graph API
+
+**Governance:**
+- Agent Identity Governance
+- Lifecycle management for agents
+- Automate agent lifecycle actions
+- Tool controls for agents
+- Policy templates for agents
+- Data Lifecycle Management for agent data and interactions
+- Communication Compliance for agents
+
+**Security:**
+- Data Security Posture Management for agents
+- Insider Risk Management for agents
+- Agents inherit and honor data sensitivity labels
+- Data loss prevention for agents
+- Conditional access and identity protection for agents
+- Secure Access Service Edge (SASE) for agents
+- Device compliance for agent conditional access
+- Policy controlled environment for agents runtime
+- Agent Security Posture Management
+- Threat Detection and Blocking for agents
+- Threat Hunting and Investigation for agents
+
+This tiered model allows organizations to start governing agents immediately, while enabling deeper observability, governance, and security controls as adoption scales.`,
+    audiences: ['Business & Licensing', 'IT Admin', 'Security & Compliance'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['licensing', 'capabilities', 'features', 'tiers'],
+  },
+  {
+    id: 'licensing-009',
+    question: 'Is Windows 365 for Agents included in Agent 365 or sold separately?',
+    shortAnswer: 'Windows 365 for Agents is a separate offering, billed at $0.40 per VM per hour on a pay-as-you-go basis. It is not included in Agent 365 or bundled with other Microsoft products.',
+    detailedAnswer: `**Windows 365 for Agents is sold separately** from Agent 365.
+
+**Pricing model:**
+- **Pay-as-you-go:** $0.40 per VM per hour
+- Billed based on actual usage
+- Customers only pay for compute resources when agents are actively running
+- Cost appears as a separate line item in billing
+
+**What it provides:**
+- A secure runtime environment for computer-using AI agents
+- Full desktop or browser-based environment for agents that need Windows applications
+- Integrates with Agent 365 for governance
+
+**How they work together:**
+- **Agent 365:** Provides the governance layer for all agents
+- **Windows 365 for Agents:** Provides the runtime environment when agents need a full Windows desktop
+
+**When to use both:**
+- Use Agent 365 to govern agents across your environment
+- Add Windows 365 for Agents when those agents need a full desktop or browser-based runtime to complete tasks
+
+**Not bundled:** Windows 365 for Agents is not included in Agent 365, Microsoft 365 E7, or Copilot Studio—it must be purchased separately based on usage needs.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Licensing & Availability'],
+    difficulty: 'Intermediate',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['windows 365 for agents', 'pricing', 'pay-as-you-go', 'billing'],
+  },
+  {
+    id: 'licensing-010',
+    question: 'If we already have Microsoft 365 Copilot, do we still need Agent 365?',
+    shortAnswer: 'Yes. Copilot provides AI capabilities to end-users, but Agent 365 is needed to ensure all agents (beyond Copilot) are managed, governed, and secured. Copilot is about what AI can do; Agent 365 is about controlling what AI is allowed to do.',
+    detailedAnswer: `**Yes, both are needed for full coverage.**
+
+**Microsoft 365 Copilot:**
+- Provides AI capabilities embedded in Microsoft 365 apps
+- Helps end-users with productivity tasks
+- Copilot is about **what AI can do**
+
+**Agent 365:**
+- Ensures all agents (including those beyond Copilot) are managed, governed, and secured
+- Provides observability, governance, and security across all agents
+- Agent 365 is about **controlling what AI is allowed to do**
+
+**Why you need both:**
+- Copilot brings AI productivity to your organization
+- Agent 365 ensures those AI capabilities (and others) operate within security and compliance boundaries
+- Without Agent 365, you lack visibility and control over agent behavior, data access, and security posture
+
+**Think of it this way:**
+- **Copilot** = The AI workforce
+- **Agent 365** = The HR, IT, and security department for that AI workforce
+
+**Licensing:**
+- Microsoft 365 Copilot and Agent 365 are separate licenses
+- Both are included in Microsoft 365 E7 ($99/user/month)
+- Or purchase separately: Copilot (~$30/user/month) + Agent 365 ($15/user/month)`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Licensing & Availability', 'Basics'],
+    difficulty: 'Intro',
+    sources: [
+      {
+        label: 'Microsoft Agent 365 Licensing FAQ',
+        url: 'https://www.microsoft.com/licensing/faqs/122',
+        type: 'Official',
+      },
+    ],
+    status: 'Documented',
+    lastReviewed: '2026-05-01',
+    isNew: true,
+    tags: ['copilot', 'licensing', 'comparison'],
   },
   {
     id: 'rollout-003',

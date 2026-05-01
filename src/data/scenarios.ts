@@ -16,7 +16,7 @@ export const scenarios: Scenario[] = [
     description: 'Agent 365 discovers, inventories, and governs all agents across your organization, including unsanctioned ones, with quarantine and policy enforcement capabilities.',
     icon: '⚠️',
     targetAudiences: ['Security & Compliance', 'IT Admin'],
-    relatedFaqIds: ['governance-001', 'governance-002', 'security-004'],
+    relatedFaqIds: ['governance-001', 'governance-002', 'governance-003', 'security-004'],
     relatedCategories: ['Governance & Shadow Agents', 'Security & Compliance'],
   },
   {
@@ -49,10 +49,10 @@ export const scenarios: Scenario[] = [
   {
     id: 'scenario-006',
     title: 'We need to understand licensing and costs before committing',
-    description: 'Agent 365 is $15/user/month standalone, or part of Microsoft 365 E7 at $99/user/month. GA is May 1, 2026. Here\'s what you need to know.',
+    description: 'Agent 365 is $15/user/month standalone, or part of Microsoft 365 E7 at $99/user/month. Now generally available. Here\'s what you need to know.',
     icon: '💰',
     targetAudiences: ['Business & Licensing'],
-    relatedFaqIds: ['licensing-001', 'licensing-002', 'licensing-003', 'licensing-004'],
+    relatedFaqIds: ['licensing-001', 'licensing-002', 'licensing-003', 'licensing-004', 'licensing-005', 'licensing-006', 'licensing-007', 'licensing-008', 'licensing-009', 'licensing-010'],
     relatedCategories: ['Licensing & Availability'],
   },
 ];
