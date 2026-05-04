@@ -83,6 +83,10 @@ export const OpenQuestionsSection: React.FC = () => {
           </li>
           <li className="flex gap-2">
             <span>•</span>
+            <span>Browse the <a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" rel="noopener noreferrer" className="underline font-medium">Microsoft Agentic Transformation Resources</a> — a curated link collection for enterprise-scale Agent 365 management, maintained by the Microsoft Copilot Acceleration Team (CAT)</span>
+          </li>
+          <li className="flex gap-2">
+            <span>•</span>
             <span>Join the Frontier program to get early access and influence product direction</span>
           </li>
           <li className="flex gap-2">
