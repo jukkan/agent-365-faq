@@ -24,6 +24,13 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
   const isUpdated = faq.updatedAt === '2026-06-01' || faq.updatedAt === '2026-03-12' || faq.updatedAt === '2026-02-19';
   const isNew = faq.isNew === true;
 
+  const getUpdateLabel = (): string => {
+    const date = faq.updatedAt ?? (faq.isNew ? faq.lastReviewed : undefined);
+    if (date === '2026-06-01') return 'June 2026 update';
+    if (date === '2026-03-12') return 'March 2026 GA update';
+    return 'February 2026 refresh';
+  };
+
   return (
     <div className={`bg-white border rounded-lg p-6 hover:shadow-md transition-shadow ${isNew ? 'border-ms-blue-400 ring-1 ring-ms-blue-300' : isUpdated ? 'border-amber-300 ring-1 ring-amber-200' : 'border-gray-200'}`}>
       <button
@@ -97,7 +104,7 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
             Last reviewed: {new Date(faq.lastReviewed).toLocaleDateString()}
             {(isNew || isUpdated) && (
               <span className="ml-2 font-medium text-amber-600">
-                · {faq.updatedAt === '2026-06-01' || (faq.isNew && faq.lastReviewed === '2026-06-01') ? 'June 2026 update' : faq.updatedAt === '2026-03-12' || (faq.isNew && faq.lastReviewed === '2026-03-12') ? 'March 2026 GA update' : 'February 2026 refresh'}
+                · {getUpdateLabel()}
               </span>
             )}
           </div>
