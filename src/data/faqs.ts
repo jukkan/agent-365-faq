@@ -1718,11 +1718,17 @@ Yes, a single licensed user can manage a large number of agents, including at fl
   },
   {
     id: 'licensing-007',
-    question: 'Do I need Microsoft 365 E3 or E5 as a prerequisite to use Agent 365?',
-    shortAnswer: 'No. Agent 365 has no licensing prerequisites. However, some security capabilities are limited without E3 or E5 licenses, including label-based data security, Conditional Access, Identity Protection, and advanced threat hunting.',
-    detailedAnswer: `**No prerequisite required** to purchase and use Agent 365. However, some capabilities require specific licenses:
+    question: 'Do I need a prerequisite license to purchase Agent 365?',
+    shortAnswer: 'Yes. As of June 1, 2026, Microsoft Product Terms require that purchasing Agent 365 (User SL) also requires one of these Prerequisite Licenses: Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium.',
+    detailedAnswer: `**Prerequisite License required as of June 1, 2026.** Microsoft Product Terms now specify that purchases of Agent 365 (User SL) also require the purchase of one of the following Prerequisite Licenses:
 
-**Capabilities requiring E3/E5 licenses:**
+- Microsoft 365 E5
+- Microsoft 365 F5 Defender and Purview
+- Microsoft 365 Business Premium
+
+This requirement was introduced in the June 1, 2026 update to the Microsoft Product Terms for Agent 365 under the EA/EAS program.
+
+**Capabilities that also require specific licenses (unchanged):**
 
 **Label-based data security (requires OE3+ or Purview PAYG):**
 - Label honoring, label inheritance, label-based DLP
@@ -1747,11 +1753,16 @@ Yes, a single licensed user can manage a large number of agents, including at fl
 - It does not elevate a user's seat capabilities
 - It provides no additional user security value beyond agent governance
 
-**Bottom line:** Agent 365 works standalone but integrates best with E3/E5 for full security capabilities.`,
+**Bottom line:** Agent 365 now has a formal license prerequisite. You must hold Microsoft 365 E5, F5 Defender and Purview, or Business Premium to purchase Agent 365 (User SL).`,
     audiences: ['Business & Licensing', 'Security & Compliance'],
     categories: ['Licensing & Availability'],
     difficulty: 'Advanced',
     sources: [
+      {
+        label: 'Microsoft Product Terms — Agent 365 License Prerequisites (June 1, 2026)',
+        url: 'https://www.microsoft.com/licensing/terms/productoffering/Agent365/EAEAS#clause-2755-h3-1',
+        type: 'Official',
+      },
       {
         label: 'Microsoft Agent 365 Licensing FAQ',
         url: 'https://www.microsoft.com/licensing/faqs/122',
@@ -1759,9 +1770,9 @@ Yes, a single licensed user can manage a large number of agents, including at fl
       },
     ],
     status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['licensing', 'prerequisites', 'E3', 'E5', 'security'],
+    lastReviewed: '2026-06-01',
+    updatedAt: '2026-06-01',
+    tags: ['licensing', 'prerequisites', 'E5', 'F5', 'Business Premium', 'product terms'],
   },
   {
     id: 'licensing-008',
