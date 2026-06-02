@@ -11,12 +11,12 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     <div className="bg-gradient-to-br from-ms-blue-50 via-blue-50 to-indigo-50 py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-        {/* May 2026 Update Banner */}
+        {/* June 2026 Update Banner */}
         <div className="mb-8 bg-green-50 border border-green-400 rounded-lg p-4 max-w-3xl mx-auto flex items-start gap-3 text-left">
-          <span className="text-green-600 text-xl shrink-0 mt-0.5">🚀</span>
+          <span className="text-green-600 text-xl shrink-0 mt-0.5">📋</span>
           <div className="flex-1">
             <p className="text-green-900 font-semibold text-sm">
-              <strong>May 2026 update</strong> — Agent 365 is now GA with enterprise SLAs, clear pricing ($15/user/month standalone or included in E7), and expanded capabilities.{' '}
+              <strong>June 2026 update</strong> — Microsoft Product Terms now require a Prerequisite License to purchase Agent 365 (User SL): Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium.{' '}
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="text-green-700 underline hover:text-green-800 font-semibold"
@@ -26,13 +26,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </p>
             {isExpanded && (
               <ul className="text-green-800 text-xs mt-2 space-y-1 list-disc list-inside">
-                <li><strong>GA Status Confirmed</strong> – Agent 365 is now enterprise-ready with production SLAs</li>
-                <li><strong>Clear Pricing</strong> – $15/user/month standalone or included in Microsoft 365 E7 ($99/user/month)</li>
-                <li><strong>6 New Licensing FAQs</strong> – Per-user model, prerequisite requirements, foundational vs premium capabilities</li>
-                <li><strong>Windows 365 for Agents Pricing</strong> – $0.40/VM/hour pay-as-you-go billing</li>
-                <li><strong>Workload Integration Details</strong> – Entra Identity Governance, Network Control, Purview, and Defender GA status</li>
-                <li><strong>OpenClaw Shadow AI Detection</strong> – New Intune integration for discovering open-source agents</li>
-                <li><strong>Frontier Program Clarified</strong> – Continues for early access to preview features alongside GA</li>
+                <li><strong>New License Prerequisite</strong> – Purchasing Agent 365 (User SL) now requires one of: Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium</li>
+                <li><strong>Effective June 1, 2026</strong> – This requirement was introduced in the June 1, 2026 update to the Microsoft Product Terms (EA/EAS program)</li>
+                <li><strong>Source</strong> – <a href="https://www.microsoft.com/licensing/terms/productoffering/Agent365/EAEAS#clause-2755-h3-1" target="_blank" rel="noopener noreferrer" className="underline">Microsoft Product Terms — Agent 365</a></li>
               </ul>
             )}
           </div>

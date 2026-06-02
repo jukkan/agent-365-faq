@@ -126,7 +126,7 @@ export const Footer: React.FC = () => {
             </a>
           </div>
           <div className="text-center text-sm text-gray-500">
-            Last updated: March 12, 2026 |{' '}
+            Last updated: June 1, 2026 |{' '}
             <a
               href="https://niiranenadvisory.com/"
               target="_blank"
