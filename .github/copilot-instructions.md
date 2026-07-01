@@ -4,6 +4,14 @@
 
 This is an **unofficial FAQ microsite** explaining **Microsoft Agent 365** — Microsoft's control plane for AI agents in Microsoft 365 — in plain language. The site is a fully static React single-page application with no backend. It is deployed to GitHub Pages at https://a365-faq.jukkan.com/ and is **not affiliated with Microsoft**.
 
+## Git branch discipline
+
+- treat `main` as the default working branch unless the user explicitly asks for a branch or the change clearly needs isolation
+- do not create a branch just because the tool or IDE offers one automatically
+- create a short-lived branch only for risky experiments, unfinished multi-session work, or changes that must not hit `main` yet
+- if the current branch is not `main`, check why before starting new work instead of piling more changes onto a stale branch
+- if you create a branch, finish the lifecycle: merge or cherry-pick the useful result, then delete the branch locally and remotely when no longer needed
+
 ## Tech stack
 
 - **React 19** with **TypeScript** (strict mode)
