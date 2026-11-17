@@ -6,13 +6,12 @@ export type AudienceRole =
 
 export type Category =
   | 'Basics'
-  | 'Architecture'
-  | 'Security & Compliance'
-  | 'Governance & Shadow Agents'
-  | 'Ecosystem & Integrations'
-  | 'Licensing & Availability'
-  | 'Rollout & Adoption'
-  | 'Developer Experience';
+  | 'Included vs Paid'
+  | 'Dependencies'
+  | 'Gotchas'
+  | 'Governance & Security'
+  | 'Agents & Platforms'
+  | 'Building Agents';
 
 export type Difficulty = 'Intro' | 'Intermediate' | 'Advanced';
 
@@ -61,4 +60,33 @@ export interface OpenQuestion {
   questionsToAsk: string[];
   category: Category;
   lastUpdated: string;
+}
+
+export type CoverageArea = 'Admin center' | 'Entra' | 'Purview' | 'Defender' | 'Intune';
+
+/** One row of the Microsoft 365 service description feature table. */
+export interface CoverageRow {
+  feature: string;
+  area: CoverageArea;
+  /** Included with qualifying Microsoft 365 Enterprise, Business, Education and Frontline plans */
+  includedWithM365: boolean;
+  /** Available in GCC per the service description */
+  gcc: boolean;
+  /** Where the Agent 365 Licensing FAQ (microsoft.com/licensing/faqs/122) appears to say something different */
+  conflict?: string;
+}
+
+export interface Dependency {
+  name: string;
+  whatItDoes: string;
+  licenseNote: string;
+  withoutIt: string;
+}
+
+export interface Gotcha {
+  id: string;
+  title: string;
+  body: string;
+  severity: 'important' | 'warning' | 'info';
+  source: Source;
 }

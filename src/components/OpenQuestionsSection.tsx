@@ -11,15 +11,6 @@ export const OpenQuestionsSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
-        <p className="text-orange-900 font-medium mb-2">
-          📝 Agent 365 is in early access (Frontier program)
-        </p>
-        <p className="text-orange-800 text-sm">
-          Many details are still being finalized as Microsoft moves toward general availability. This section tracks what we know, what we don't know, and what questions you should ask your Microsoft contacts.
-        </p>
-      </div>
-
       <div className="space-y-6">
         {openQuestions.map((oq) => (
           <div key={oq.id} className="bg-white border border-gray-200 rounded-lg p-6">
@@ -87,7 +78,7 @@ export const OpenQuestionsSection: React.FC = () => {
           </li>
           <li className="flex gap-2">
             <span>•</span>
-            <span>Join the Frontier program to get early access and influence product direction</span>
+            <span>Join the Frontier program for early access to preview features</span>
           </li>
           <li className="flex gap-2">
             <span>•</span>

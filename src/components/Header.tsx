@@ -7,11 +7,10 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const navItems = [
     { id: 'overview', label: 'Overview' },
-    { id: 'faq', label: 'FAQ Explorer' },
-    { id: 'scenarios', label: 'Scenarios' },
-    { id: 'governance', label: 'Governance & Security' },
-    { id: 'architecture', label: 'Architecture' },
-    { id: 'ecosystem', label: 'Ecosystem' },
+    { id: 'coverage', label: "Included vs paid" },
+    { id: 'dependencies', label: 'Dependencies' },
+    { id: 'gotchas', label: 'Gotchas' },
+    { id: 'faq', label: 'FAQ' },
     { id: 'open-questions', label: 'Open Questions' },
   ];
 

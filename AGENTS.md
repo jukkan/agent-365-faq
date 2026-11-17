@@ -21,11 +21,11 @@ Unofficial FAQ microsite for **Microsoft Agent 365** — Microsoft's control pla
 ```
 .github/workflows/deploy.yml   # CI: push to main → build → GitHub Pages
 src/
-  components/                  # 15 React components (named exports only)
+  components/                  # React components (named exports only)
   data/
     types.ts                   # Shared TypeScript types and interfaces
     faqs.ts                    # FAQ content (FaqItem[])
-    scenarios.ts               # Scenario content
+    coverage.ts / dependencies.ts / gotchas.ts  # Included-vs-paid matrix, dependency cards, gotchas
     openQuestions.ts           # Open questions content
     categories.ts              # Category definitions
     roles.ts                   # Audience role definitions
@@ -62,9 +62,8 @@ npm run preview
 
 ```typescript
 type AudienceRole = 'IT Admin' | 'Security & Compliance' | 'Developer / Architect' | 'Business & Licensing';
-type Category = 'Basics' | 'Architecture' | 'Security & Compliance' | 'Governance & Shadow Agents'
-              | 'Ecosystem & Integrations' | 'Licensing & Availability' | 'Rollout & Adoption'
-              | 'Developer Experience';
+type Category = 'Basics' | 'Included vs Paid' | 'Dependencies' | 'Gotchas' | 'Governance & Security'
+              | 'Agents & Platforms' | 'Building Agents';
 type Difficulty = 'Intro' | 'Intermediate' | 'Advanced';
 type SourceType = 'Official' | 'News' | 'Analysis';
 type Status = 'Documented' | 'Partially documented' | 'Not yet documented / speculative';

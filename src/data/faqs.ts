@@ -1,2503 +1,423 @@
-import type { FaqItem } from './types';
+import type { FaqItem, Source } from './types';
+import { carriedOverFaqs } from './faqsCarriedOver';
 
-export const faqs: FaqItem[] = [
+const SD: Source = {
+  label: 'Microsoft Agent 365 service description (Microsoft Learn)',
+  url: 'https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-agent-365/microsoft-agent-365',
+  type: 'Official',
+};
+const LIC: Source = {
+  label: 'Microsoft Agent 365 Licensing FAQ',
+  url: 'https://www.microsoft.com/licensing/faqs/122',
+  type: 'Official',
+};
+const TERMS: Source = {
+  label: 'Microsoft Product Terms — Agent 365',
+  url: 'https://www.microsoft.com/licensing/terms/productoffering/Agent365/EAEAS#clause-2755-h3-1',
+  type: 'Official',
+};
+const IGNITE: Source = {
+  label: "What's new in Microsoft Agent 365 — Ignite 2026 (Tech Community)",
+  url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-microsoft-agent-365-ignite-2026/4571753',
+  type: 'Official',
+};
+const OVERVIEW: Source = {
+  label: 'Microsoft Agent 365 overview (Microsoft Learn)',
+  url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
+  type: 'Official',
+};
+const GA: Source = {
+  label: 'Microsoft Agent 365, now generally available (Microsoft Security Blog, May 1, 2026)',
+  url: 'https://www.microsoft.com/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/',
+  type: 'Official',
+};
+
+const REVIEWED = '2026-11-17';
+
+const newFaqs: FaqItem[] = [
   // BASICS
   {
     id: 'basics-001',
-    question: 'What is Microsoft Agent 365 in simple terms?',
-    shortAnswer: 'Agent 365 is Microsoft\'s control plane for AI agents - a centralized system to observe, secure, and govern all agents across your organization, whether built with Copilot Studio, Microsoft Foundry, open-source frameworks, or third-party platforms. Now generally available.',
-    detailedAnswer: `Agent 365 is best understood as a **management and governance layer** for AI agents, similar to how Microsoft Entra ID manages user identities. It became **generally available on May 1, 2026** at **$15 per user per month**.
+    question: 'What is Agent 365, in one paragraph?',
+    shortAnswer: 'A control plane for AI agents: a registry plus governance, security and cost views that span Microsoft and non-Microsoft agents. Generally available for the Commercial cloud since May 1, 2026, licensed per user.',
+    detailedAnswer: `Microsoft describes four pillars: **management** (registry, Agent Map, connected platforms), **governance** (owners, approvals, tool control, policy templates), **security** (risk signals from Defender, Entra and Purview) and **business value** (usage and Copilot Credit spend).
 
-**Key capabilities:**
-- **Registry**: A central inventory of all agents in your organization, including shadow agents
-- **Access Control**: Define what each agent can access using conditional access policies
-- **Observability**: Explore connections between agents, people, and data; monitor agent behavior and performance in real time
-- **Security**: Detect and respond to threats via Microsoft Defender integration
-- **Governance**: Apply data protection policies via Microsoft Purview integration
+The part customers tend to miss: it is not one console. The registry and basic governance live in the Microsoft 365 admin center, but most security capabilities are delivered through Entra, Purview, Defender and Intune. The Agent 365 license is what entitles you to those agent features in those products.
 
-**What Agent 365 unites:**
-- Microsoft 365 apps optimized for agent productivity
-- Microsoft Admin Center for agent management
-- **Windows 365 for Agents** - a secure execution environment for computer-using AI agents
-- Defender, Entra, and Purview for agent security and governance
-
-Think of it as giving your IT and security teams the same level of control over AI agents that they have over human users - because agents are becoming "digital employees" that can take actions, access data, and make decisions.
-
-Agent 365 is also available as part of **Microsoft 365 E7: The Frontier Suite** ($99/user/month), which bundles Copilot, Agent 365, Entra Suite, and E5 security.
-
-Official documentation is available on Microsoft Learn - see the sources below.`,
-    audiences: ['IT Admin', 'Security & Compliance', 'Business & Licensing'],
+It is licensed per user, not per agent. List price: $15 per user per month standalone, or included in Microsoft 365 E7 ($99).`,
+    audiences: ['IT Admin', 'Business & Licensing', 'Security & Compliance'],
     categories: ['Basics'],
     difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
-        type: 'Official',
-      },
-      {
-        label: 'Hello, world. — Agent 365 Blog launch post (Feb 2026)',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
-        type: 'Official',
-      },
-    ],
+    sources: [OVERVIEW, LIC],
     status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    tags: ['control plane', 'registry', 'governance', 'windows 365 for agents', 'ga', 'pricing'],
+    lastReviewed: REVIEWED,
+    updatedAt: REVIEWED,
+    tags: ['overview', 'control plane'],
   },
   {
     id: 'basics-002',
     question: 'How is Agent 365 different from Microsoft 365 Copilot and Copilot Studio?',
-    shortAnswer: 'Copilot is an AI assistant, Copilot Studio is an agent-building tool, and Agent 365 is the governance and management layer that sits above all agents regardless of where they were built.',
-    detailedAnswer: `These are three distinct but related products:
+    shortAnswer: 'Copilot and Copilot Studio are where agents are used and built. Agent 365 is where they are inventoried, governed and secured, including agents from other vendors. You do not need Copilot to buy Agent 365.',
+    detailedAnswer: `**Copilot / Copilot Studio / Foundry**: build and run agents.
+**Agent 365**: registry, ownership, access, policy, risk and cost across all of them, plus agents on other platforms and local agents on endpoints.
 
-**Microsoft 365 Copilot:**
-- An AI assistant embedded in Microsoft 365 apps (Word, Excel, Teams, etc.)
-- Helps users with productivity tasks
-- Can be extended with custom agents
-
-**Copilot Studio:**
-- A low-code tool for building custom agents
-- Provides visual designers, connectors to data sources, and workflow automation
-- Agents built here can be deployed to Microsoft 365 Copilot or Teams
-
-**Microsoft Foundry (formerly Azure AI Foundry):**
-- Microsoft's platform for building enterprise AI agents with pro-code tooling
-- Includes integration with Agent 365 out of the box
-
-**Agent 365:**
-- A governance and management platform that works ACROSS all agents
-- Manages agents from Copilot Studio, Microsoft Foundry, third-party platforms (Salesforce, ServiceNow), and custom-built agents
-- Provides registry, security, access control, monitoring, and compliance
-- Provides enterprise SDK and CLI for developers integrating any agent framework
-
-**Analogy:** If agents are employees, Copilot Studio is the hiring/training department, and Agent 365 is HR + IT + Security combined - managing all employees regardless of which department hired them.`,
-    audiences: ['IT Admin', 'Business & Licensing', 'Developer / Architect'],
-    categories: ['Basics', 'Ecosystem & Integrations'],
+Overlap to watch: Business Analytics for Microsoft AI services requires at least one Microsoft 365 Copilot license in the tenant, and E7 bundles both. Otherwise they are bought separately.`,
+    audiences: ['IT Admin', 'Business & Licensing'],
+    categories: ['Basics'],
     difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
-        type: 'Official',
-      },
-    ],
+    sources: [IGNITE, LIC],
     status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['copilot', 'copilot studio', 'microsoft foundry', 'comparison'],
+    lastReviewed: REVIEWED,
+    tags: ['copilot', 'copilot studio'],
   },
   {
     id: 'basics-003',
-    question: 'Is Agent 365 itself an "agent"?',
-    shortAnswer: 'No, Agent 365 is not an agent. It is a management platform - a control plane that governs other agents.',
-    detailedAnswer: `Agent 365 is **not an AI agent** that performs tasks or makes decisions. It is infrastructure.
+    question: 'Is Agent 365 only for large enterprises?',
+    shortAnswer: 'No. Microsoft 365 Business Premium is on the prerequisite list, and there are SMB, Education and Frontline paths. But the value depends on how many agents you actually have.',
+    detailedAnswer: `The Product Terms prerequisite list includes **Microsoft 365 Business Premium**, and the Licensing FAQ describes SMB, Education and Frontline combinations. For SMB it says Defender Suite for SMB and Purview Suite for SMB are needed to unlock full functionality, though they are not formal prerequisites.
 
-**What it IS:**
-- A registry and database of agent metadata
-- A policy enforcement system
-- A monitoring and observability platform
-- An integration layer connecting agents to security and compliance tools
-
-**What it is NOT:**
-- A conversational AI
-- A task automation tool
-- A replacement for Copilot or Copilot Studio
-
-Think of it like Microsoft Entra ID: Entra doesn't "do work" on behalf of users, it manages their identities, permissions, and access. Agent 365 does the same for agents.`,
-    audiences: ['IT Admin', 'Developer / Architect'],
-    categories: ['Basics', 'Architecture'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 blog post',
-        url: 'https://www.microsoft.com/en-us/microsoft-365/blog/2025/11/18/microsoft-agent-365-the-control-plane-for-ai-agents/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['architecture', 'definition'],
-  },
-
-  // GOVERNANCE & SHADOW AGENTS
-  {
-    id: 'governance-001',
-    question: 'How does Agent 365 help with shadow agents and agent sprawl?',
-    shortAnswer: 'Agent 365 provides a central registry that discovers and tracks all agents in your environment, including unsanctioned ones. It can quarantine unregistered agents and enforce governance policies.',
-    detailedAnswer: `Shadow agents are a growing risk: with 56 million monthly active Power Platform users, anyone can build agents without IT knowing.
-
-**How Agent 365 addresses this:**
-
-1. **Discovery**: Automatically discovers agents across Microsoft 365, Power Platform, Azure, and (eventually) third-party systems
-2. **Registry**: Maintains a central inventory with metadata about each agent (purpose, owner, data access, etc.)
-3. **Quarantine**: Can isolate unsanctioned agents until reviewed and approved
-4. **Policy Enforcement**: Blocks agents that don't meet security or compliance requirements
-5. **Visibility**: Dashboards show all agent activity, making shadow agents visible to IT and security teams
-
-**Editor's note:** The details of how Agent 365 discovers third-party agents are still emerging. Initial focus is on Microsoft ecosystem agents.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Governance & Shadow Agents', 'Security & Compliance'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Agent governance insights',
-        url: 'https://office365itpros.com/2025/06/27/agent-governance-rencore/',
-        type: 'Analysis',
-      },
-    ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['shadow IT', 'governance', 'discovery', 'quarantine'],
-  },
-  {
-    id: 'governance-002',
-    question: 'What does it mean to quarantine an unsanctioned agent?',
-    shortAnswer: 'Quarantine temporarily disables an agent and prevents it from executing actions or accessing data until IT reviews and either approves or permanently blocks it.',
-    detailedAnswer: `When Agent 365 detects an unregistered or non-compliant agent, it can place the agent in quarantine:
-
-**What happens during quarantine:**
-- Agent cannot execute actions or workflows
-- Data access is blocked
-- Agent remains visible in the registry for review
-- Owner is notified (if identifiable)
-
-**Review process:**
-1. IT/Security team investigates the agent's purpose, data access, and risk
-2. Decision: Approve, require changes, or permanently block
-3. If approved, agent is registered and policies are applied
-4. If blocked, agent is deactivated
-
-**Use cases for quarantine:**
-- Agents built by users without proper approval
-- Agents accessing sensitive data without appropriate controls
-- Agents using unapproved third-party connectors
-- Agents with security vulnerabilities
-
-This is similar to how endpoint management tools quarantine unmanaged devices.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Governance & Shadow Agents', 'Security & Compliance'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 landing page',
-        url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
-        type: 'Official',
-      },
-    ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['quarantine', 'policy enforcement'],
-  },
-  {
-    id: 'governance-003',
-    question: 'What workload-specific capabilities are included in Agent 365 GA, and what about OpenClaw shadow AI detection?',
-    shortAnswer: 'At GA, Agent 365 integrates with Microsoft 365 Admin Center, Entra (Identity Governance, Network Control), Defender (preview), Purview (preview continuing, full license required after Frontier), and Intune (OpenClaw shadow AI detection). Some capabilities remain in preview.',
-    detailedAnswer: `**Microsoft 365 Admin Center:**
-- No functional changes at GA
-- Preview and Frontier features remain clearly tagged in-product
-
-**Microsoft Entra:**
-- **Agent Identity Governance** (e.g., access packages, lifecycle workflows for agent sponsor maintenance) **requires Agent 365 license** at GA
-- **Conditional Access and Identity Protection** for agents continue without change (no new license requirement)
-- **Network Control for agents** (prompt injection protection, threat intelligence filtering, shadow AI detection, web/URL filtering, network file filtering) **requires Agent 365 license** at GA
-- Network Control on local endpoint devices continues to work if the Global Secure Access client is installed
-
-**Microsoft Defender:**
-- Agent protection features remain in **preview** for Defender for Cloud Apps and Defender for Cloud
-- Copilot Studio AI security posture, real-time protection, and investigation capabilities will require an Agent 365 license when each feature reaches GA in a future release
-
-**Microsoft Purview:**
-- Frontier participants retain access to Purview capabilities for agents (AI Observability, DLP, Insider Risk, Communication Compliance, Compliance Manager, Data Lifecycle Management, eDiscovery)
-- **After the Frontier program ends**, Purview coverage for all agents managed in Agent 365 will **require an Agent 365 license**
-
-**Microsoft Intune (OpenClaw Shadow AI Detection):**
-- Frontier customers licensed with Intune can discover Windows devices running **OpenClaw** (an open-source agent framework) via a new **Agent 365 Shadow AI page** in the Microsoft 365 admin center
-- Admins can apply policies to block common OpenClaw execution methods
-- Links to the Intune admin center for advanced controls
-
-**OpenClaw** is a popular open-source AI agent framework. Agent 365's ability to detect and govern OpenClaw agents demonstrates Microsoft's commitment to managing both first-party and third-party agents across the ecosystem.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Governance & Shadow Agents', 'Security & Compliance', 'Rollout & Adoption'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
-        type: 'Official',
-      },
-      {
-        label: 'Protect agent identities with Microsoft Entra | Agent 365',
-        url: 'https://learn.microsoft.com/microsoft-agent-365/admin/capabilities-entra',
-        type: 'Official',
-      },
-      {
-        label: 'Monitor agents with Microsoft Defender | Agent 365',
-        url: 'https://learn.microsoft.com/microsoft-agent-365/admin/threat-protection',
-        type: 'Official',
-      },
-      {
-        label: 'Use Microsoft Purview for Agent 365 data security',
-        url: 'https://learn.microsoft.com/purview/ai-agent-365',
-        type: 'Official',
-      },
-      {
-        label: 'Install Global Secure Access client for Windows',
-        url: 'https://learn.microsoft.com/entra/global-secure-access/how-to-install-windows-client',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['workloads', 'entra', 'defender', 'purview', 'intune', 'openclaw', 'shadow ai', 'ga'],
-  },
-
-  // SECURITY & COMPLIANCE
-  {
-    id: 'security-001',
-    question: 'What protections does Microsoft Defender add for AI agents via Agent 365?',
-    shortAnswer: 'Defender provides security posture management, threat detection and investigation, and runtime threat protection for agents—including protection against prompt manipulation, model tampering, and agent-based attack chains.',
-    detailedAnswer: `Microsoft Defender integrates with Agent 365 to secure agents with purpose-built protections:
-
-**Security Posture Management (public preview):**
-- Detects misconfigurations and vulnerabilities in Microsoft Foundry and Copilot Studio agents
-- Enables security leaders to proactively resolve issues before they become attack vectors
-- Recommends security improvements
-
-**Detection, Investigation, and Response (public preview):**
-- Enables investigation and remediation of attacks that target agents
-- Ensures agents are accounted for in security investigations
-- Generates alerts when threats are detected
-- Provides investigation tools and timelines
-
-**Runtime Threat Protection (public preview, entering April 2026):**
-- Protects agents that use the Agent 365 tools gateway
-- Detects, blocks, and investigates malicious agent activities at runtime
-- Protects against prompt manipulation, model tampering, and agent-based attack chains
-
-**Agent Risk Signals (public preview):**
-- Defender assesses risk of agent compromise
-- Entra evaluates identity risk for agents
-- Purview evaluates insider risk for agent interactions
-- Security teams can evaluate agent risk just like they do for users
-- Agent actions can be blocked based on compromise signals, sign-in anomalies, and risky data interactions
-
-**Note:** Several Defender capabilities for agents are in **public preview** and will continue to be in preview at GA on May 1, 2026. Runtime threat protection enters public preview in April 2026.`,
-    audiences: ['Security & Compliance', 'IT Admin'],
-    categories: ['Security & Compliance'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Securing autonomous agents with Microsoft Security',
-        url: 'https://www.microsoft.com/en-us/security/blog/2025/08/26/securing-and-governing-the-rise-of-autonomous-agents/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['defender', 'threat detection', 'security', 'runtime protection', 'posture management'],
-  },
-  {
-    id: 'security-002',
-    question: 'How does Agent 365 address prompt injection and data exfiltration risks?',
-    shortAnswer: 'Agent 365 uses Defender runtime threat protection to detect and block prompt manipulation at runtime, and Purview inline DLP to block sensitive data in prompts. Purview sensitivity labels ensure agents follow the same data handling rules as users.',
-    detailedAnswer: `Prompt injection and data exfiltration are two of the biggest risks with AI agents. Agent 365 addresses both through multiple layers:
-
-**Prompt Injection / Manipulation Protection:**
-- **Defender runtime threat protection** detects and blocks prompt manipulation, model tampering, and agent-based attack chains (public preview, entering April 2026)
-- Detection of jailbreak attempts and malicious instructions
-- Blocking of requests that try to override the agent's system prompt
-- Integration with Microsoft Defender's threat intelligence
-
-**Data Exfiltration Prevention:**
-- **Inline Data Loss Prevention (DLP)** for prompts to Copilot Studio agents blocks sensitive information such as personally identifiable information, credit card numbers, and custom sensitive information types (SITs) from being processed in the runtime
-- **Information Protection** ensures agents inherit and honor Microsoft 365 data sensitivity labels—agents follow the same rules as users for handling sensitive data
-- **Data Security Posture Management** provides visibility into data risks for agents so admins can proactively mitigate them
-- **Insider Risk Management** extends to agents to block and flag risky agent interactions with sensitive data
-
-**Data Lifecycle and Compliance:**
-- **Data Lifecycle Management** enables retention and deletion policies for prompts and agent-generated data
-- **Audit and eDiscovery** treats AI agents as auditable entities alongside users and applications
-- **Communication Compliance** extends to agent interactions to detect risky AI communications
-
-**Limitations to note:**
-- Some Purview capabilities (insider risk signals) will remain in public preview at GA
-- Protection is strongest within the Microsoft ecosystem
-- Third-party agents may require additional configuration
-- Runtime filtering can impact performance
-
-**Best practice:** Use least-privilege access and test agents in isolated environments before production deployment.`,
-    audiences: ['Security & Compliance', 'Developer / Architect'],
-    categories: ['Security & Compliance'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft extends Zero Trust to secure the agentic workforce',
-        url: 'https://www.microsoft.com/en-us/security/blog/2025/05/19/microsoft-extends-zero-trust-to-secure-the-agentic-workforce/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['prompt injection', 'data exfiltration', 'purview', 'DLP', 'inline dlp', 'information protection'],
-  },
-  {
-    id: 'security-003',
-    question: 'What is the relationship between Agent 365, Entra Agent ID, Defender, and Purview?',
-    shortAnswer: 'Agent 365 is the orchestration layer. Entra Agent ID provides identities and access governance, Defender provides security and threat protection, and Purview provides data governance and compliance. They work together as an integrated stack.',
-    detailedAnswer: `These four products form Microsoft's AI agent security and governance stack:
-
-**Microsoft Entra Agent ID (included in Agent 365):**
-- **Agent identities**: Gives each agent a unique identity with a dedicated hierarchy—agent blueprints define agent types, agent identities are instantiated instances, and agent users provide user-like accounts when needed
-- **Conditional Access for agents**: Treats agents as first-class identities. Enforces adaptive access policies based on agent risk level, custom security attributes, and blueprint grouping. Supports both agent identities and agent users
-- **Identity Protection for agents**: Detects risky agent behavior—unfamiliar resource access, sign-in spikes, failed access attempts, risky user sign-ins—and feeds risk signals into Conditional Access and the Agent Registry
-- **Identity Governance for agents**: Manages agent lifecycle from deployment to expiration. Requires human sponsors for oversight, supports access packages for time-bound resource access, and auto-transfers sponsorship when sponsors leave
-- **Network controls (Global Secure Access)**: Enforces network security on agent traffic—web content filtering, threat intelligence filtering, file-type policies, and prompt injection detection at the network level
-
-**Agent 365 (the control plane):**
-- **Agent Registry**: Central inventory of all agents (Microsoft, ecosystem partners, API-registered)
-- **Observability**: Agent behavior, performance, adoption metrics, agent map, and activity details
-- **Agent risk signals**: Aggregated from Defender, Entra, and Purview
-- **Policy orchestration** across all agents
-
-**Microsoft Defender (security, included in Agent 365):**
-- **Security posture management** for Foundry and Copilot Studio agents (public preview)
-- **Detection, investigation, and response** for agent-targeted attacks (public preview)
-- **Runtime threat protection** for agents using the tools gateway (public preview, entering April 2026)
-- Protects against prompt manipulation, model tampering, and agent-based attack chains
-
-**Microsoft Purview (data governance, included in Agent 365):**
-- **Data Security Posture Management**: Visibility into data risks for agents
-- **Information Protection**: Agents inherit and honor M365 sensitivity labels
-- **Inline DLP**: Blocks sensitive data in prompts to Copilot Studio agents
-- **Insider Risk Management**: Extends insider risk protection to agents
-- **Data Lifecycle Management**: Retention/deletion policies for agent data
-- **Audit and eDiscovery**: Agents are auditable entities
-- **Communication Compliance**: Extends to agent interactions
-
-**How they work together:**
-1. An agent is given an **Entra Agent ID** identity (blueprint → agent identity → optional agent user)
-2. **Agent 365** registers the agent, applies Blueprint policies, and provides observability
-3. **Entra** enforces Conditional Access, detects risky behavior, and governs access lifecycle with human sponsors
-4. **Purview** enforces data protection—sensitivity labels, DLP, insider risk
-5. **Defender** monitors for threats—posture assessment, detection, runtime protection
-6. All activity is logged and auditable across the stack
-
-Think of it as: Entra = ID card + access policies, Agent 365 = HR system, Defender = security guard, Purview = compliance officer.`,
-    audiences: ['Security & Compliance', 'IT Admin', 'Developer / Architect'],
-    categories: ['Security & Compliance', 'Architecture', 'Ecosystem & Integrations'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Announcing Microsoft Entra Agent ID',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft-entra-blog/announcing-microsoft-entra-agent-id-secure-and-manage-your-ai-agents/3827392',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-14',
-    updatedAt: '2026-03-14',
-    tags: ['entra', 'defender', 'purview', 'architecture', 'integration', 'agent id', 'conditional access', 'identity protection', 'identity governance'],
-  },
-
-  // LICENSING & AVAILABILITY
-  {
-    id: 'licensing-001',
-    question: 'How do I get access to Agent 365 today?',
-    shortAnswer: 'Agent 365 is generally available as of May 1, 2026, priced at $15 per user per month standalone or included in Microsoft 365 E7 at $99 per user per month. Trial and paid licenses are available across all commercial channels.',
-    detailedAnswer: `**Agent 365 is now generally available (May 1, 2026)**
-
-Agent 365 reached general availability on May 1, 2026, indicating it is ready for enterprise production use with clearer licensing boundaries, improved governance, and predictable support.
-
-**Licensing options:**
-- **Agent 365 standalone:** $15 per user per month
-- **Microsoft 365 E7: The Frontier Suite:** $99 per user per month (includes E5, Copilot, Agent 365, and Entra Suite)
-- Available across all commercial channels (information about EDU, Charity, and Government SKUs will be shared later)
-
-**How to get started:**
-
-**Option 1: Start a trial**
-- Visit the [Agent 365 trial page](https://m365-mcrp.azurewebsites.net/request/active/20640)
-- Trial licenses provide the GA, enterprise-ready experience
-
-**Option 2: Purchase licenses**
-- Contact your Microsoft account team
-- Purchase standalone ($15/user/month) or upgrade to E7 ($99/user/month)
-
-**Frontier preview program (for early access to new features):**
-
-The Frontier program continues to provide early access to preview features alongside the GA product. Key differences:
-- **GA experience**: Trial and paid Agent 365 licenses represent the enterprise-ready, production-supported experience
-- **Frontier preview**: Provides early access to preview capabilities, clearly labeled in-product as "Preview" or "Frontier"
-- Frontier is **not intended for production deployment** and does not include SLAs
-- No action required to remain enrolled in Frontier if already participating
-
-**Next steps after enabling:**
-- Take a tour of your Agent 365 overview page in the Microsoft 365 Admin Center
-- Use the Agent 365 documentation hub on Microsoft Learn
-- For developers: explore the Agent 365 SDK and CLI`,
-    audiences: ['IT Admin', 'Business & Licensing'],
-    categories: ['Licensing & Availability', 'Rollout & Adoption'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
-        type: 'Official',
-      },
-      {
-        label: 'Start an Agent 365 trial',
-        url: 'https://m365-mcrp.azurewebsites.net/request/active/20640',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    tags: ['general availability', 'pricing', 'availability', 'admin center', 'e7', 'trial'],
-  },
-  {
-    id: 'licensing-002',
-    question: 'Is Agent 365 a separate paid product, or included in existing Microsoft 365 plans?',
-    shortAnswer: 'Agent 365 is a separate paid product at $15 per user per month, generally available May 1, 2026. It is also included in the new Microsoft 365 E7: The Frontier Suite at $99 per user per month.',
-    detailedAnswer: `**Pricing announced (March 9, 2026):**
-- **Agent 365 standalone:** $15 per user per month (GA May 1, 2026)
-- **Microsoft 365 E7: The Frontier Suite:** $99 per user per month (GA May 1, 2026)
-
-**What is included in Agent 365 ($15/user/month):**
-- Agent Registry and observability
-- Agent ID (Entra-based unique identity for agents)
-- Identity Protection and Conditional Access for agents
-- Identity Governance for agents
-- Microsoft Purview capabilities: Data Security Posture Management, Information Protection, Inline DLP, Insider Risk Management, Data Lifecycle Management, Audit & eDiscovery, Communication Compliance
-- Microsoft Defender protections for agents: security posture management, detection/investigation/response, runtime threat protection
-- Security policy templates
-
-**What is included in Microsoft 365 E7 ($99/user/month):**
-- Everything in Microsoft 365 E5
-- Microsoft 365 Copilot
-- Agent 365
-- Microsoft Entra Suite
-- Advanced Defender, Entra, Intune, and Purview security capabilities
-
-**What this means for existing customers:**
-- E5 customers: Agent 365 is NOT included — purchase as add-on or upgrade to E7
-- E3 customers: Agent 365 is available as add-on, or upgrade path to E7
-- Copilot customers: Agent 365 is separate — governs Copilot agents but is not bundled with the Copilot license itself
-
-**Note:** Some capabilities (Defender risk signals, Purview insider risk, runtime threat protection) will remain in public preview on May 1.
-
-**Learn more:** <a href="https://licensing.guide/tag/agent-365/" target="_blank" rel="noopener noreferrer" style="color: #0078d4; text-decoration: underline;">Read more about Microsoft Agent 365 licensing in The Licensing Guide blog</a>`,
+A practical test: if the free registry (see "What do I get without buying anything?") already shows few agents and no external platforms, you may not need the paid layer yet. This is our opinion, not Microsoft guidance.`,
     audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Agent 365 landing page',
-        url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['pricing', 'licensing', 'SKU', 'e7'],
-  },
-
-  // DEVELOPER EXPERIENCE
-  {
-    id: 'dev-001',
-    question: 'If I build an agent in Copilot Studio or Microsoft Foundry, what do I need to do to make it Agent 365 compatible?',
-    shortAnswer: 'Agents built in Copilot Studio and Microsoft Foundry integrate with Agent 365 automatically. For custom agents built on any SDK, use the Agent 365 SDK and CLI to add enterprise identity, observability, and governed Work IQ MCP tool access.',
-    detailedAnswer: `**For Copilot Studio agents:**
-- Agents built in Copilot Studio can be published to Microsoft 365 Copilot
-- Once published, they automatically appear in the Agent 365 registry
-- Apply governance policies and Blueprints via the Admin Center
-
-**For Microsoft Foundry agents (formerly Azure AI Foundry):**
-- Microsoft Foundry integrates with Agent 365 out of the box
-- Agents created in Foundry can be automatically registered
-- Supports Entra Agent IDs natively
-
-**For custom or open-source agents (any framework):**
-- Use the **Agent 365 SDK** to extend your agent with enterprise capabilities:
-  - Entra-based Agent identity
-  - Governed Work IQ MCP tool access (Outlook, Teams, SharePoint, etc.)
-  - OpenTelemetry-based observability
-  - Notifications via Activity protocol
-- Use the **Agent 365 CLI** (a365) to automate setup, blueprint creation, MCP integration, publishing, and Azure deployment
-- Supported frameworks: LangChain, OpenAI Agents SDK, Claude Code SDK, Microsoft Agent Framework, Microsoft Agents SDK
-
-**Best practices:**
-- Use descriptive names and documentation for your agents
-- Follow least-privilege principles for data access
-- Use Agent Blueprints for consistent policy inheritance
-- Test locally using the Agent 365 CLI mock tooling server
-- Document agent capabilities and limitations`,
-    audiences: ['Developer / Architect'],
-    categories: ['Developer Experience', 'Rollout & Adoption'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Agent 365 SDK and CLI (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
-        type: 'Official',
-      },
-      {
-        label: 'Agent 365 development lifecycle (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/a365-dev-lifecycle',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['copilot studio', 'microsoft foundry', 'sdk', 'cli', 'registration'],
-  },
-  {
-    id: 'dev-002',
-    question: 'How do Entra Agent ID and Agent 365 work together for custom agents?',
-    shortAnswer: 'Entra Agent ID provides the identity and authentication mechanism for your custom agent. Agent 365 registers that identity and applies governance, security, and monitoring policies. The identity hierarchy uses agent blueprints, agent identities, and optional agent users.',
-    detailedAnswer: `**Agent identity architecture:**
-
-Entra Agent ID introduces a purpose-built identity hierarchy for AI agents:
-
-- **Agent blueprint**: A logical definition of an agent type (like a template). Registered as an application in Entra
-- **Agent identity blueprint principal**: A service principal representing the blueprint in the tenant—used only to create agent identities and agent users
-- **Agent identity**: An instantiated agent identity that authenticates and accesses resources
-- **Agent user**: An optional nonhuman user account for agents that need user-like capabilities (mailbox, Teams, calendar access)
-
-Each blueprint can create multiple agent identities, and each agent identity can optionally have one agent user.
-
-**The workflow for custom agents:**
-
-1. **Create an Agent Blueprint**
-   - Register your agent type in the Microsoft Entra admin center or via the Microsoft agent identity platform APIs
-   - Define the blueprint with capabilities, permissions, and metadata
-   - The blueprint acts as a template for creating agent instances
-
-2. **Instantiate Agent Identities**
-   - Create agent identities from the blueprint
-   - Each identity authenticates via OAuth 2.0/OIDC (certificate, secret, or federated credentials)
-   - Optionally create an agent user if the agent needs user-like access (mailbox, Teams participation)
-
-3. **Assign a Sponsor**
-   - Every agent identity should have a human sponsor responsible for oversight
-   - Sponsors manage the agent's lifecycle and access decisions
-   - If a sponsor leaves, sponsorship auto-transfers to their manager
-
-4. **Configure Access**
-   - Use access packages in Entra ID Governance for time-bound, auditable resource access
-   - Apply Conditional Access policies (risk-based, attribute-based, or blueprint-grouped)
-   - Grant Microsoft Graph permissions, Azure RBAC roles, or app roles as needed
-
-5. **Register with Agent 365**
-   - Agent 365 links the Entra identity to the central Agent Registry
-   - Apply blueprint-level policies, enable observability, configure monitoring
-
-6. **Deploy and monitor**
-   - Deploy agent to your environment (Azure, AWS, GCP, or on-premises)
-   - Entra Identity Protection monitors for risky behavior (sign-in spikes, unfamiliar resource access)
-   - Monitor via Agent 365 dashboards and receive alerts if security issues arise
-
-**Platform integration:**
-- **Microsoft Foundry** automatically provisions agent blueprints and identities when you create agents
-- **Copilot Studio** can automatically assign agent identities to agents created in Power Platform
-- **Azure App Service / Functions** can use agent identities for secure resource access
-- **Teams** developers can manage agent blueprints in the Developer Portal
-
-**Key benefit:** Your custom agent gets the same governance and security as Microsoft-built agents—Conditional Access, Identity Protection, Identity Governance, and network controls all apply.
-
-**Technical note:** Agent identities start with no permissions—you must explicitly grant access. They support both autonomous access (application-only) and delegated access (on behalf of a user).`,
-    audiences: ['Developer / Architect', 'Security & Compliance'],
-    categories: ['Developer Experience', 'Architecture', 'Security & Compliance'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'What are agent identities? — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-platform/what-is-agent-id',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
-        type: 'Official',
-      },
-      {
-        label: 'Identity Governance for agent identities — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-14',
-    updatedAt: '2026-03-14',
-    tags: ['entra agent id', 'custom agents', 'development', 'agent blueprint', 'agent identity', 'agent user'],
-  },
-
-  // ECOSYSTEM & INTEGRATIONS
-  {
-    id: 'ecosystem-001',
-    question: 'Can Agent 365 manage third-party agents from Salesforce, ServiceNow, or Workday?',
-    shortAnswer: 'Yes, in theory. Agent 365 is designed to support third-party agents, but the integration details and partner ecosystem are still developing. Initial focus is on Microsoft ecosystem agents.',
-    detailedAnswer: `**Microsoft's stated vision:**
-Agent 365 is positioned as an open platform that can govern agents from any source - Microsoft, ISVs, and custom-built.
-
-**How third-party integration works (planned):**
-1. Third-party agent must have an Entra Agent ID
-2. Agent metadata is registered in Agent 365
-3. Agent authenticates via Entra when accessing Microsoft 365 data
-4. Agent 365 applies policies and monitoring
-
-**Current reality:**
-- Integration mechanisms are still being finalized
-- ISV partners are building Agent 365 connectors
-- Most documentation focuses on Microsoft-built agents
-- Cross-platform governance is complex
-
-**Challenges:**
-- Third-party agents may use different identity systems
-- Data flows outside Microsoft cloud may not be fully visible
-- Compliance and monitoring may be limited for external agents
-- Partner ecosystem maturity takes time
-
-**Practical advice:**
-If you need to govern third-party agents today:
-- Ask your ISV vendor about Agent 365 integration plans
-- Consider using API gateways for visibility and control
-- Implement logging and monitoring at integration points
-- Use Entra conditional access to control data access
-
-**Editor's note:** This is an area to watch closely as Microsoft announces partnerships and integration patterns.`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Security & Compliance'],
-    categories: ['Ecosystem & Integrations', 'Governance & Shadow Agents'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 landing page',
-        url: 'https://www.microsoft.com/en-us/microsoft-agent-365',
-        type: 'Official',
-      },
-    ],
+    categories: ['Basics', 'Included vs Paid'],
+    difficulty: 'Intro',
+    sources: [LIC, TERMS],
     status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['third-party', 'salesforce', 'servicenow', 'integrations'],
+    lastReviewed: REVIEWED,
+    tags: ['smb', 'business premium'],
   },
+
+  // INCLUDED VS PAID
   {
-    id: 'ecosystem-002',
-    question: 'What is the relationship between Agent 365 and the Microsoft 365 Copilot agent store?',
-    shortAnswer: 'The Copilot agent store is a discovery and distribution channel for agents. Agent 365 is the governance layer that manages all agents, including those from the store.',
-    detailedAnswer: `**Microsoft 365 Copilot Agent Store:**
-- A marketplace where users can discover and add agents to Copilot
-- Includes Microsoft-built agents (Researcher, Analyst, etc.) and third-party agents
-- Agents are categorized by role and use case
-- Users can install agents with a few clicks
+    id: 'paid-001',
+    question: 'What do I get without buying anything?',
+    shortAnswer: 'Per the service description: the agent registry inventory, basic governance actions, lifecycle automation rules and syncing agents from external platforms into the registry. Core usage insights are also GA with qualifying subscriptions.',
+    detailedAnswer: `**Included with qualifying Microsoft 365 Enterprise, Business, Education and Frontline plans (service description):**
+- Inventory of agents in the Agent Registry
+- Basic governance: publish, deploy, block, delete, approve, assign to users/groups, reassign owner, pin
+- Automate lifecycle actions with conditions-based rules
+- Sync agents and metadata from external platforms into the registry
+- Core usage insights (agent overview, active users, activity, sessions, exception rate, run time), GA per the Ignite 2026 post
 
-**Agent 365's role:**
-- Governs which agents from the store can be installed (IT controls)
-- Monitors usage of store-installed agents
-- Applies security and compliance policies to all agents
-- Provides visibility into which agents are being used and by whom
-
-**IT admin workflow:**
-1. User browses agent store and requests to install an agent
-2. Request triggers approval workflow (if configured)
-3. IT reviews agent permissions and data access
-4. If approved, agent is installed and registered in Agent 365
-5. Agent 365 monitors the agent's activity
-
-**Controls available:**
-- Block specific agents tenant-wide
-- Require approval for certain categories of agents
-- Auto-approve pre-vetted agents
-- Set data access restrictions per agent
-
-**Think of it as:** The agent store is like an app store, and Agent 365 is like Mobile Device Management (MDM) for those apps.`,
+**Caveat:** the Licensing FAQ draws the line differently (see "Why do Microsoft's pages disagree?"). Use the Coverage matrix on this site for the row-by-row view.`,
     audiences: ['IT Admin', 'Business & Licensing'],
-    categories: ['Ecosystem & Integrations', 'Governance & Shadow Agents'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Microsoft 365 Copilot built for the era of human-agent collaboration',
-        url: 'https://www.microsoft.com/en-us/microsoft-365/blog/2025/04/23/microsoft-365-copilot-built-for-the-era-of-human-agent-collaboration/',
-        type: 'Official',
-      },
-    ],
+    categories: ['Included vs Paid'],
+    difficulty: 'Intro',
+    sources: [SD, IGNITE, LIC],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['agent store', 'copilot', 'marketplace'],
-  },
-  {
-    id: 'ecosystem-004',
-    question: 'Does Copilot support multi-model selection (Claude, OpenAI, etc.) in Agent 365?',
-    shortAnswer: 'Yes. As of May 2026, Copilot now allows users to select between Claude models, OpenAI models, or let Copilot automatically pick the best model for each task.',
-    detailedAnswer: `**Multi-model support launched May 2026:**
-
-Microsoft 365 Copilot now supports multiple AI models, giving users and agents flexibility in choosing the right model for different tasks.
-
-**Available options:**
-- **Claude models** (Anthropic)
-- **OpenAI models** (GPT-4o and successors)
-- **Automatic selection** — Copilot picks the best model for the task
-
-**How it works:**
-- Users can select their preferred model in Copilot settings
-- Agents can specify model preferences via the Agent 365 SDK
-- Copilot can automatically route requests to the most appropriate model based on task type
-
-**Benefits:**
-- **Performance optimization** — different models excel at different tasks
-- **Cost optimization** — use less expensive models for simpler tasks
-- **Flexibility** — organizations can choose based on compliance, performance, or cost requirements
-- **Future-proofing** — easily adopt new models as they become available
-
-**Governance considerations:**
-- IT admins can restrict which models are available in the tenant
-- Model usage is tracked in Agent 365 observability dashboards
-- Data residency and compliance policies apply to all models
-
-**Note:** Model availability and pricing may vary by region and license type. Check Microsoft 365 admin center for model availability in your tenant.`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
-    categories: ['Ecosystem & Integrations', 'Basics'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
+    lastReviewed: REVIEWED,
+    updatedAt: REVIEWED,
     isNew: true,
-    tags: ['multi-model', 'claude', 'openai', 'model selection', 'copilot'],
+    tags: ['included', 'registry'],
   },
   {
-    id: 'ecosystem-005',
-    question: 'What is the Legal Agent for Word and how does it work with Agent 365?',
-    shortAnswer: 'Legal Agent for Word is a specialized Copilot experience for legal teams in the US (Frontier public preview May 2026). It helps review contracts, compare clauses to playbooks, and suggest edits with tracked changes—all within Word.',
-    detailedAnswer: `**Legal Agent for Word (Frontier public preview):**
+    id: 'paid-002',
+    question: 'What does the paid Agent 365 license unlock?',
+    shortAnswer: 'Policy templates, observability, tenant-wide tool control, the Graph API, and nearly all the security layer in Entra, Purview, Defender and Intune.',
+    detailedAnswer: `Per the service description, these **require Microsoft 365 E7/G7 or Agent 365**:
 
-Announced in May 2026, the Legal Agent is a new specialized agent designed specifically for legal professionals working in Microsoft Word.
+- **Admin center:** policy templates, observability and monitoring, tool access control, Graph API
+- **Entra:** access packages for agents, sponsor lifecycle policies, Conditional Access and Identity Protection for agents, network traffic controls
+- **Purview:** audit/eDiscovery, data lifecycle, compliance, DSPM, Insider Risk, sensitivity labels, DLP
+- **Defender:** shadow AI endpoint sync, posture and exposure, threat detection and blocking, unified logs and hunting
+- **Intune:** device compliance, policy-controlled runtime, blocking unsanctioned local agents
 
-**Key capabilities:**
-- **Contract review** — analyze contracts for common issues, missing clauses, and non-standard terms
-- **Playbook comparison** — compare contract clauses against your organization's legal playbooks and standards
-- **Tracked changes suggestions** — suggest edits directly in Word with tracked changes enabled
-- **Clause library** — access common legal clauses and templates
-- **Risk assessment** — highlight high-risk terms and conditions
-
-**How it works:**
-1. Open a contract in Microsoft Word
-2. Activate Legal Agent from the Copilot pane
-3. Agent analyzes the document against your playbooks
-4. Suggestions appear as tracked changes
-5. Legal team reviews and accepts/rejects changes
-
-**Agent 365 integration:**
-- Legal Agent appears in the Agent 365 registry
-- Access controlled via Agent 365 policies (can be restricted to legal department)
-- All actions are logged for audit and compliance
-- Data access governed by Microsoft Purview policies
-
-**Availability:**
-- **Frontier public preview** as of May 2026
-- Available in the **United States** initially
-- Requires Microsoft 365 Copilot license
-- Agent 365 license recommended for full governance capabilities
-
-**Important notes:**
-- This is a specialized agent, not a general-purpose legal AI
-- Organizations should still have human legal review processes
-- Data residency and compliance requirements apply
-- Preview features may change before GA`,
+Also paid: premium usage insights for non-Microsoft agents, and Business Analytics for non-Microsoft AI.`,
     audiences: ['Business & Licensing', 'IT Admin', 'Security & Compliance'],
-    categories: ['Ecosystem & Integrations', 'Governance & Shadow Agents'],
+    categories: ['Included vs Paid'],
     difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft 365 Copilot: Legal Agent for Word',
-        url: 'https://m365admin.handsontek.net/microsoft-365-copilot-legal-agent-word/',
-        type: 'News',
-      },
-    ],
+    sources: [SD, IGNITE],
     status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
+    lastReviewed: REVIEWED,
+    updatedAt: REVIEWED,
     isNew: true,
-    tags: ['legal agent', 'word', 'copilot', 'specialized agent', 'frontier', 'preview'],
+    tags: ['paid', 'premium'],
   },
   {
-    id: 'ecosystem-006',
-    question: 'What are SharePoint Skills and how do they work with Agent 365?',
-    shortAnswer: 'SharePoint Skills (public preview May 2026) are AI-powered capabilities that help agents understand and work with SharePoint content. They are included in Microsoft 365 and SharePoint AI licensing.',
-    detailedAnswer: `**SharePoint Skills announced May 2026:**
-
-SharePoint Skills are a new set of AI capabilities that enable agents to better understand, search, and interact with content stored in SharePoint.
-
-**Key capabilities:**
-- **Enhanced content understanding** — agents can better comprehend document structure, metadata, and relationships
-- **Intelligent search** — agents can find relevant content across SharePoint sites using natural language
-- **Content synthesis** — agents can summarize and extract insights from multiple SharePoint documents
-- **Workflow integration** — agents can trigger SharePoint workflows and update content programmatically
-
-**How agents use SharePoint Skills:**
-1. Agent receives a request that requires SharePoint data
-2. Agent uses SharePoint Skills APIs via Work IQ MCP servers
-3. Skills handle authentication, search, and content retrieval
-4. Agent processes the information and responds to the user
-
-**Agent 365 integration:**
-- SharePoint Skills access is governed by Agent 365 policies
-- All SharePoint Skills usage is logged in Agent 365 audit logs
-- Access control follows least-privilege principles
-- Data access respects existing SharePoint permissions and Purview policies
-
-**Licensing:**
-- **Public preview** as of May 2026
-- Included in **Microsoft 365** licensing
-- Also included in **SharePoint AI** licensing
-- No additional Agent 365 license required for basic usage, but recommended for governance
-
-**Use cases:**
-- **Knowledge management** — agents help users find and summarize organizational knowledge
-- **Document automation** — agents can process and categorize documents
-- **Compliance** — agents can identify and flag documents for review
-- **Team collaboration** — agents can surface relevant content in Teams based on SharePoint data
-
-**Important notes:**
-- Preview features may change before general availability
-- Organizations should review data governance policies before enabling
-- SharePoint Skills respect existing site permissions and sensitivity labels`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
-    categories: ['Ecosystem & Integrations', 'Developer Experience'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    isNew: true,
-    tags: ['sharepoint skills', 'sharepoint', 'skills', 'public preview', 'licensing'],
-  },
-
-  // ROLLOUT & ADOPTION
-  {
-    id: 'rollout-001',
-    question: 'What should I do to prepare for Agent 365 before general availability on May 1?',
-    shortAnswer: 'Start by inventorying existing agents in your environment, documenting their purpose and data access, reviewing your Entra and Purview governance policies, and establishing an agent approval process. GA is May 1, 2026.',
-    detailedAnswer: `**Agent 365 is generally available May 1, 2026** at $15/user/month. Here's how to prepare:
-
-**Preparation checklist:**
-
-**1. Inventory existing agents**
-- Identify agents built in Copilot Studio and Power Platform
-- Document custom agents and automations
-- List third-party tools that use AI agents (Salesforce, ServiceNow, etc.)
-- Identify "shadow agents" built without IT knowledge
-
-**2. Define governance policies**
-- Who can create agents? (role-based permissions)
-- What approval process is required?
-- What data can agents access?
-- How long are agents retained/audited?
-
-**3. Review security posture**
-- Audit Entra ID configurations and conditional access policies
-- Review Purview data classification and sensitivity labels
-- Ensure Defender is properly configured
-- Test incident response procedures
-
-**4. Establish monitoring practices**
-- Define KPIs for agent performance and usage
-- Set up logging and telemetry collection
-- Create dashboards for visibility
-- Train security team on agent-related threats
-
-**5. Pilot planning (use Frontier now)**
-- If not already in Frontier, enable it to test Agent 365 before GA
-- Identify low-risk use cases for initial agent deployments
-- Select pilot users and teams
-- Create feedback mechanisms
-- Plan for iterative rollout
-
-**6. Budget and licensing**
-- Agent 365: $15/user/month standalone
-- Microsoft 365 E7: $99/user/month (includes Copilot + Agent 365 + E5 + Entra Suite)
-- Determine which users need Agent 365 licensing
-- Engage your Microsoft account team for volume licensing
-
-**7. Training and communication**
-- Educate users on what agents are and how to use them safely
-- Train IT/security teams on Agent 365 capabilities
-- Document procedures and best practices
-- Set expectations about what is/isn't allowed
-
-Starting preparation now positions you to move quickly at GA on May 1.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Rollout & Adoption', 'Governance & Shadow Agents'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['preparation', 'planning', 'rollout', 'ga'],
-  },
-  {
-    id: 'rollout-002',
-    question: 'Should I enable Agent 365 for my entire tenant or start with a pilot group?',
-    shortAnswer: 'Start with a pilot group. Use Frontier now to test before GA on May 1, then expand gradually. Enable Agent 365 for a limited set of users and use cases first, learn from the experience, then expand.',
-    detailedAnswer: `**Recommended approach: Phased rollout**
-
-**Phase 0: Frontier testing (now through May 1)**
-- Enable Frontier for IT admins and security team
-- Test Agent 365 features with non-production agents
-- Familiarize your team before GA
-
-**Phase 1: IT and Security pilot (GA + 2-4 weeks)**
-- Enable Agent 365 for IT admins and security team
-- Register a few production agents
-- Familiarize team with dashboards, policies, and controls
-- Identify any issues or gaps
-
-**Phase 2: Departmental pilot (1-2 months)**
-- Select a friendly department (e.g., HR, marketing)
-- Enable Agent 365 for that group
-- Deploy 3-5 pre-approved agents relevant to their work
-- Gather feedback on usability and value
-- Refine policies based on learnings
-
-**Phase 3: Broad rollout (ongoing)**
-- Expand to additional departments
-- Enable agent store access with guardrails
-- Allow users to request custom agents
-- Continuously monitor and adjust policies
-
-**Why phased rollout?**
-- Some Agent 365 features will still be in public preview at GA (Defender risk signals, Purview insider risk, runtime threat protection)
-- Best practices are evolving
-- Risk of disrupting existing workflows
-- Opportunity to learn before widespread adoption
-- Easier to troubleshoot issues with smaller group
-
-**Exception:** If you have minimal agent usage today, tenant-wide enablement may be fine - there's less to disrupt.`,
-    audiences: ['IT Admin'],
-    categories: ['Rollout & Adoption'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['pilot', 'rollout strategy', 'adoption', 'ga'],
-  },
-
-  // ARCHITECTURE
-  {
-    id: 'arch-001',
-    question: 'Where does Agent 365 fit in the Microsoft 365 architecture?',
-    shortAnswer: 'Agent 365 sits alongside Microsoft 365 Admin Center as a management layer, integrating with Entra ID for identity, Defender for security, Purview for compliance, Work IQ for intelligence, and Windows 365 for Agents for secure agent execution environments.',
-    detailedAnswer: `**Architectural layers:**
-
-**Layer 1: Agents (the workload)**
-- Microsoft 365 Copilot agents
-- Copilot Studio agents
-- Microsoft Foundry agents (formerly Azure AI Foundry)
-- Third-party agents (Salesforce, ServiceNow, etc.)
-- Custom-built agents (LangChain, OpenAI Agents SDK, Claude SDK, etc.)
-- Computer-using agents running via **Windows 365 for Agents**
-
-**Layer 2: Agent 365 (control plane)**
-- Registry and metadata store (including shadow agent discovery)
-- Agent Blueprint system (IT-approved governance templates from Entra)
-- Policy orchestration engine
-- Monitoring and telemetry via OpenTelemetry / observability dashboards
-- Admin interfaces in Microsoft 365 Admin Center
-
-**Layer 3: Work IQ (intelligence layer)**
-- **Data**: Unifies signals from files, emails, meetings, chats, and business systems across M365
-- **Memory**: Persistent understanding of people, teams, and work patterns
-- **Inference**: Models, skills, and tools for reasoning and action
-- Work IQ MCP servers: governed access to M365 services (Outlook, Teams, SharePoint, Word, etc.)
-- MCP Management Server for custom MCP server creation
-
-**Layer 4: Security and compliance integrations**
-- **Microsoft Entra** (identity and access via Entra Agent IDs)
-- **Microsoft Defender** (threat protection, runtime security)
-- **Microsoft Purview** (data governance, DLP)
-- **Windows 365 for Agents** (secure execution environment for computer-using AI agents)
-
-**Layer 5: Data and services**
-- Microsoft Graph (data access)
-- SharePoint, OneDrive, Exchange (data stores)
-- Microsoft 365 apps (Word, Excel, Teams, etc.) via Work IQ MCP servers
-- Dataverse / Dynamics 365
-- External data sources (via connectors)
-- Any cloud endpoint: Azure, AWS, GCP
-
-**Data flow example:**
-1. User invokes an agent in Teams
-2. Agent authenticates with Entra Agent ID
-3. Agent 365 checks Blueprint policies (is agent approved? can it run now?)
-4. Defender monitors the request for threats
-5. Agent calls Work IQ MCP server to access data safely (Outlook, SharePoint, etc.)
-6. Work IQ provides organizational context (Data + Memory + Inference)
-7. Purview applies sensitivity labels and DLP
-8. Agent performs task and responds
-9. Activity is logged via OpenTelemetry for audit and observability
-
-This architecture enables centralized governance without requiring changes to each individual agent's business logic.`,
-    audiences: ['Developer / Architect', 'IT Admin'],
-    categories: ['Architecture'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/overview',
-        type: 'Official',
-      },
-      {
-        label: 'Agent 365 tooling servers overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
-        type: 'Official',
-      },
-      {
-        label: 'A closer look at Work IQ (Microsoft Tech Community)',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['architecture', 'integration', 'layers', 'windows 365 for agents', 'mcp', 'blueprint', 'work iq'],
-  },
-  {
-    id: 'arch-002',
-    question: 'What is Work IQ and what role does it play in Agent 365?',
-    shortAnswer: 'Work IQ is the intelligence layer that grounds Microsoft 365 Copilot and Agent 365–managed agents in real-time organizational context. It provides personalized search, advanced reasoning, and semantic understanding through three tightly integrated layers: Data, Memory, and Inference.',
-    detailedAnswer: `**What Work IQ is:**
-Work IQ is the "brain" behind Microsoft 365 Copilot and your custom agents. It understands context, relationships, and work patterns so agents can deliver insights, recommendations, and actions that align with the reality of your business—not just generic AI outputs.
-
-**Three layers of Work IQ:**
-
-**1. Data** — Unifies signals from files, emails, meetings, chats, and business systems across Microsoft 365, including Dynamics 365 and Dataverse. Captures how work happens across the organization.
-
-**2. Memory** — Builds persistent understanding of how people and teams work. Includes explicit memory (user-set instructions and saved preferences) and implicit memory (inferred from chat history and activity patterns). Keeps agents aligned to priorities and consistent across sessions.
-
-**3. Inference** — Brings together models, skills, and tools so agents can reason and act. Work IQ MCP tools provide the execution layer, while Agent 365 ensures those actions remain observable, governed, and compliant.
-
-**How Work IQ connects to Agent 365:**
-- Work IQ provides the **intelligence and context** that make agents useful
-- Agent 365 provides the **governance, security, and compliance** that make agents safe
-- Together, they form a complete platform: agents that understand your work *and* operate within policy boundaries
-- Work IQ MCP servers are the mechanism through which agents access organizational data under Agent 365 governance
-
-**Work IQ MCP servers:**
-Microsoft exposes Work IQ capabilities as enterprise-grade **Model Context Protocol (MCP)** servers. These give agents governed access to:
-- Work IQ Mail, Calendar, Teams, Word, User Profile, Copilot Search
-- SharePoint and OneDrive, Dataverse and Dynamics 365
-
-All Work IQ MCP tool calls are subject to Agent 365 policy enforcement, DLP, sensitivity labels, and Defender monitoring.
-
-**Licensing:** Work IQ MCP servers require a Microsoft 365 Copilot license. Agent 365 governance is separate (included in Agent 365 at $15/user/month or Microsoft 365 E7).`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing', 'Security & Compliance'],
-    categories: ['Architecture', 'Basics'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Work IQ MCP overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
-        type: 'Official',
-      },
-      {
-        label: 'A closer look at Work IQ (Microsoft Tech Community)',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    isNew: true,
-    updatedAt: '2026-03-12',
-    tags: ['work iq', 'intelligence layer', 'data', 'memory', 'inference', 'mcp', 'copilot'],
-  },
-
-  // Additional FAQs
-  {
-    id: 'basics-004',
-    question: 'Who needs Agent 365? Is it only for large enterprises?',
-    shortAnswer: 'Agent 365 is most valuable for organizations with multiple agents, complex compliance requirements, or concerns about shadow AI. Small businesses with minimal agent usage may not need it yet.',
-    detailedAnswer: `**Organizations that benefit most:**
-
-**Large enterprises (1000+ employees):**
-- Multiple departments building agents independently
-- Regulatory compliance requirements (GDPR, HIPAA, SOC 2)
-- Need for centralized visibility and control
-- Complex security postures
-
-**Regulated industries:**
-- Financial services
-- Healthcare
-- Government contractors
-- Legal and professional services
-
-**Organizations with high agent adoption:**
-- Heavy Power Platform and Copilot Studio usage
-- Many custom agents and automations
-- Third-party agent integrations
-- Agent sprawl or shadow AI concerns
-
-**Who might NOT need it (yet):**
-- Small businesses with <100 users
-- Organizations with no or minimal agent usage
-- Companies without compliance requirements
-- Teams just starting to explore agents
-
-**Recommendation:** Even if you don't need Agent 365 today, understanding it helps you make informed decisions as you scale agent adoption.`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Basics', 'Licensing & Availability'],
-    difficulty: 'Intro',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['target audience', 'use cases'],
-  },
-  {
-    id: 'security-004',
-    question: 'What are the biggest security risks with AI agents that Agent 365 helps mitigate?',
-    shortAnswer: 'Key risks include unauthorized data access, prompt injection attacks, credential theft, agent impersonation, and data exfiltration. Agent 365 addresses these through identity, access control, monitoring, and threat detection.',
-    detailedAnswer: `**Top security risks and Agent 365's mitigations:**
-
-**1. Unauthorized data access**
-- **Risk:** Agent accesses data it shouldn't
-- **Mitigation:** Entra Agent ID with least-privilege access, conditional access policies
-
-**2. Prompt injection**
-- **Risk:** Malicious user manipulates agent's behavior through crafted prompts
-- **Mitigation:** Defender runtime filtering, input validation, monitoring
-
-**3. Credential theft**
-- **Risk:** Agent's credentials are stolen and used maliciously
-- **Mitigation:** Entra identity protection, anomaly detection, certificate-based auth
-
-**4. Agent impersonation**
-- **Risk:** Fake agent pretends to be legitimate
-- **Mitigation:** Registry with verified agents, quarantine of unknown agents
-
-**5. Data exfiltration**
-- **Risk:** Agent leaks sensitive data externally
-- **Mitigation:** Purview DLP policies, monitoring of data flows, sensitivity labels
-
-**6. Shadow agents**
-- **Risk:** Unmanaged agents bypass security controls
-- **Mitigation:** Discovery and registration, quarantine capabilities
-
-**7. Supply chain attacks**
-- **Risk:** Compromised third-party agent or dependency
-- **Mitigation:** Registry verification, Defender threat intelligence, agent isolation
-
-**Layered defense:** Agent 365 doesn't provide a single silver bullet - it orchestrates multiple security controls working together.
-
-**Important:** No security system is perfect. Agent 365 reduces risk but doesn't eliminate it entirely.`,
-    audiences: ['Security & Compliance', 'IT Admin'],
-    categories: ['Security & Compliance'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Securing and governing autonomous agents',
-        url: 'https://www.microsoft.com/en-us/security/blog/2025/08/26/securing-and-governing-the-rise-of-autonomous-agents/',
-        type: 'Official',
-      },
-    ],
-    status: 'Partially documented',
-    lastReviewed: '2025-11-18',
-    tags: ['security risks', 'threat mitigation'],
-  },
-  {
-    id: 'security-005',
-    question: 'What is Microsoft Entra Agent ID and how does it secure AI agents?',
-    shortAnswer: 'Microsoft Entra Agent ID is a dedicated identity and security framework for AI agents. It extends Entra\'s Zero Trust capabilities to agents through Conditional Access, Identity Protection, Identity Governance, and network controls via Global Secure Access.',
-    detailedAnswer: `**Microsoft Entra Agent ID** extends the security capabilities of Microsoft Entra ID to AI agents. It is part of Microsoft Agent 365 and currently in preview.
-
-**Core concept:** Just as human users need identities to access organizational resources securely, AI agents need their own identities. Entra Agent ID provides purpose-built identity constructs for agents rather than reusing application or user identities.
-
-**Agent identity hierarchy:**
-- **Agent blueprint**: A template defining an agent type (capabilities, permissions, metadata)
-- **Agent identity blueprint principal**: A service principal representing the blueprint in a tenant—only used for creating agent identities
-- **Agent identity**: An instantiated agent that authenticates and accesses resources via OAuth 2.0/OIDC
-- **Agent user**: An optional nonhuman user account for agents needing user-like capabilities (mailbox, Teams, calendar)
-
-**Four security pillars:**
-
-**1. Conditional Access for agents**
-- Treats agents as first-class identities alongside users and workload identities
-- Enforces adaptive access policies based on agent risk, custom security attributes, or blueprint grouping
-- Supports both agent identities and agent users
-- Can block all unapproved agents, allow only specifically tagged agents, or block high-risk agents
-
-**2. Identity Protection for agents**
-- Detects risky agent behavior through anomaly detection:
-  - Unfamiliar resource access (agent targets resources it doesn't usually access)
-  - Sign-in spikes (unusual volume of sign-ins)
-  - Failed access attempts (repeated unauthorized resource access)
-  - Risky user sign-in (agent acts on behalf of a compromised user)
-- Feeds risk signals to Conditional Access for automated blocking
-- Risky Agents report available in the Entra admin center
-
-**3. Identity Governance for agents**
-- Manages agent lifecycle from deployment to expiration
-- Requires human sponsors for every agent identity (accountability)
-- Sponsors can manage agents via the My Account and My Access portals
-- Access packages provide time-bound, auditable resource access
-- Auto-transfers sponsorship to the sponsor's manager if they leave the organization
-
-**4. Network controls (Global Secure Access)**
-- Enforces network security policies on agent traffic
-- Logs agent network activity for audit and threat detection
-- Applies web categorization to control access to APIs and MCP servers
-- Restricts file uploads/downloads using file-type policies
-- Detects and blocks prompt injection attacks at the network level
-
-**Platform integration:**
-- **Microsoft Foundry**: Automatically provisions agent blueprints and identities
-- **Copilot Studio**: Can auto-assign agent identities to agents
-- **Azure App Service / Functions**: Supports agent identity authentication
-- **Teams Developer Portal**: Manage agent blueprints
-
-**How to get started:**
-Entra Agent ID is part of Microsoft Agent 365 and available through the Frontier program. Requires a Microsoft 365 Copilot license with Frontier enabled.`,
-    audiences: ['Security & Compliance', 'IT Admin', 'Developer / Architect'],
-    categories: ['Security & Compliance', 'Architecture'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Security for AI with Microsoft Entra Agent ID — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/security-for-ai',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Entra Agent ID overview — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents',
-        type: 'Official',
-      },
-      {
-        label: 'Conditional Access for Agent ID — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id',
-        type: 'Official',
-      },
-      {
-        label: 'Identity Governance for agent identities — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview',
-        type: 'Official',
-      },
-      {
-        label: 'Identity Protection for agents — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/id-protection/concept-risky-agents',
-        type: 'Official',
-      },
-      {
-        label: 'Network controls for agents — Microsoft Learn',
-        url: 'https://learn.microsoft.com/en-us/entra/global-secure-access/concept-secure-web-ai-gateway-agents',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-14',
-    isNew: true,
-    updatedAt: '2026-03-14',
-    tags: ['entra agent id', 'conditional access', 'identity protection', 'identity governance', 'global secure access', 'network controls', 'agent blueprint', 'agent identity'],
-  },
-  {
-    id: 'dev-003',
-    question: 'Can I use Agent 365 with open-source agent frameworks like LangChain, OpenAI Agents SDK, or Claude SDK?',
-    shortAnswer: 'Yes. Agent 365 officially supports LangChain, OpenAI Agents SDK, Claude Code SDK, and other frameworks via the Agent 365 SDK. Microsoft provides quickstart guides for each. Agents can also be hosted on Azure, AWS, or GCP.',
-    detailedAnswer: `**Supported frameworks (officially documented as of Feb 2026):**
-- LangChain (Node.js quickstart available)
-- OpenAI Agents SDK
-- Claude Code SDK (Anthropic)
-- Microsoft Agent Framework
-- Microsoft Agents SDK
-- Any other framework via manual instrumentation
-
-**Hosting options:**
-- Azure (recommended for Microsoft integration)
-- AWS
-- Google Cloud Platform (GCP)
-- Any other cloud or on-premises endpoint
-
-**How to integrate using the Agent 365 SDK:**
-
-**1. Install Agent 365 CLI**
-- Run: \`dotnet tool install --global Microsoft.Agents.A365.DevTools.Cli --prerelease\`
-
-**2. Set up your environment**
-- Run \`a365 setup\` to create Azure resources, configure permissions, and register your agent blueprint
-
-**3. Add Work IQ MCP servers (optional)**
-- Run \`a365 develop add-mcp-servers\` to wire in governed Work IQ MCP tools (Outlook, Teams, SharePoint, etc.)
-
-**4. Add observability**
-- Agent 365 SDK wraps each agent invocation in an InferenceScope for automatic capture via OpenTelemetry
-
-**5. Publish**
-- Run \`a365 publish\` to package and deploy your agent to the Microsoft 365 admin center
-
-**For AI-guided setup:** The Agent 365 CLI supports AI-guided setup using GitHub Copilot, Claude Code, or OpenAI Codex - all from a single instruction file.
-
-**Testing locally:** Use the Agent 365 CLI mock tooling server to simulate MCP server interactions offline without needing real Microsoft 365 connections.
-
-**Best for:** Pro-code developers comfortable with CLI tooling who want full control over their agent's tech stack.`,
-    audiences: ['Developer / Architect'],
-    categories: ['Developer Experience', 'Architecture'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Agent 365 SDK and CLI overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
-        type: 'Official',
-      },
-      {
-        label: 'Quickstart: JavaScript LangChain agent (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-nodejs-langchain',
-        type: 'Official',
-      },
-      {
-        label: 'Quickstart: JavaScript Claude Agent SDK (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-nodejs-claude',
-        type: 'Official',
-      },
-      {
-        label: 'Agent365-devTools CLI (GitHub)',
-        url: 'https://github.com/microsoft/Agent365-devTools',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['langchain', 'open source', 'claude sdk', 'openai agents sdk', 'cli', 'quickstart', 'multi-cloud'],
-  },
-  {
-    id: 'governance-003',
-    question: 'How granular are the access controls? Can I restrict agents to specific SharePoint sites or specific users?',
-    shortAnswer: 'Yes. Agent 365 leverages Entra conditional access and Microsoft Graph permissions, allowing you to control which data sources, sites, users, and even times of day an agent can access.',
-    detailedAnswer: `**Access control mechanisms:**
-
-**1. Resource-level permissions (via Entra)**
-- Grant agent access to specific SharePoint sites
-- Limit to certain OneDrive folders
-- Restrict to specific mailboxes or Teams channels
-- Control access to specific APIs
-
-**2. User-based restrictions**
-- Agent can only access data for specific users
-- Agent can only be invoked by certain roles
-- Agent inherits user's permissions (user-delegated access)
-
-**3. Conditional access policies**
-- Time-based restrictions (e.g., agent only runs during business hours)
-- Location-based restrictions (e.g., agent only runs from corporate network)
-- Risk-based restrictions (e.g., disable agent if risk detected)
-- Device-based restrictions (e.g., agent only accessible from managed devices)
-
-**4. Data classification (via Purview)**
-- Agent cannot access data labeled "Confidential"
-- Agent can read but not share "Internal" data
-- Fine-grained permissions based on sensitivity labels
-
-**Example policy:**
-"The HR Bot agent can access SharePoint sites in the HR site collection, but only for users in the HR department, and only during weekdays between 8 AM and 6 PM."
-
-**Granularity level:** Very fine-grained - similar to what you can do with user accounts in Entra and Purview.
-
-**Caveat:** Configuring highly granular policies requires understanding Entra, Graph permissions, and Purview - there's a learning curve.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Security & Compliance', 'Governance & Shadow Agents'],
-    difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Microsoft Entra Agent ID announcement',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft-entra-blog/announcing-microsoft-entra-agent-id-secure-and-manage-your-ai-agents/3827392',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['access control', 'conditional access', 'permissions'],
-  },
-  {
-    id: 'ecosystem-003',
-    question: 'Does Agent 365 work with agents built on Azure OpenAI, Azure AI Services, or Microsoft Foundry?',
-    shortAnswer: 'Yes. Microsoft Foundry (formerly Azure AI Foundry) integrates with Agent 365 out of the box. Agents on Azure OpenAI can also integrate via Entra Agent ID, the Agent 365 SDK, and Work IQ MCP servers. Agent code can be hosted on any cloud.',
-    detailedAnswer: `**Integration path for Azure-based agents:**
-
-**Using Microsoft Foundry (formerly Azure AI Foundry):**
-- Microsoft's platform for building enterprise AI agents
-- Integrates with Agent 365 out of the box
-- Agents created in Foundry can be automatically registered
-- Supports Entra Agent IDs natively
-- Quickstart available: Python Agent Framework sample
-
-**Using Azure OpenAI directly:**
-- Build your agent using Azure OpenAI API
-- Add the Agent 365 SDK to your project for enterprise capabilities
-- Run \`a365 setup\` via the CLI to configure identity and blueprint
-- Agent can access Microsoft 365 data via Work IQ MCP servers governed by Agent 365
-
-**Benefits of Azure integration:**
-- Data stays in Azure (no third-party LLM API calls if not desired)
-- Compliance with data residency requirements
-- Integration with Azure Monitor and Application Insights
-- Unified billing under Azure subscription
-
-**Note on multi-cloud:** Agent 365 also works with agents hosted on AWS or GCP—cloud location of the agent does not restrict Agent 365 governance.
-
-**Architecture:**
-Your agent (Azure / AWS / GCP) → Agent 365 SDK → Work IQ MCP servers → Microsoft 365 data → Agent 365 governance & observability
-
-**Recommendation:** If you're building custom agents and already use Azure, this is the most natural integration path. Use the Agent 365 CLI quickstart for Python Agent Framework to get started quickly.`,
-    audiences: ['Developer / Architect'],
-    categories: ['Ecosystem & Integrations', 'Developer Experience'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Agent 365 SDK and CLI overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
-        type: 'Official',
-      },
-      {
-        label: 'Quickstart: Python Agent Framework sample (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/quickstart-python-agent-framework',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-02-19',
-    updatedAt: '2026-02-19',
-    tags: ['azure', 'azure openai', 'microsoft foundry', 'multi-cloud', 'sdk'],
-  },
-  {
-    id: 'licensing-003',
-    question: 'If I already have Microsoft 365 E5, do I automatically get Agent 365?',
-    shortAnswer: 'No. Agent 365 is not included in Microsoft 365 E5. It is available as a standalone add-on at $15/user/month, or as part of the new Microsoft 365 E7: The Frontier Suite at $99/user/month.',
-    detailedAnswer: `**Confirmed as of March 2026:**
-- Microsoft 365 E5 does **NOT** include Agent 365
-- Agent 365 is a **separate product** priced at $15 per user per month
-- Agent 365 is included in the new **Microsoft 365 E7: The Frontier Suite** at $99 per user per month
-
-**Options for E5 customers:**
-
-**Option 1: Add Agent 365 as standalone**
-- Purchase Agent 365 at $15/user/month as add-on to your E5 subscription
-- Get full Agent 365 capabilities for managing agents
-
-**Option 2: Upgrade to Microsoft 365 E7**
-- $99/user/month includes E5 + Copilot + Agent 365 + Entra Suite
-- Best value if you also need Microsoft 365 Copilot
-- Comprehensive protection across both users and agents
-
-**What E7 includes that E5 does not:**
-- Microsoft 365 Copilot
-- Agent 365 (full agent governance)
-- Microsoft Entra Suite
-- Advanced Defender, Entra, Intune, and Purview security capabilities
-
-**What to do now:**
-- If you have E5 and use agents: Plan for Agent 365 add-on ($15/user/month)
-- If you have E5 and want Copilot + agent governance: Consider E7 ($99/user/month)
-- If budget is a concern: Evaluate which users need Agent 365 (may not need it for all users)
-- Talk to your Microsoft account team about volume licensing options
-
-**Timeline:** Both Agent 365 standalone and Microsoft 365 E7 are generally available May 1, 2026.`,
+    id: 'paid-003',
+    question: 'How is Agent 365 priced, and who has to be licensed?',
+    shortAnswer: '$15 per user per month standalone, or $99 in Microsoft 365 E7. Per user only: no per-agent charge. Users who delegate access to agents, and owners/sponsors of agents with their own access, need a license.',
+    detailedAnswer: `- **List price:** $15/user/month standalone; E7 is $99/user/month (E5 + Copilot + Agent 365 + Entra Suite)
+- **No per-agent licensing.** One license covers all agents associated with the user, with no fixed cap
+- **No consumption charge** for Agent 365 itself at this time
+- **Who:** users who delegate their access to agents (on-behalf-of), and the owner, sponsor or manager of agents with their own access. Microsoft recommends broader coverage including Copilot users and anyone who manages or interacts with agents
+- **Pooling is not allowed.** Licensing is contractually enforced
+
+To size it, the Licensing FAQ points to two exportable reports: "Active users using agents in Microsoft 365 Copilot" (Reports > Usage) and "Registry agent owners" (Agents > All agents). Neither needs a license.`,
     audiences: ['Business & Licensing'],
-    categories: ['Licensing & Availability'],
+    categories: ['Included vs Paid'],
     difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-    ],
+    sources: [LIC, GA],
     status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['E5', 'E7', 'licensing', 'copilot', 'pricing'],
+    lastReviewed: REVIEWED,
+    updatedAt: REVIEWED,
+    tags: ['pricing', 'per user'],
   },
   {
-    id: 'licensing-004',
-    question: 'What is Microsoft 365 E7: The Frontier Suite and how does it relate to Agent 365?',
-    shortAnswer: 'Microsoft 365 E7 is a new premium bundle at $99/user/month that includes Microsoft 365 Copilot, Agent 365, Microsoft Entra Suite, and Microsoft 365 E5—delivering comprehensive protection across both users and agents. Available May 1, 2026.',
-    detailedAnswer: `**Microsoft 365 E7: The Frontier Suite**
+    id: 'paid-004',
+    question: 'Do I need a prerequisite license before I can buy Agent 365?',
+    shortAnswer: 'Per Product Terms since June 1, 2026: Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium. The Licensing FAQ describes a wider set of qualifying combinations.',
+    detailedAnswer: `**Product Terms (June 1, 2026):** purchasing Agent 365 (User SL) requires one of Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium.
 
-Announced March 9, 2026, Microsoft 365 E7 is Microsoft's most comprehensive enterprise offering, designed for organizations pursuing "Frontier Transformation" with AI.
+**Licensing FAQ:**
+- Enterprise: E5, or E3 (or Office 365 E3 + EMS E3), plus Defender Suite and Purview Suite
+- Frontline: F1/F3 plus Defender and Purview Suite FLW
+- SMB: Business Premium (Defender/Purview Suites for SMB unlock full functionality but are not formal prerequisites)
+- Education: A5 for Faculty, or A3 (or Office 365 A3 + EMS A3) plus Defender and Purview Suite for Education
+- Information Workers need ME5 to be licensed; users with only ME3 + Copilot are not eligible
+- Existing signed contracts are not affected until renewal
 
-**What E7 includes:**
-- **Microsoft 365 E5** — the full E5 suite with advanced Defender, Entra, Intune, and Purview security
-- **Microsoft 365 Copilot** — AI assistant embedded in Word, Excel, Teams, and other M365 apps
-- **Agent 365** — the control plane for AI agents (observability, governance, security)
-- **Microsoft Entra Suite** — comprehensive identity and access management
+**Learn overview:** "works best" with E5, and at least one user must hold a qualifying Agent 365 license.
 
-**Pricing:**
-- $99 per user per month (retail)
-- Available for purchase May 1, 2026
-
-**Who should consider E7:**
-- Organizations that want both Copilot and Agent 365 (buying separately would cost more)
-- Enterprises already on E5 looking to add AI capabilities with full security
-- Organizations that need comprehensive protection across both users and agents
-- Companies pursuing agentic AI at enterprise scale
-
-**E7 vs. buying components separately:**
-- E5 alone: Does not include Copilot or Agent 365
-- E5 + Copilot ($30/user/month) + Agent 365 ($15/user/month) = separate purchases
-- E7 bundles everything at $99/user/month for a simplified licensing experience
-
-**Important:** E7 positions AI governance (Agent 365) alongside AI productivity (Copilot) as a single enterprise offering—reflecting Microsoft's view that intelligence and trust must go together.`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Secure agentic AI for your frontier transformation — Microsoft Security Blog (March 9, 2026)',
-        url: 'https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft 365 E7: The Frontier Suite',
-        url: 'https://www.microsoft.com/en-us/microsoft-365/microsoft-365-enterprise',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    tags: ['E7', 'frontier suite', 'licensing', 'pricing', 'copilot', 'bundle'],
-  },
-  {
-    id: 'licensing-005',
-    question: 'Is Agent 365 licensed per user or per agent?',
-    shortAnswer: 'Agent 365 is licensed per user, not per agent. A single licensed user can create, manage, and use multiple agents without additional per-agent charges.',
-    detailedAnswer: `**Agent 365 is licensed per user** ($15/user/month standalone or $99/user/month as part of Microsoft 365 E7).
-
-**What this means:**
-- Agents do not require their own licenses
-- Licensing is tied to the user associated with the agent (user, owner, sponsor, or manager)
-- A single licensed user can create, manage, and use multiple agents
-- No additional per-agent or per-instance charges
-- There is no fixed cap on the number of agents a licensed user can oversee
-- Standard service protections and usage limits may apply to ensure platform stability
-
-**When a license is needed:**
-- Users who interact with agents
-- Agent owners, sponsors, and managers
-- Microsoft 365 Copilot users (recommended for full compatibility)
-- Users who benefit from Agent 365 premium capabilities
-
-**Why per-user licensing?**
-Every agent is associated with a person in some capacity. Per-user licensing is familiar, predictable, and helps organizations plan and budget for agent adoption.
-
-**Important:** Blueprints, agents, and agent instances are not licensed separately—they do not count as individual licensing units.`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['licensing', 'per-user', 'pricing'],
-  },
-  {
-    id: 'licensing-006',
-    question: 'Which users in my organization should be licensed for Agent 365?',
-    shortAnswer: 'Microsoft recommends licensing all users who interact with, manage, or sponsor agents. At minimum, license users who interact with agents that use Agent 365 premium capabilities to maintain compliance.',
-    detailedAnswer: `**Microsoft's recommendation:**
-License all users who interact with, manage, or sponsor Agent 365-managed agents (agents registered in the Agent 365 control plane).
-
-**Why broad coverage is recommended:**
-- Supports compliance and scale
-- Ensures consistent governance across the organization
-- Avoids out-of-compliance scenarios
-
-**Users who should be licensed:**
-- Users interacting with agents
-- Agent owners, sponsors, and managers
-- Microsoft 365 Copilot users
-- Teams expanding beyond initial pilots into broader agent adoption
-
-**Minimum requirement:**
-A license is **required** for users who interact with, manage, or sponsor agents that use Agent 365 premium capabilities. If unlicensed users benefit from these capabilities, the organization may be out of compliance.
-
-**Important consideration:**
-Microsoft recognizes this guidance can be difficult to operationalize today, as there is limited visibility into user-level agent interactions during policy configuration. Microsoft is continuing to improve visibility, tracking, and the overall licensing experience.
-
-**Fleet-scale management:**
-Yes, a single licensed user can manage a large number of agents, including at fleet scale (1,000+ agents). There is no fixed cap, though standard service protections and usage limits may apply.`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['licensing', 'compliance', 'users'],
-  },
-  {
-    id: 'licensing-007',
-    question: 'Do I need a prerequisite license to purchase Agent 365?',
-    shortAnswer: 'Yes. As of June 1, 2026, Microsoft Product Terms require that purchasing Agent 365 (User SL) also requires one of these Prerequisite Licenses: Microsoft 365 E5, Microsoft 365 F5 Defender and Purview, or Microsoft 365 Business Premium.',
-    detailedAnswer: `**Prerequisite License required as of June 1, 2026.** Microsoft Product Terms now specify that purchases of Agent 365 (User SL) also require the purchase of one of the following Prerequisite Licenses:
-
-- Microsoft 365 E5
-- Microsoft 365 F5 Defender and Purview
-- Microsoft 365 Business Premium
-
-This requirement was introduced in the June 1, 2026 update to the Microsoft Product Terms for Agent 365 under the EA/EAS program.
-
-**Capabilities that also require specific licenses (unchanged):**
-
-**Label-based data security (requires OE3+ or Purview PAYG):**
-- Label honoring, label inheritance, label-based DLP
-- Requires grounding data to be labeled
-- Requires Office E3+ licenses for Microsoft 365 data
-- Requires Purview pay-as-you-go for non-M365 data
-
-**Conditional Access (requires Microsoft 365 E3):**
-- For delegated access flows where agents are evaluated against a user's identity token
-- User must be licensed with Microsoft 365 E3 for these features to work
-
-**Identity Protection (requires Microsoft 365 E5):**
-- For delegated access flows
-- User must be licensed with Microsoft 365 E5
-
-**Advanced threat hunting and investigation:**
-- Depends on log data captured via Office connectors in Microsoft Defender for Cloud Apps (MDA)
-- User must have a license that includes MDA
-
-**What Agent 365 does NOT do:**
-- Agent 365 does not grant E5-level security features to a user
-- It does not elevate a user's seat capabilities
-- It provides no additional user security value beyond agent governance
-
-**Bottom line:** Agent 365 now has a formal license prerequisite. You must hold Microsoft 365 E5, F5 Defender and Purview, or Business Premium to purchase Agent 365 (User SL).`,
+Agent 365 does not upgrade a user's own security entitlements.`,
     audiences: ['Business & Licensing', 'Security & Compliance'],
-    categories: ['Licensing & Availability'],
+    categories: ['Included vs Paid', 'Gotchas'],
     difficulty: 'Advanced',
-    sources: [
-      {
-        label: 'Microsoft Product Terms — Agent 365 License Prerequisites (June 1, 2026)',
-        url: 'https://www.microsoft.com/licensing/terms/productoffering/Agent365/EAEAS#clause-2755-h3-1',
-        type: 'Official',
-      },
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-06-01',
-    updatedAt: '2026-06-01',
-    tags: ['licensing', 'prerequisites', 'E5', 'F5', 'Business Premium', 'product terms'],
-  },
-  {
-    id: 'licensing-008',
-    question: 'What Agent 365 capabilities are included with Microsoft 365, and which require an Agent 365 license?',
-    shortAnswer: 'Basic capabilities (agent identity, registry, shadow AI detection, admin governance actions, audit logs) are included with Microsoft 365. Premium capabilities (advanced observability, governance automation, data security, threat detection) require an Agent 365 license.',
-    detailedAnswer: `**Foundational capabilities (included with Microsoft 365):**
-- Agent Identity
-- Agent Registry
-- Basic agent usage insights
-- Shadow AI detection
-- Admin agent governance actions (publish, deploy, block, delete, approve, reassign, manage user access, pin)
-- Audit logs and eDiscovery for agent activity
-- Block unsanctioned, shadow AI agents
-
-**Premium capabilities (require Agent 365 license):**
-
-**Observability:**
-- Advanced agent usage insights
-- Agent Map
-- Registry sync
-- Graph API
-
-**Governance:**
-- Agent Identity Governance
-- Lifecycle management for agents
-- Automate agent lifecycle actions
-- Tool controls for agents
-- Policy templates for agents
-- Data Lifecycle Management for agent data and interactions
-- Communication Compliance for agents
-
-**Security:**
-- Data Security Posture Management for agents
-- Insider Risk Management for agents
-- Agents inherit and honor data sensitivity labels
-- Data loss prevention for agents
-- Conditional access and identity protection for agents
-- Secure Access Service Edge (SASE) for agents
-- Device compliance for agent conditional access
-- Policy controlled environment for agents runtime
-- Agent Security Posture Management
-- Threat Detection and Blocking for agents
-- Threat Hunting and Investigation for agents
-
-This tiered model allows organizations to start governing agents immediately, while enabling deeper observability, governance, and security controls as adoption scales.`,
-    audiences: ['Business & Licensing', 'IT Admin', 'Security & Compliance'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['licensing', 'capabilities', 'features', 'tiers'],
-  },
-  {
-    id: 'licensing-009',
-    question: 'Is Windows 365 for Agents included in Agent 365 or sold separately?',
-    shortAnswer: 'Windows 365 for Agents is a separate offering, billed at $0.40 per VM per hour on a pay-as-you-go basis. It is not included in Agent 365 or bundled with other Microsoft products.',
-    detailedAnswer: `**Windows 365 for Agents is sold separately** from Agent 365.
-
-**Pricing model:**
-- **Pay-as-you-go:** $0.40 per VM per hour
-- Billed based on actual usage
-- Customers only pay for compute resources when agents are actively running
-- Cost appears as a separate line item in billing
-
-**What it provides:**
-- A secure runtime environment for computer-using AI agents
-- Full desktop or browser-based environment for agents that need Windows applications
-- Integrates with Agent 365 for governance
-
-**How they work together:**
-- **Agent 365:** Provides the governance layer for all agents
-- **Windows 365 for Agents:** Provides the runtime environment when agents need a full Windows desktop
-
-**When to use both:**
-- Use Agent 365 to govern agents across your environment
-- Add Windows 365 for Agents when those agents need a full desktop or browser-based runtime to complete tasks
-
-**Not bundled:** Windows 365 for Agents is not included in Agent 365, Microsoft 365 E7, or Copilot Studio—it must be purchased separately based on usage needs.`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['windows 365 for agents', 'pricing', 'pay-as-you-go', 'billing'],
-  },
-  {
-    id: 'licensing-010',
-    question: 'If we already have Microsoft 365 Copilot, do we still need Agent 365?',
-    shortAnswer: 'Yes. Copilot provides AI capabilities to end-users, but Agent 365 is needed to ensure all agents (beyond Copilot) are managed, governed, and secured. Copilot is about what AI can do; Agent 365 is about controlling what AI is allowed to do.',
-    detailedAnswer: `**Yes, both are needed for full coverage.**
-
-**Microsoft 365 Copilot:**
-- Provides AI capabilities embedded in Microsoft 365 apps
-- Helps end-users with productivity tasks
-- Copilot is about **what AI can do**
-
-**Agent 365:**
-- Ensures all agents (including those beyond Copilot) are managed, governed, and secured
-- Provides observability, governance, and security across all agents
-- Agent 365 is about **controlling what AI is allowed to do**
-
-**Why you need both:**
-- Copilot brings AI productivity to your organization
-- Agent 365 ensures those AI capabilities (and others) operate within security and compliance boundaries
-- Without Agent 365, you lack visibility and control over agent behavior, data access, and security posture
-
-**Think of it this way:**
-- **Copilot** = The AI workforce
-- **Agent 365** = The HR, IT, and security department for that AI workforce
-
-**Licensing:**
-- Microsoft 365 Copilot and Agent 365 are separate licenses
-- Both are included in Microsoft 365 E7 ($99/user/month)
-- Or purchase separately: Copilot (~$30/user/month) + Agent 365 ($15/user/month)`,
-    audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Licensing & Availability', 'Basics'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft Agent 365 Licensing FAQ',
-        url: 'https://www.microsoft.com/licensing/faqs/122',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    isNew: true,
-    tags: ['copilot', 'licensing', 'comparison'],
-  },
-  {
-    id: 'rollout-003',
-    question: 'What are common mistakes organizations make when rolling out agent governance?',
-    shortAnswer: 'Common mistakes include: no agent inventory before enabling controls, overly restrictive policies that block legitimate use, insufficient user training, and treating agent governance as a one-time project instead of ongoing work.',
-    detailedAnswer: `**Mistake #1: Deploying without understanding what exists**
-- **Problem:** Enable Agent 365 without knowing what agents are already in use
-- **Result:** Unexpected disruptions, quarantined agents, user confusion
-- **Fix:** Inventory existing agents first
-
-**Mistake #2: Overly restrictive policies**
-- **Problem:** Lock down everything out of fear
-- **Result:** Users route around controls, reduced productivity, shadow AI grows
-- **Fix:** Start permissive, tighten gradually based on real risk
-
-**Mistake #3: Insufficient user education**
-- **Problem:** Deploy Agent 365 without explaining to users
-- **Result:** Support tickets, resistance to adoption, workarounds
-- **Fix:** Training and communication before deployment
-
-**Mistake #4: Treating it as a project, not a process**
-- **Problem:** Deploy Agent 365, declare victory, move on
-- **Result:** Policies become outdated, new agents unmanaged, drift
-- **Fix:** Ongoing monitoring, policy reviews, continuous improvement
-
-**Mistake #5: No clear ownership**
-- **Problem:** Unclear who manages Agent 365 (IT? Security? Business units?)
-- **Result:** Inconsistent decisions, gaps in governance
-- **Fix:** Establish clear ownership and decision-making processes
-
-**Mistake #6: Ignoring third-party agents**
-- **Problem:** Focus only on Microsoft agents, ignore Salesforce/ServiceNow agents
-- **Result:** Incomplete governance, security gaps
-- **Fix:** Include third-party agents in inventory and policies
-
-**Mistake #7: All-or-nothing approach**
-- **Problem:** Try to govern every agent perfectly from day one
-- **Result:** Overwhelming complexity, paralysis
-- **Fix:** Phased approach - start with high-risk agents, expand over time
-
-**Best practice:** Treat agent governance like endpoint management - it's an ongoing discipline, not a one-time deployment.`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Rollout & Adoption', 'Governance & Shadow Agents'],
-    difficulty: 'Intermediate',
-    sources: [],
-    status: 'Not yet documented / speculative',
-    lastReviewed: '2025-11-18',
-    tags: ['mistakes', 'best practices', 'lessons learned'],
-  },
-  {
-    id: 'rollout-004',
-    question: 'What is the Shadow AI Pane in the Microsoft 365 admin center?',
-    shortAnswer: 'The Shadow AI Pane is a new dashboard (May 2026) in the Microsoft 365 admin center that helps IT admins discover and control unsanctioned AI usage using Intune policies, including detection of OpenClaw agents.',
-    detailedAnswer: `**Shadow AI Pane launched May 2026:**
-
-The Shadow AI Pane is a new governance dashboard that provides visibility into unsanctioned AI agent usage across your organization.
-
-**Key capabilities:**
-- **Discovery** — identifies unsanctioned AI agents and tools being used in your environment
-- **Risk assessment** — categorizes shadow agents by risk level
-- **Control actions** — block or quarantine unsanctioned agents using Intune policies
-- **OpenClaw detection** — specifically detects Windows devices running OpenClaw (an open-source agent framework)
-- **Usage insights** — shows which users are using shadow AI and how frequently
-
-**How it works:**
-1. Intune scans managed Windows devices for AI agent frameworks and tools
-2. Detected agents appear in the Shadow AI Pane
-3. IT admins review the agents and assess risk
-4. Admins can:
-   - Approve and register the agent in Agent 365
-   - Block the agent using Intune device policies
-   - Quarantine the agent for further investigation
-
-**Integration with Agent 365:**
-- Shadow agents detected in the pane can be promoted to sanctioned agents
-- Once sanctioned, agents appear in the Agent 365 registry
-- Full governance policies then apply
-- Audit logs track all shadow AI discoveries and actions
-
-**Intune integration:**
-- Links directly to Intune admin center for advanced controls
-- Leverages Intune device compliance policies
-- Works with Windows device management
-- Requires Intune licensing (included in E5/E7 or Frontier)
-
-**OpenClaw detection:**
-- OpenClaw is an open-source agent framework
-- Frontier customers with Intune can discover OpenClaw agents
-- Helps IT understand what agents developers are building outside official channels
-
-**Best practices:**
-- Review Shadow AI Pane weekly during initial rollout
-- Create an approval process for discovered agents
-- Educate users about sanctioned agent options
-- Don't just block—provide approved alternatives
-
-**Availability:**
-- Generally available as of May 2026
-- Requires Agent 365 license for full capabilities
-- Basic shadow AI detection included with Microsoft 365`,
-    audiences: ['IT Admin', 'Security & Compliance'],
-    categories: ['Governance & Shadow Agents', 'Rollout & Adoption'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    isNew: true,
-    tags: ['shadow ai', 'governance', 'intune', 'openclaw', 'dashboard', 'admin center'],
-  },
-  {
-    id: 'rollout-005',
-    question: 'What is the Copilot Dashboard and what adoption insights does it provide?',
-    shortAnswer: 'The Copilot Dashboard (May 2026) provides measurable adoption insights and configuration progress for Copilot and Agent 365, helping IT admins track usage, identify opportunities, and measure ROI.',
-    detailedAnswer: `**Copilot Dashboard launched May 2026:**
-
-The Copilot Dashboard is a new analytics and reporting tool in the Microsoft 365 admin center that helps organizations measure and optimize their Copilot and Agent 365 adoption.
-
-**Key metrics tracked:**
-- **Usage analytics** — how many users are actively using Copilot and agents
-- **Feature adoption** — which Copilot features and agents are most popular
-- **Productivity impact** — estimated time savings and task automation
-- **Configuration progress** — setup completion percentage and readiness scores
-- **Agent activity** — which agents are most used and by whom
-- **Compliance status** — governance policy coverage and exceptions
-
-**Adoption insights:**
-- **User engagement trends** — daily/weekly/monthly usage patterns
-- **Department-level breakdowns** — which teams are adopting fastest
-- **Feature recommendations** — suggests underutilized features based on user behavior
-- **Training needs** — identifies users who might benefit from additional training
-- **License optimization** — helps right-size Copilot and Agent 365 licensing
-
-**Configuration progress tracking:**
-- **Setup checklist** — shows which configuration steps are complete
-- **Policy coverage** — percentage of agents with governance policies applied
-- **Integration status** — Entra, Defender, Purview integration health
-- **Shadow agent ratio** — sanctioned vs. unsanctioned agents
-- **Blueprint coverage** — percentage of agents using approved blueprints
-
-**How IT admins use it:**
-1. Monitor adoption trends weekly
-2. Identify departments lagging in adoption
-3. Target training and support where needed
-4. Justify ROI to leadership
-5. Plan license expansion based on usage data
-
-**Integration with Agent 365:**
-- Agent-specific metrics included in the dashboard
-- Filter views by agent type, department, or user group
-- Export data for executive reports
-- Set up automated alerts for adoption milestones
-
-**Best practices:**
-- Review dashboard weekly during rollout
-- Share insights with department leaders
-- Use data to celebrate adoption wins
-- Identify and address adoption barriers early
-
-**Availability:**
-- Generally available as of May 2026
-- Included with Microsoft 365 Copilot license
-- Enhanced metrics require Agent 365 license`,
-    audiences: ['IT Admin', 'Business & Licensing'],
-    categories: ['Rollout & Adoption', 'Basics'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    isNew: true,
-    tags: ['copilot dashboard', 'adoption', 'analytics', 'insights', 'roi', 'admin center'],
-  },
-  {
-    id: 'rollout-006',
-    question: 'What are Teams Channel Agent Workflows and how do they integrate with external tools?',
-    shortAnswer: 'Teams Channel Agent Workflows (May 2026) allow agents to trigger automations in Azure DevOps, GitHub, Asana, Jira, and other tools directly from Teams messages, streamlining cross-platform collaboration.',
-    detailedAnswer: `**Teams Channel Agent Workflows launched May 2026:**
-
-Teams Channel Agent Workflows enable AI agents to act as integration hubs between Microsoft Teams and external development and project management tools.
-
-**How it works:**
-1. User mentions an agent in a Teams channel or chat
-2. Agent processes the request and determines the required action
-3. Agent triggers workflows in connected external tools
-4. Agent reports results back to the Teams conversation
-5. All actions are logged in Agent 365 for audit and compliance
-
-**Supported integrations (May 2026):**
-- **Azure DevOps** — create work items, update pipelines, trigger builds
-- **GitHub** — create issues, review PRs, trigger actions, update project boards
-- **Asana** — create tasks, update project status, assign work
-- **Jira** — create tickets, update stories, link issues
-- **Additional tools** — extensible via custom integrations
-
-**Example workflows:**
-
-**Software development:**
-- "@DevAgent create a GitHub issue for the login bug discussed above"
-- Agent creates issue with context from Teams conversation
-- Links back to Teams thread in GitHub issue
-
-**Project management:**
-- "@ProjectAgent add this feature request to our Asana backlog"
-- Agent creates Asana task with details from Teams discussion
-- Assigns to appropriate team member based on workload
-
-**DevOps:**
-- "@DeployAgent trigger staging deployment"
-- Agent initiates Azure DevOps pipeline
-- Reports deployment status back to Teams channel
-
-**Agent 365 integration:**
-- All workflow triggers are logged in Agent 365
-- Access to external tools governed by Agent 365 policies
-- Agents must have appropriate permissions (OAuth tokens managed securely)
-- Audit logs show which agent triggered which external action
-
-**Security and governance:**
-- Agents authenticate to external tools using OAuth 2.0
-- Credentials stored securely in Azure Key Vault
-- Access can be restricted by agent blueprint
-- IT admins can revoke external tool access per agent
-
-**Setup requirements:**
-1. Install Teams Channel Agent from agent store
-2. Configure external tool connections (OAuth)
-3. Define workflow templates for common actions
-4. Set governance policies in Agent 365
-5. Train users on agent commands
-
-**Benefits:**
-- Reduces context switching between tools
-- Keeps conversation and action together
-- Provides audit trail across platforms
-- Speeds up cross-functional collaboration
-
-**Availability:**
-- Generally available as of May 2026
-- Requires Microsoft 365 Copilot license
-- Agent 365 license recommended for governance
-- External tool licenses required separately`,
-    audiences: ['Developer / Architect', 'IT Admin', 'Business & Licensing'],
-    categories: ['Ecosystem & Integrations', 'Rollout & Adoption'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
-    isNew: true,
-    tags: ['teams', 'workflows', 'azure devops', 'github', 'jira', 'asana', 'integrations'],
-  },
-  // NEW IN FEBRUARY 2026 REFRESH
-  {
-    id: 'dev-004',
-    question: 'What is the Agent 365 SDK and how is it different from other Microsoft agent SDKs?',
-    shortAnswer: 'The Agent 365 SDK adds enterprise capabilities (identity, observability, MCP tool access, notifications) to agents you\'ve already built on any framework. It is not an agent builder itself—it\'s an enterprise enhancement layer.',
-    detailedAnswer: `**What the Agent 365 SDK does:**
-The Agent 365 SDK extends agents built on **any** agent platform or SDK by adding:
-
-- **Entra-based Agent identity** — each agent gets its own managed Entra ID
-- **Governed Work IQ MCP tool access** — safe, policy-enforced connections to Microsoft 365 services (Outlook, Teams, SharePoint, etc.)
-- **OpenTelemetry-based observability** — automatic tracing of inputs, outputs, and inference events
-- **Activity protocol notifications** — proactive messaging to users and systems
-- **Agent ID-driven governance** — integration with Agent 365 policy enforcement
-
-**What it is NOT:**
-- Not a replacement for agent frameworks like LangChain, Copilot Studio, or Microsoft Agent Framework
-- Not a code generator or agent builder
-- Not the same as the Microsoft 365 Agents SDK (which builds multi-channel bots)
-
-**Supported frameworks for auto-instrumentation:**
-- OpenAI Agents SDK
-- LangChain
-- Microsoft Agent Framework
-- (Manual instrumentation available for any other framework)
-
-**How it differs from the Microsoft 365 Agents SDK:**
-The Microsoft 365 Agents SDK builds conversational agents that run across Teams, Outlook, and other M365 surfaces. The Agent 365 SDK is a governance/enterprise overlay that can wrap agents built with M365 Agents SDK or any other stack.
-
-**Getting started:** See the official developer docs and quickstarts on Microsoft Learn.`,
-    audiences: ['Developer / Architect'],
-    categories: ['Developer Experience', 'Architecture'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Agent 365 SDK and CLI (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-02-19',
-    isNew: true,
-    tags: ['sdk', 'developer', 'opentelemetry', 'observability', 'identity'],
-  },
-  {
-    id: 'dev-005',
-    question: 'What are Work IQ MCP servers and how do agents use them?',
-    shortAnswer: 'Work IQ MCP servers are enterprise-grade Model Context Protocol (MCP) servers, powered by the Work IQ intelligence layer, that give agents safe, policy-enforced access to Microsoft 365 services like Outlook, Teams, SharePoint, OneDrive, Word, and Dataverse—all governed by Agent 365.',
-    detailedAnswer: `**What Work IQ MCP servers are:**
-Work IQ MCP servers implement the **Model Context Protocol (MCP)**—an open standard for providing AI agents with access to external tools and data sources. They are powered by **Work IQ**, the intelligence layer that grounds Copilot and agents in real-time organizational context across Data, Memory, and Inference layers. Microsoft pre-built and pre-certified these servers for core M365 services.
-
-**Available Work IQ MCP servers (preview):**
-- **Work IQ Copilot**: Chat with Microsoft 365 Copilot; start conversations and continue multi-turn threads; ground responses with files
-- **Work IQ Mail**: Create, update, delete messages; reply and reply-all; semantic search across emails
-- **Work IQ Calendar**: Create, list, update, and delete events; accept/decline invites; resolve scheduling conflicts
-- **Work IQ Teams**: Create, update, delete chats; add members; post messages; channel operations
-- **Work IQ User**: Get manager, direct reports, and profile info; search users across the organization
-- **Work IQ Word**: Create and read documents; add comments; reply to comments
-- **SharePoint and OneDrive MCP Server**: File and folder operations, metadata retrieval, sharing
-- **Dataverse and Dynamics 365 MCP Server**: CRUD operations and domain-specific actions
-
-**Key features:**
-- **Centralized governance**: Admins manage MCP servers in the Microsoft 365 admin center—allow or block servers across the organization
-- **Enterprise-grade security**: Scoped permissions, policy enforcement, and runtime observability ensure agents operate within compliance boundaries
-- **Continuous evaluation**: All servers undergo rigorous testing for accuracy, latency, and reliability
-- **Policy enforcement built-in**: DLP, MIP sensitivity labels, and Defender monitoring at the tooling gateway
-- **Full observability**: All tool calls are traceable via Microsoft Defender Advanced Hunting for audits and anomaly detection
-- **Works with any framework**: Use from Agent 365 SDK, Copilot Studio, Microsoft Foundry, LangChain, Claude SDK, or any MCP-compatible client
-
-**How to add Work IQ MCP servers to your agent:**
-- **Low-code (Copilot Studio)**: Add tools via the Tools tab → Model Context Protocol → select Work IQ servers
-- **Pro-code (Microsoft Foundry)**: Browse the tool catalog, filter by Microsoft, and connect MCP servers
-- **CLI**: Run \`a365 develop add-mcp-servers\` via the Agent 365 CLI
-- **VS Code**: Connect directly to the MCP Management Server for custom server creation
-
-**Custom MCP servers:** Use the **MCP Management Server** to build scenario-focused custom MCP servers using 1,500+ connectors, Microsoft Graph APIs, Dataverse custom APIs, and REST endpoints.
-
-**Licensing:** Requires a Microsoft 365 Copilot license to use Work IQ MCP servers.
-
-**Local testing:** Use the Agent 365 CLI mock tooling server for offline development—no real M365 connection needed.`,
-    audiences: ['Developer / Architect', 'IT Admin', 'Security & Compliance'],
-    categories: ['Developer Experience', 'Ecosystem & Integrations', 'Security & Compliance'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Work IQ MCP overview (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview',
-        type: 'Official',
-      },
-      {
-        label: 'Add and manage tools (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/tooling',
-        type: 'Official',
-      },
-      {
-        label: 'A closer look at Work IQ (Microsoft Tech Community)',
-        url: 'https://techcommunity.microsoft.com/blog/microsoft365copilotblog/a-closer-look-at-work-iq/4499789',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-03-12',
-    updatedAt: '2026-03-12',
-    tags: ['work iq', 'mcp', 'tooling servers', 'outlook', 'teams', 'sharepoint', 'governance', 'dlp', 'copilot studio', 'foundry'],
-  },
-  {
-    id: 'dev-006',
-    question: 'What is an Agent Blueprint and how does it work?',
-    shortAnswer: 'An Agent Blueprint is an IT-approved, Entra-sourced template that defines an agent\'s capabilities, required MCP tool permissions, security constraints, and governance policies. All agent instances created from a Blueprint inherit its rules automatically.',
-    detailedAnswer: `**What an Agent Blueprint defines:**
-- Agent capabilities and description
-- Required MCP tool server access (Outlook, Teams, SharePoint, etc.)
-- Security and compliance constraints (DLP, external access, logging)
-- Audit requirements and lifecycle metadata
-- Linked governance policy templates
-
-**How Blueprints work:**
-1. **IT creates or approves a Blueprint** in Microsoft Entra and the Agent 365 admin center
-2. **Blueprint is activated** for a tenant—users can request instances from the Microsoft 365 admin center
-3. **Agents are provisioned** from the Blueprint, automatically inheriting all its rules
-4. **Governance is consistent**—all instances of the same agent type have identical security posture
-
-**For developers:**
-- The Agent 365 CLI (\`a365 setup\`) creates your Blueprint as part of the setup process
-- The CLI configures Azure resources, permissions, service principal, and MCP permissions on the Blueprint
-- After setup, you have a fully configured, enterprise-ready agent foundation
-
-**For IT admins:**
-- Blueprints are the mechanism for pre-approving and standardizing agent types
-- Users request new agent instances from a Blueprint via the admin center
-- No individual agent configuration needed—compliance comes from the Blueprint
-
-**Analogy:** Blueprints are like enterprise app provisioning templates—similar to how managed apps are deployed via Intune, but for AI agents.`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Security & Compliance'],
-    categories: ['Governance & Shadow Agents', 'Developer Experience', 'Architecture'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Agent 365 CLI and Blueprint setup (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/agent-365-cli',
-        type: 'Official',
-      },
-      {
-        label: 'Agent 365 development lifecycle (Microsoft Learn)',
-        url: 'https://learn.microsoft.com/en-us/microsoft-agent-365/developer/a365-dev-lifecycle',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-02-19',
-    isNew: true,
-    tags: ['blueprint', 'governance', 'template', 'entra', 'policy'],
-  },
-  {
-    id: 'basics-006',
-    question: 'What is Windows 365 for Agents and how does it relate to Agent 365?',
-    shortAnswer: 'Windows 365 for Agents is a secure, cloud-based execution environment for computer-using AI agents—agents that control a PC to perform tasks. Agent 365 governs and monitors these agents like any other, while Windows 365 for Agents provides their isolated runtime.',
-    detailedAnswer: `**What Windows 365 for Agents is:**
-Windows 365 for Agents provides a dedicated, managed cloud PC environment specifically for **computer-using agents**—AI agents that operate a Windows desktop to perform tasks (browsing the web, filling forms, running apps) rather than calling APIs directly.
-
-**Why a dedicated environment matters:**
-- Agents operating a desktop need an isolated, auditable environment
-- Prevents agents from accessing unintended resources on shared machines
-- Provides a clean, reproducible state for each agent session
-- Security controls (network isolation, policy enforcement) are built in
-
-**How it relates to Agent 365:**
-- Windows 365 for Agents is one component that Agent 365 "unites" as part of its control plane
-- Agent 365 governs agents running in Windows 365 for Agents just like any other agent
-- Activity from computer-using agents is logged, monitored, and policy-enforced through Agent 365
-- Admins manage Windows 365 for Agents environments alongside other agent infrastructure
-
-**Use cases for computer-using agents:**
-- Legacy application automation (systems without APIs)
-- Complex multi-step web workflows
-- RPA (Robotic Process Automation) scenarios enhanced with AI reasoning
-- UI-driven tasks that don't expose programmatic interfaces
-
-**Status:** Windows 365 for Agents was mentioned in the February 2026 blog post as part of the Agent 365 ecosystem. Detailed documentation may still be emerging.`,
-    audiences: ['IT Admin', 'Developer / Architect', 'Business & Licensing'],
-    categories: ['Basics', 'Architecture'],
-    difficulty: 'Intermediate',
-    sources: [
-      {
-        label: 'Hello, world. — Agent 365 Blog (Feb 2026)',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/hello-world-/4494728',
-        type: 'Official',
-      },
-    ],
+    sources: [TERMS, LIC, OVERVIEW],
     status: 'Partially documented',
-    lastReviewed: '2026-02-19',
-    isNew: true,
-    tags: ['windows 365 for agents', 'computer-using agents', 'execution environment', 'rpa'],
+    lastReviewed: REVIEWED,
+    updatedAt: REVIEWED,
+    tags: ['prerequisite', 'E5', 'business premium'],
   },
   {
-    id: 'basics-007',
-    question: 'What is Agent Mode in Office apps (Word, Excel, PowerPoint)?',
-    shortAnswer: 'Agent Mode is a new feature in Office apps (May 2026) where Copilot works iteratively, making edits and refinements in multiple steps—helping users move from simple one-off assistance to multi-step, guided workflows.',
-    detailedAnswer: `**Agent Mode launched May 2026:**
+    id: 'paid-005',
+    question: 'E7, or E5 plus standalone Agent 365?',
+    shortAnswer: 'E7 gives the most complete experience (E5, Copilot, Agent 365, Entra Suite). It is not required. If you do not need Copilot or Entra Suite, E5 + Agent 365 is the leaner path.',
+    detailedAnswer: `Licensing options per the Licensing FAQ: Microsoft 365 E7; or E5, A5 or Business Premium plus Agent 365; or Microsoft 365 plus Defender Suite and Purview Suite plus Agent 365.
 
-Agent Mode represents an evolution of Copilot in Microsoft Office apps, enabling more sophisticated, multi-step workflows.
+E7 is not required for Agent 365. Agent 365 is not included in E3 or E5. E7 is designed to align with the EU Data Boundary.
 
-**What Agent Mode does:**
-- **Iterative refinement** — Copilot makes multiple passes at a document, refining and improving with each iteration
-- **Multi-step workflows** — handles complex tasks that require several sequential actions
-- **Context preservation** — maintains understanding across multiple edits and refinements
-- **Guided assistance** — walks users through complex document creation or editing processes
+Naming: the service description says "E7/G7"; the Ignite 2026 post says "ME7".`,
+    audiences: ['Business & Licensing'],
+    categories: ['Included vs Paid'],
+    difficulty: 'Intermediate',
+    sources: [LIC, SD, IGNITE],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    tags: ['E7', 'bundle'],
+  },
+  {
+    id: 'paid-006',
+    question: 'We already have Microsoft 365 Copilot. Do we still need Agent 365?',
+    shortAnswer: 'Copilot does not include Agent 365. Copilot licenses unlock Business Analytics for Microsoft AI services, but the security and governance layer needs Agent 365 or E7.',
+    detailedAnswer: `Copilot users are among those Microsoft recommends licensing for Agent 365, but the licenses are independent. Copilot license: required for Business Analytics on Microsoft AI. Agent 365: required for non-Microsoft AI analytics and the premium governance/security features.`,
+    audiences: ['Business & Licensing'],
+    categories: ['Included vs Paid'],
+    difficulty: 'Intro',
+    sources: [IGNITE, LIC],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    tags: ['copilot'],
+  },
+  {
+    id: 'paid-007',
+    question: 'What is available in GCC?',
+    shortAnswer: 'A subset. The service description marks the Graph API, all Purview features, Defender detection/posture features and most Intune controls as not available in GCC.',
+    detailedAnswer: `**Available in GCC:** registry, basic governance, lifecycle rules, registry sync, policy templates, observability, tool control, Entra access packages/lifecycle/Conditional Access, Defender unified logs, Intune device compliance.
 
-**Available in:**
-- **Microsoft Word** — draft documents, refine writing, restructure content
-- **Microsoft Excel** — build complex formulas, create data analyses, format workbooks
-- **Microsoft PowerPoint** — design presentations, refine layouts, improve visual consistency
+**Not available in GCC:** Graph API; Entra network traffic monitoring/blocking; all Purview rows; Defender shadow AI sync, posture and threat detection; Intune policy-controlled runtime and blocking unsanctioned local agents.
 
-**How it differs from standard Copilot:**
-- **Standard Copilot:** Single-turn assistance ("write a summary of this document")
-- **Agent Mode:** Multi-turn collaboration ("create a report, then refine the executive summary, then add supporting data visualizations")
+The page also notes that as of October 1, 2026 Agent 365 meets all FedRAMP High controls reviewed by Microsoft's independent assessor, with final authorization pending. The Licensing FAQ states it does not cover GCC licensing.`,
+    audiences: ['IT Admin', 'Security & Compliance'],
+    categories: ['Included vs Paid', 'Gotchas'],
+    difficulty: 'Intermediate',
+    sources: [SD, LIC],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['gcc', 'fedramp'],
+  },
 
-**Example workflow in Word:**
-1. User: "Create a project proposal for a new marketing campaign"
-2. Agent Mode creates initial draft
-3. Agent Mode automatically refines tone and structure
-4. Agent Mode adds relevant data points from connected sources
-5. User reviews and provides feedback
-6. Agent Mode iterates based on feedback
+  // DEPENDENCIES
+  {
+    id: 'dep-001',
+    question: 'Which other Microsoft services does Agent 365 depend on?',
+    shortAnswer: 'The admin center, Entra, Purview, Defender and Intune, plus an eligible prerequisite license. Optional: a Copilot license for Business Analytics, and Azure Monitor if you export agent activity.',
+    detailedAnswer: `See the Dependencies section on this site for each service, what it does for agents, and what happens without it.
 
-**Agent 365 integration:**
-- Agent Mode actions are logged in Agent 365
-- Organizations can set policies for Agent Mode usage
-- Data access is governed by existing Purview policies
-- Usage metrics appear in Copilot Dashboard
+Short version: Agent 365 is an entitlement plus a registry. The enforcement runs in the other products, so their configuration is your work: labeled data in Purview, managed devices in Intune, Conditional Access policies in Entra, and Defender onboarding.`,
+    audiences: ['IT Admin', 'Security & Compliance'],
+    categories: ['Dependencies'],
+    difficulty: 'Intermediate',
+    sources: [OVERVIEW, SD],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['dependencies'],
+  },
+  {
+    id: 'dep-002',
+    question: 'Do I need to have Purview, Defender and Entra already configured?',
+    shortAnswer: 'Effectively yes, if you want the security value. The Licensing FAQ says without ME5, core features are limited. Agent 365 does not do the underlying setup for you.',
+    detailedAnswer: `Examples of dependencies on your existing estate (per Product Terms notes and the Licensing FAQ):
+- Label-based DLP and label honoring need grounding data to be labeled
+- Conditional Access for delegated agents evaluates against the user's identity, so the user needs the corresponding Entra licensing
+- Advanced hunting depends on Defender for Cloud Apps Office connector log data
+- Intune controls need managed devices
+- Without ME5, examples of limited features: advanced Purview classification, Defender detection of local agents, Intune controls for local agents`,
+    audiences: ['Security & Compliance', 'IT Admin'],
+    categories: ['Dependencies'],
+    difficulty: 'Advanced',
+    sources: [LIC, TERMS],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    tags: ['prerequisites', 'purview', 'defender'],
+  },
+  {
+    id: 'dep-003',
+    question: 'How do Copilot Credits relate to Agent 365?',
+    shortAnswer: 'Agent 365 itself has no consumption charge. Its cost management views report the Copilot Credits that agents consume, by user, group, agent and service, and let you set spending limits.',
+    detailedAnswer: `Learn describes Copilot Credits as the units AI usage is billed in. Agent 365 shows consumption and supports limits for groups and users. The Ignite 2026 post adds cost-management enhancements (model controls, delegated budgets, Graph/Fabric export), with status not stated.
 
-**Availability:**
-- Generally available as of May 2026
-- Requires Microsoft 365 Copilot license
-- Works with Agent 365 for enhanced governance
-
-**Related features:**
-- **Copilot Notebook Grounding** — improved reference alignment
-- **Deeper Outlook Integration** — focused context for email assistance`,
+The credits themselves are billed regardless of whether you license Agent 365.`,
     audiences: ['Business & Licensing', 'IT Admin'],
-    categories: ['Basics', 'Rollout & Adoption'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'What\'s new in Agent 365 - May 2026',
-        url: 'https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-agent-365-may-2026/4516340',
-        type: 'Official',
-      },
-    ],
-    status: 'Documented',
-    lastReviewed: '2026-05-01',
-    updatedAt: '2026-05-01',
+    categories: ['Dependencies', 'Included vs Paid'],
+    difficulty: 'Intermediate',
+    sources: [OVERVIEW, LIC, IGNITE],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
     isNew: true,
-    tags: ['agent mode', 'copilot', 'word', 'excel', 'powerpoint', 'iterative', 'workflows'],
+    tags: ['copilot credits', 'cost'],
   },
 
+  // GOTCHAS
   {
-    id: 'basics-005',
-    question: 'What does "agent as a digital employee" mean in the context of Agent 365?',
-    shortAnswer: 'It means agents are treated like users - they get identities, permissions, access reviews, and audit logs, just like human employees. This enables consistent governance and security practices.',
-    detailedAnswer: `**The "digital employee" concept:**
+    id: 'gotcha-001',
+    question: 'Why do Microsoft\'s licensing pages seem to contradict each other?',
+    shortAnswer: 'The service description and the Licensing FAQ place several features on opposite sides of the free/paid line. Ask for written confirmation of any entitlement you are relying on.',
+    detailedAnswer: `Rows where we see a difference (details in the Coverage matrix):
+- Audit logs and eDiscovery: service description = paid; Licensing FAQ = included
+- Shadow AI endpoint sync/discovery: paid vs included
+- Blocking unsanctioned local agents: paid vs included
+- Lifecycle automation and registry sync: included vs paid
 
-Microsoft is positioning agents not as tools or scripts, but as entities that:
-- Have identities (Entra Agent ID)
-- Have job descriptions (agent metadata)
-- Get hired (created and registered)
-- Get permissions (access policies)
-- Perform work (execute tasks)
-- Get monitored (activity logs)
-- Get promoted or fired (updated or deactivated)
+Possible explanations include a free baseline versus agent-specific depth, or different update dates. We have not found Microsoft's reconciliation. Service description page date: 2026-09-30.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Gotchas', 'Included vs Paid'],
+    difficulty: 'Advanced',
+    sources: [SD, LIC],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['conflict', 'licensing'],
+  },
+  {
+    id: 'gotcha-002',
+    question: 'What happens with agents owned by users who are not licensed?',
+    shortAnswer: 'The Licensing FAQ says activity tied to an unlicensed user is not entitled to Agent 365 protections and is considered out of compliance. One licensed user enables the product but does not cover everyone.',
+    detailedAnswer: `Observability signals start after the first license is assigned. Licensing is contractually enforced, multiplexing/pooling is not permitted, and standard service protections and usage limits may still apply. Foundational capabilities remain available to all Microsoft Cloud subscribers.
 
-**Why this matters:**
-
-**1. Consistent governance**
-- Same processes for agents and humans
-- Existing policies extend to agents
-- Unified management interface
-
-**2. Audit and compliance**
-- "Who did what?" includes agents
-- Regulatory compliance easier to demonstrate
-- Clear accountability
-
-**3. Security**
-- Zero trust principles apply to agents
-- Conditional access works the same way
-- Threat detection treats agent compromise like account compromise
-
-**4. Organizational understanding**
-- Business leaders can understand agent impact
-- HR-like metrics (productivity, workload, performance)
-- Easier to explain to auditors and regulators
-
-**Example:**
-Instead of "a script accesses SharePoint," it's "the HR Benefits Agent accessed employee records to answer a benefits question for John Smith on Tuesday at 2 PM."
-
-**Philosophical shift:** From thinking about agents as automation to thinking about agents as workforce members that need to be managed.
-
-**Important caveat:** This is a conceptual framework - agents don't have legal rights or employment status.`,
-    audiences: ['Business & Licensing', 'IT Admin', 'Security & Compliance'],
-    categories: ['Basics', 'Governance & Shadow Agents'],
-    difficulty: 'Intro',
-    sources: [
-      {
-        label: 'Microsoft teases agents that become independent users',
-        url: 'https://www.theregister.com/2025/11/10/microsoft_agentic_users_a365/',
-        type: 'News',
-      },
-    ],
+Practical step: use the "Registry agent owners" export to see how many distinct owners your agents have before you license.`,
+    audiences: ['Business & Licensing', 'IT Admin'],
+    categories: ['Gotchas'],
+    difficulty: 'Intermediate',
+    sources: [LIC],
     status: 'Documented',
-    lastReviewed: '2025-11-18',
-    tags: ['digital employee', 'philosophy', 'governance model'],
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['compliance', 'per user'],
+  },
+  {
+    id: 'gotcha-003',
+    question: 'Which Ignite 2026 announcements are actually GA?',
+    shortAnswer: 'GA: Tools Registry, Defender local agent discovery, plugins and skills governance, core usage insights, Defender runtime protection (Windows). Most of the rest is preview, and some starts in December 2026.',
+    detailedAnswer: `**GA:** Tools Registry; local agent discovery in Defender; plugins and skills governance; core usage insights; Defender runtime protection for local agents on Windows.
+
+**Preview:** connected platforms; GSA network discovery and shadow AI discovery in the registry; Entra Agent ID for local agents and for Autopilot; Agent Map use cases; multi-tenant management (public preview); local agent governance; Cowork plugin; dynamic agent risk; Purview DLP for local agents; third-party posture in Defender; Intune and GSA local agent controls.
+
+**Dated:** Entra Agent ID for connected platforms completes December 2026; Tools Registry external catalogs private preview from December 2026; Action center preview from December 2026.
+
+**Status not stated:** Export Agent Activity, adaptive identity controls, Cost Management enhancements.`,
+    audiences: ['IT Admin', 'Security & Compliance', 'Business & Licensing'],
+    categories: ['Gotchas', 'Governance & Security'],
+    difficulty: 'Intermediate',
+    sources: [IGNITE],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['ignite 2026', 'preview', 'ga'],
+  },
+
+  // GOVERNANCE & SECURITY
+  {
+    id: 'sec-001',
+    question: 'Can Agent 365 find and control agents on laptops, like Claude Code or GitHub Copilot CLI?',
+    shortAnswer: 'Discovery of 60+ local agents is GA in Defender (managed Windows and macOS). Governance, DLP and identity for local agents are mostly preview; runtime protection is GA on Windows.',
+    detailedAnswer: `- **Discovery (GA):** Defender discovers 60+ local agents and their MCP servers, tied to device and user. Network-level discovery via Global Secure Access is preview.
+- **Identity (preview):** distinct Entra Agent ID for supported local agents, starting with GitHub Copilot CLI and Claude Code.
+- **Runtime protection (GA on Windows):** audit or block mode; supported agents include Claude Code, GitHub Copilot CLI, OpenClaw and ChatGPT Desktop.
+- **DLP (preview):** Purview, for agents including Claude Code, Claude Desktop and GitHub Copilot CLI.
+- **Governance (preview):** allow, restrict, investigate; block through Intune, Defender and GSA.
+
+Entitlement is a gotcha: see "Why do Microsoft's pages disagree?".`,
+    audiences: ['Security & Compliance', 'IT Admin'],
+    categories: ['Governance & Security', 'Agents & Platforms'],
+    difficulty: 'Intermediate',
+    sources: [IGNITE, SD],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['local agents', 'shadow ai', 'defender'],
+  },
+  {
+    id: 'sec-002',
+    question: 'What is dynamic agent risk and where do I see it?',
+    shortAnswer: 'One risk level per agent combining runtime signals with exposure and blast radius, shown in the registry, Defender, Entra and Purview. Preview.',
+    detailedAnswer: `Signals span identity, access, data, endpoints, cloud and network. The level updates as the agent acts, is targeted, or receives code or model updates. Partners Check Point, Cyera, Darktrace and Zenity are adding signals through Microsoft Sentinel. Entra adaptive controls evaluate Conditional Access at the point of action (status not stated).`,
+    audiences: ['Security & Compliance'],
+    categories: ['Governance & Security'],
+    difficulty: 'Advanced',
+    sources: [IGNITE],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['risk', 'conditional access', 'preview'],
+  },
+  {
+    id: 'sec-003',
+    question: 'Can I control which MCP servers, plugins and skills agents use?',
+    shortAnswer: 'Plugins and skills governance for Microsoft 365 Copilot and Copilot Cowork is GA, and the Tools Registry is GA. Tenant-wide tool control needs the paid license.',
+    detailedAnswer: `Admins decide which plugins and skills are available and assign them to users or groups. Before blocking an MCP server you can see which agents use it and which plugins depend on it. Azure AI Gateway and LiteLLM MCP support is preview. Control of which tools (including Microsoft MCP servers) agents can access tenant-wide is listed as requiring E7/G7 or Agent 365.`,
+    audiences: ['IT Admin', 'Security & Compliance'],
+    categories: ['Governance & Security'],
+    difficulty: 'Intermediate',
+    sources: [IGNITE, SD],
+    status: 'Documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['mcp', 'tools registry', 'plugins'],
+  },
+
+  // AGENTS & PLATFORMS
+  {
+    id: 'plat-001',
+    question: 'Which non-Microsoft platforms can be connected?',
+    shortAnswer: 'Connected platforms is in preview. The Ignite post lists Entra Agent ID rollout for Salesforce Agentforce, Amazon AgentCore, Google Vertex AI, Databricks, Snowflake, Anthropic Claude Managed Agents, OpenAI, Oracle, SAP, ServiceNow and UiPath, completing in December 2026.',
+    detailedAnswer: `You connect a platform once and agents sync into the registry without code changes, showing creator, owner and tools. Activity detail varies by platform. A guided wizard and secretless authentication (Entra workload identity federation) are included for supported platforms.
+
+At GA (May 2026) registry sync with AWS Bedrock and Google Cloud was public preview. Defender posture for Bedrock, Gemini, Vertex AI and Claude agents is preview and requires connecting the platform.`,
+    audiences: ['IT Admin', 'Developer / Architect'],
+    categories: ['Agents & Platforms'],
+    difficulty: 'Intermediate',
+    sources: [IGNITE, GA],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['connected platforms', 'third party'],
+  },
+  {
+    id: 'plat-002',
+    question: 'Can I manage agents across multiple tenants?',
+    shortAnswer: 'Multi-tenant agent management in the Microsoft 365 admin center is in public preview: one view across tenants, with deploy, compare, review and approve/block at scale.',
+    detailedAnswer: `Covers Microsoft and non-Microsoft agents. The Ignite post does not state licensing for it. Verify before relying on it for partner or multi-tenant scenarios.`,
+    audiences: ['IT Admin'],
+    categories: ['Agents & Platforms'],
+    difficulty: 'Intermediate',
+    sources: [IGNITE],
+    status: 'Partially documented',
+    lastReviewed: REVIEWED,
+    isNew: true,
+    tags: ['multi-tenant', 'preview'],
   },
 ];
+
+export const faqs: FaqItem[] = [...newFaqs, ...carriedOverFaqs];
