@@ -26,11 +26,11 @@ No test framework configured.
 ## Structure
 
 ```
-src/components/    # 15 components — named exports, functional + hooks
+src/components/    # components — named exports, functional + hooks
 src/data/
   types.ts         # AudienceRole, Category, Difficulty, SourceType, Status, FaqItem, Source, Scenario, OpenQuestion
   faqs.ts          # All FAQ content (FaqItem[])
-  scenarios.ts / openQuestions.ts / categories.ts / roles.ts
+  coverage.ts / dependencies.ts / gotchas.ts / openQuestions.ts / categories.ts / roles.ts
 src/App.tsx        # Section layout with useRef scroll nav
 src/index.css      # Tailwind directives + Mermaid styles
 tailwind.config.js # ms-blue palette (50–900)

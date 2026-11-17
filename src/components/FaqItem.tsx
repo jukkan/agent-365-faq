@@ -21,11 +21,12 @@ export const FaqItem: React.FC<FaqItemProps> = ({ faq }) => {
     'Advanced': 'bg-red-100 text-red-800',
   };
 
-  const isUpdated = faq.updatedAt === '2026-06-01' || faq.updatedAt === '2026-03-12' || faq.updatedAt === '2026-02-19';
+  const isUpdated = faq.updatedAt === '2026-11-17' || faq.updatedAt === '2026-06-01' || faq.updatedAt === '2026-03-12' || faq.updatedAt === '2026-02-19';
   const isNew = faq.isNew === true;
 
   const getUpdateLabel = (): string => {
     const date = faq.updatedAt ?? (faq.isNew ? faq.lastReviewed : undefined);
+    if (date === '2026-11-17') return 'Ignite 2026 update';
     if (date === '2026-06-01') return 'June 2026 update';
     if (date === '2026-03-12') return 'March 2026 GA update';
     return 'February 2026 refresh';
