@@ -13,15 +13,15 @@ export const Footer: React.FC = () => {
               <p className="text-lg text-gray-700 mb-4">
                 Built by <span className="font-semibold text-ms-blue-700">Jukka Niiranen</span>, with{' '}
                 <span className="font-semibold text-purple-700">Claude Code</span>.{' '}
-                <span className="text-gray-600">Visit JukkaNet to enter my world.</span>
+                <span className="text-gray-600">Subscribe to my newsletter for more on Microsoft business applications and AI.</span>
               </p>
               <a
-                href="https://jukkan.com/"
+                href="https://www.perspectives.plus"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-ms-blue-600 text-white font-semibold rounded-lg hover:bg-ms-blue-700 transition-colors shadow-md hover:shadow-lg"
               >
-                Visit JukkaNet →
+                Read my Perspectives →
               </a>
             </div>
           </div>
