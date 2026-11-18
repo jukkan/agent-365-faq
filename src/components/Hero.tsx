@@ -19,8 +19,8 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <h1 className="text-5xl sm:text-6xl leading-tight text-balance mb-4">Microsoft Agent 365</h1>
-        <p className="font-display text-2xl text-ms-blue-600 mb-8">The control plane for AI agents, read from the customer side.</p>
+        <h1 className="text-5xl sm:text-6xl leading-tight text-balance mb-4">Agent 365 FAQ</h1>
+        <p className="font-display text-2xl text-ms-blue-600 mb-8">Microsoft Agent 365, the control plane for AI agents, read from the customer side.</p>
 
         <p className="text-xl text-gray-700 max-w-3xl mb-6">
           What you get with your Microsoft 365 plan, what the <strong>paid license</strong> adds, which other services it{' '}

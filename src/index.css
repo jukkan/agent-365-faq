@@ -53,3 +53,49 @@
 @media (max-width: 1023px) {
   .a365-section-head::before { display: none; }
 }
+
+/* ---- Coverage matrix: the Advisory Pack figure language ----
+   Black header row, 2px ink frame, the paid column on the raised ground,
+   hatched strip on rows where Microsoft's sources disagree. */
+.a365-matrix { border: 2px solid var(--na-color-ink); border-collapse: collapse; background: var(--na-color-bg); }
+.a365-matrix th {
+  background: var(--na-color-plate-bg); color: var(--na-color-plate-ink);
+  font: 600 0.85rem/1.25 var(--na-font-ui); text-align: left; padding: 0.9rem 1rem; vertical-align: bottom;
+}
+.a365-matrix td { padding: 0.75rem 1rem; border-top: 1px solid var(--na-color-border); vertical-align: top; }
+.a365-matrix td + td, .a365-matrix th + th { border-left: 1px solid var(--na-color-ink); }
+.a365-matrix td.a365-matrix__paid { background: var(--na-color-bg-raised); }
+.a365-matrix th.a365-matrix__paid { border-left-width: 4px; }
+.a365-matrix td.a365-matrix__paid { border-left: 4px solid var(--na-color-ink); }
+.a365-matrix__conflict td:first-child {
+  box-shadow: none;
+  background-image: repeating-linear-gradient(var(--na-hatch-angle), var(--na-color-accent) 0 2px, transparent 2px 7px);
+  background-size: 10px 100%; background-repeat: no-repeat; padding-left: 1.6rem;
+}
+.a365-mark--yes {
+  display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem;
+  background: var(--na-color-ink); color: var(--na-color-bg); font: 700 0.9rem/1 var(--na-font-ui);
+}
+.a365-paid { display: inline-block; padding: 0.15rem 0.5rem; background: var(--na-color-accent); color: var(--na-color-accent-ink); }
+
+/* ---- Dependencies: an authored dark section (the identity plate) ----
+   Remaps the tokens inside the section so Tailwind utilities follow. */
+.a365-plate {
+  --na-color-bg: var(--na-color-plate-bg);
+  --na-color-ink: var(--na-color-plate-ink);
+  --na-color-heading: var(--na-color-plate-ink);
+  --na-color-ink-muted: var(--na-color-plate-ink-muted);
+  --na-color-border: var(--na-color-plate-border);
+  --na-color-accent: var(--na-color-plate-accent);
+  --na-glyph-strength: 16%;
+  background: var(--na-color-bg); color: var(--na-color-ink);
+}
+.a365-dep { border: 2px solid var(--na-color-plate-ink); background: #161514; }
+.a365-dep__name {
+  font-family: var(--na-font-display); font-size: 1.3rem; line-height: 1.2;
+  padding: 0.9rem 1.25rem; background: var(--na-color-plate-ink); color: var(--na-color-plate-bg);
+}
+.a365-dep__license { background: var(--na-color-plate-accent); color: #160a06; }
+.a365-dep__license dt { color: #160a06; opacity: 0.75; }
+.a365-dep__without { border-top: 1px solid var(--na-color-plate-border); color: var(--na-color-plate-ink-muted); }
+.a365-dep__without dt { color: var(--na-color-plate-ink); }

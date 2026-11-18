@@ -26,7 +26,7 @@ function App() {
         <section id="coverage" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><CoverageSection /></div>
         </section>
-        <section id="dependencies" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
+        <section id="dependencies" className="a365-plate scroll-mt-20 py-16">
           <div className={wrap}><DependenciesSection /></div>
         </section>
         <section id="gotchas" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">

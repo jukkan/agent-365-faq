@@ -9,13 +9,15 @@ export const DependenciesSection: React.FC = () => (
         Agent 365 is a registry plus an entitlement. Most enforcement happens in other Microsoft services, so their licensing and configuration decide what you actually get.
       </p>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       {dependencies.map((d) => (
-        <div key={d.name} className="bg-white border border-gray-200 rounded-lg p-5">
-          <h3 className="text-gray-900 mb-2">{d.name}</h3>
-          <p className="text-sm text-gray-700 mb-3">{d.whatItDoes}</p>
-          <p className="text-sm text-gray-600 mb-2"><span className="font-medium text-gray-800">License: </span>{d.licenseNote}</p>
-          <p className="text-sm text-gray-600"><span className="font-medium text-gray-800">Without it: </span>{d.withoutIt}</p>
+        <div key={d.name} className="a365-dep flex flex-col">
+          <h3 className="a365-dep__name">{d.name}</h3>
+          <p className="px-5 pt-4 pb-3 text-sm">{d.whatItDoes}</p>
+          <dl className="mt-auto text-sm">
+            <div className="a365-dep__license px-5 py-3"><dt className="font-mono text-xs mb-1">License</dt><dd>{d.licenseNote}</dd></div>
+            <div className="a365-dep__without px-5 py-3"><dt className="font-mono text-xs mb-1">Without it</dt><dd>{d.withoutIt}</dd></div>
+          </dl>
         </div>
       ))}
     </div>
