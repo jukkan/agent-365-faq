@@ -36,6 +36,10 @@ The site follows the Niiranen Advisory design system (repo `Niiranen-Advisory/na
 - Coverage matrix uses the Advisory Pack figure language (`.a365-matrix`: black header, paid column on the raised ground, hatched strip for rows where sources differ). The dependencies section is a dark plate (`.a365-plate` remaps tokens locally) with quiet outlined cards (`.a365-dep`).
 - Brand marks in `public/brand/` are not licensed for reuse outside Jukka's own properties.
 
+## Knowledge export (for agents and LLMs)
+
+`npm run build` ends with `tsx scripts/export-knowledge.ts`, which writes `dist/a365-faq.md`, `dist/a365-faq.json` and `dist/llms.txt` from `src/data/*.ts`. They deploy with the site (e.g. https://a365-faq.jukkan.com/a365-faq.md) and are meant as grounding for Copilot agents. Do not hand-edit them; change the data files. Keep "sources differ" notes, statuses and review dates in the data, since the export carries them through.
+
 ## Repository layout
 
 ```
