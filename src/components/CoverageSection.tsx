@@ -30,7 +30,7 @@ export const CoverageSection: React.FC = () => {
           <button
             key={a}
             onClick={() => setArea(a)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium ${area === a ? 'bg-ms-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            className={`px-3 py-1.5 border text-sm ${area === a ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 border-gray-300 hover:border-gray-900'}`}
           >
             {a}
           </button>

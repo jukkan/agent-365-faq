@@ -15,9 +15,7 @@ export const OpenQuestionsSection: React.FC = () => {
         {openQuestions.map((oq) => (
           <div key={oq.id} className="bg-white border border-gray-200 rounded-lg p-6">
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-orange-600 font-bold">?</span>
-              </div>
+              <span aria-hidden="true" className="font-display text-3xl leading-none text-gray-400">?</span>
               <div className="flex-1">
                 <h3 className="text-xl font-semibold text-gray-900">{oq.question}</h3>
                 <p className="text-xs text-gray-500 mt-1">

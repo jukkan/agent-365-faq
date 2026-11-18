@@ -14,7 +14,7 @@ export const RoleTabs: React.FC<RoleTabsProps> = ({ selectedRole, onSelectRole }
           onClick={() => onSelectRole(null)}
           className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
             selectedRole === null
-              ? 'border-ms-blue-600 text-ms-blue-600'
+              ? 'border-gray-900 text-gray-900'
               : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
           }`}
         >
@@ -26,12 +26,11 @@ export const RoleTabs: React.FC<RoleTabsProps> = ({ selectedRole, onSelectRole }
             onClick={() => onSelectRole(role.value)}
             className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
               selectedRole === role.value
-                ? 'border-ms-blue-600 text-ms-blue-600'
+                ? 'border-gray-900 text-gray-900'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
             title={role.description}
           >
-            <span className="mr-2">{role.icon}</span>
             {role.label}
           </button>
         ))}
