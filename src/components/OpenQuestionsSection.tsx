@@ -5,7 +5,7 @@ export const OpenQuestionsSection: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Open Questions & Roadmap Gaps</h2>
+        <h2 className="text-3xl text-gray-900 mb-2">Open Questions & Roadmap Gaps</h2>
         <p className="text-gray-600">
           What's currently unclear or still evolving with Agent 365
         </p>
@@ -17,7 +17,7 @@ export const OpenQuestionsSection: React.FC = () => {
             <div className="flex items-start gap-3 mb-4">
               <span aria-hidden="true" className="font-display text-3xl leading-none text-gray-400">?</span>
               <div className="flex-1">
-                <h3 className="text-xl font-semibold text-gray-900">{oq.question}</h3>
+                <h3 className="text-xl text-gray-900">{oq.question}</h3>
                 <p className="text-xs text-gray-500 mt-1">
                   Category: {oq.category} • Last updated: {new Date(oq.lastUpdated).toLocaleDateString()}
                 </p>

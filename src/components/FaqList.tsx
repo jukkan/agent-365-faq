@@ -52,7 +52,7 @@ export const FaqList: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">FAQ Explorer</h2>
+        <h2 className="text-3xl text-gray-900 mb-2">FAQ Explorer</h2>
         <p className="text-gray-600">
           Search and filter {faqs.length} questions about Microsoft Agent 365
         </p>

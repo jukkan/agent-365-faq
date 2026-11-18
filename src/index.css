@@ -19,7 +19,9 @@
     color: var(--na-color-heading);
     letter-spacing: -0.005em;
   }
-  h4, h5, h6, button, nav, label, input, select { font-family: var(--na-font-ui); }
+  /* h4-h6: text face at its real 600 weight. DM Serif Display has one weight only. */
+  h4, h5, h6 { font-family: var(--na-font-text); font-weight: 600; }
+  button, nav, label, input, select { font-family: var(--na-font-ui); }
   a { text-underline-offset: 0.15em; }
   :focus-visible { outline: 2px solid var(--na-color-accent); outline-offset: 2px; }
   /* Gradients are a slop tell in N/A: neutralise the old hero/footer gradients. */
