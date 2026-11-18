@@ -16,7 +16,7 @@ This is an **unofficial FAQ microsite** explaining **Microsoft Agent 365** — M
 
 - **React 19** with **TypeScript** (strict mode)
 - **Vite 7** — dev server (`localhost:5173`) and production builds (`dist/`)
-- **Tailwind CSS 3** — all styling via utility classes; custom `ms-blue` color palette (50–900) defined in `tailwind.config.js`
+- **Tailwind CSS 3** — all styling via utility classes; colours, fonts, radius and shadows mapped to N/A design-system tokens in `tailwind.config.js`
 - **Mermaid.js** — architecture diagrams rendered in `ArchitectureDiagramSection`
 - **ESLint 9** with flat config (`eslint.config.js`) — typescript-eslint, react-hooks, react-refresh plugins
 - **Node.js 20** (per CI workflow)
@@ -38,7 +38,8 @@ src/
     roles.ts        # Audience role definitions
   App.tsx       # Main app — section-based layout with useRef scroll navigation
   main.tsx      # Entry point
-  index.css     # Global styles (Tailwind directives + Mermaid diagram styles)
+  index.css     # N/A token imports, base type, matrix/plate styles, Mermaid styles
+  styles/na/    # Vendored tokens.css + spice.css
 ```
 
 ## Key types (src/data/types.ts)
@@ -67,7 +68,7 @@ npm run preview    # preview production build locally
 - All styling via **Tailwind utility classes** — no CSS modules, no styled-components
 - TypeScript strict mode — fully type all props and data structures
 - Section-based layout in `App.tsx` using `useRef` for scroll navigation
-- Use the `ms-blue` custom color palette for Microsoft-branded blue UI elements
+- Follow the N/A design system (see "Styling" in AGENTS.md). `ms-blue-*` is the oxblood accent, used once per piece
 - No test framework is currently configured
 
 ## Content guidelines

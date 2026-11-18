@@ -24,7 +24,7 @@ This site provides:
 
 - **React 18** with TypeScript
 - **Vite** for fast development and optimized builds
-- **Tailwind CSS** for styling
+- **Tailwind CSS** mapped to the N/A design-system tokens for styling
 - **No backend** - fully static, deployable to any static host
 
 ## Getting Started

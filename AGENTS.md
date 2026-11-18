@@ -19,10 +19,22 @@ Unofficial FAQ microsite for **Microsoft Agent 365** — Microsoft's control pla
 | React | 19 |
 | TypeScript | ~5.9 (strict mode) |
 | Vite | 7 |
-| Tailwind CSS | 3 (custom `ms-blue` palette in `tailwind.config.js`) |
+| Tailwind CSS | 3 (colours mapped to N/A design-system tokens in `tailwind.config.js`) |
 | Mermaid.js | ^11 |
 | ESLint | 9 (flat config — `eslint.config.js`) |
 | Node.js | 20 (CI) |
+
+## Styling (N/A design system)
+
+The site follows the Niiranen Advisory design system (repo `Niiranen-Advisory/na-design-system`, local `E:\Dev\jukkan\na-design-system`). Applied 2026-11-18.
+
+- `src/styles/na/tokens.css` and `spice.css` are vendored copies (from commit `8eae405`). Refresh by copying them again; do not edit them here.
+- `tailwind.config.js` remaps existing utility names onto `--na-*` tokens: `ms-blue`/`blue`/`purple`/`amber`/`yellow`/`orange` → the oxblood accent, `gray` → ink/paper/border, `red` → danger, `green` → neutral. Radius is capped at 4px and shadows are off. Use the tokens; never hard-code colours.
+- Type: DM Serif Display for h1–h3 (one weight only: never add `font-bold`/`font-semibold` to them), IBM Plex Serif for body and h4–h6, system UI for nav/buttons/inputs, system mono for metadata and labels. Fonts load from Google Fonts in `index.html`.
+- One accent per piece. No gradients, emoji icons, pills or badge clusters: status goes in one mono metadata line.
+- Spice pieces: cut masthead in the hero; one glyph per section head (`.a365-section-head`, hidden below 1024px); window on the footer CTA. One piece per view.
+- Coverage matrix uses the Advisory Pack figure language (`.a365-matrix`: black header, paid column on the raised ground, hatched strip for rows where sources differ). The dependencies section is a dark plate (`.a365-plate` remaps tokens locally) with quiet outlined cards (`.a365-dep`).
+- Brand marks in `public/brand/` are not licensed for reuse outside Jukka's own properties.
 
 ## Repository layout
 
@@ -39,8 +51,10 @@ src/
     roles.ts                   # Audience role definitions
   App.tsx                      # Main app with section-based layout
   main.tsx                     # Entry point
-  index.css                    # Tailwind directives + Mermaid styles
-tailwind.config.js             # ms-blue custom color palette
+  index.css                    # Token/spice imports, base type, matrix + plate styles, Mermaid styles
+  styles/na/                   # Vendored tokens.css + spice.css from na-design-system
+tailwind.config.js             # Tailwind colours/fonts/radius/shadow remapped to --na-* tokens
+public/brand/                  # N/A monogram + favicon (not licensed for reuse)
 eslint.config.js               # ESLint 9 flat config
 vite.config.ts                 # Vite config (base: '/')
 ```
@@ -84,7 +98,7 @@ type Status = 'Documented' | 'Partially documented' | 'Not yet documented / spec
 2. **Functional components with hooks** — no class components.
 3. **Tailwind utility classes** for all styling — no CSS modules, no styled-components.
 4. **TypeScript strict** — fully type all props, data, and function signatures.
-5. **`ms-blue` palette** — use these custom colors for Microsoft-branded blue UI elements.
+5. **N/A design system** — see Styling below. `ms-blue-*` now means the single oxblood accent, not Microsoft blue.
 6. **`App.tsx` layout** — sections are laid out using `useRef` for scroll-based navigation; follow existing patterns when adding sections.
 
 ## Content rules

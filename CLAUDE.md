@@ -18,7 +18,7 @@ No test framework configured.
 
 - React 19 + TypeScript ~5.9 (strict)
 - Vite 7 (`base: '/'` — do not change without understanding deployment)
-- Tailwind CSS 3 — custom `ms-blue` color palette in `tailwind.config.js`
+- Tailwind CSS 3 — colours, fonts, radius and shadows mapped to N/A design-system tokens in `tailwind.config.js`
 - Mermaid.js ^11 — architecture diagrams
 - ESLint 9 flat config (`eslint.config.js`)
 - Node 20 (CI)
@@ -32,8 +32,9 @@ src/data/
   faqs.ts          # All FAQ content (FaqItem[])
   coverage.ts / dependencies.ts / gotchas.ts / openQuestions.ts / categories.ts / roles.ts
 src/App.tsx        # Section layout with useRef scroll nav
-src/index.css      # Tailwind directives + Mermaid styles
-tailwind.config.js # ms-blue palette (50–900)
+src/index.css      # N/A token imports, base type, matrix/plate styles, Mermaid styles
+src/styles/na/     # Vendored tokens.css + spice.css
+tailwind.config.js # Tailwind names remapped to --na-* tokens
 ```
 
 ## Code style
@@ -41,7 +42,7 @@ tailwind.config.js # ms-blue palette (50–900)
 - **Named exports only** — never `export default` for components
 - Tailwind utility classes for all styling — no CSS modules, no styled-components
 - All props and data fully typed (TypeScript strict)
-- Use `ms-blue-*` classes for Microsoft-branded blue elements
+- Follow the N/A design system: see "Styling" in AGENTS.md. `ms-blue-*` is the oxblood accent; use it once per piece
 - Follow existing `useRef` scroll-nav pattern in `App.tsx` when adding sections
 
 ## Content rules
