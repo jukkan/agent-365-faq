@@ -40,3 +40,16 @@
   .mermaid-container svg { min-width: 800px; }
 }
 .fullscreen-diagram svg { max-width: none; width: auto; height: auto; max-height: 85vh; }
+
+/* Section-head glyphs (SPICE.md): one quiet glyph per section, behind the
+   heading block only, never behind running text. Desktop only: on a phone
+   the intro paragraph fills the width, so the glyph would sit under it. */
+.a365-section-head {
+  --na-glyph-size: 11rem;
+  --na-glyph-x: 0%;
+  padding-block: var(--na-space-sm);
+}
+.a365-section-head > p { max-width: 42rem; }
+@media (max-width: 1023px) {
+  .a365-section-head::before { display: none; }
+}

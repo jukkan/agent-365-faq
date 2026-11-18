@@ -7,7 +7,7 @@ const severityLabel = { important: 'Check before buying', warning: 'Watch for th
 
 export const GotchasSection: React.FC = () => (
   <div className="space-y-6">
-    <div>
+    <div className="a365-section-head na-glyph na-glyph--asterisk">
       <h2 className="text-3xl text-gray-900 mb-2">Gotchas</h2>
       <p className="text-gray-600 max-w-3xl">
         Things that tend to surprise customers, drawn from where Microsoft's own pages differ or where status is easy to misread. Reviewed 17.11.2026.

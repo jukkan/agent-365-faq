@@ -75,8 +75,8 @@ export const FaqList: React.FC = () => {
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => <FaqItem key={faq.id} faq={faq} />)
           ) : (
-            <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <p className="text-gray-600">No FAQs match your filters. Try adjusting your search or filters.</p>
+            <div className="na-glyph na-glyph--null text-center py-16 border border-gray-300" style={{ ['--na-glyph-size' as string]: '9rem', ['--na-glyph-x' as string]: '50%' }}>
+              <p className="text-gray-700">No questions match these filters. Clear a filter or shorten the search.</p>
             </div>
           )}
         </div>

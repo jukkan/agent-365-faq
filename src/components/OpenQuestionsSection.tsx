@@ -4,7 +4,7 @@ import { openQuestions } from '../data/openQuestions';
 export const OpenQuestionsSection: React.FC = () => {
   return (
     <div className="space-y-8">
-      <div>
+      <div className="a365-section-head na-glyph" data-glyph="?">
         <h2 className="text-3xl text-gray-900 mb-2">Open Questions & Roadmap Gaps</h2>
         <p className="text-gray-600">
           What's currently unclear or still evolving with Agent 365
