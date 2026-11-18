@@ -11,12 +11,12 @@ export const DependenciesSection: React.FC = () => (
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       {dependencies.map((d) => (
-        <div key={d.name} className="a365-dep flex flex-col">
+        <div key={d.name} className="a365-dep">
           <h3 className="a365-dep__name">{d.name}</h3>
-          <p className="px-5 pt-4 pb-3 text-sm">{d.whatItDoes}</p>
-          <dl className="mt-auto text-sm">
-            <div className="a365-dep__license px-5 py-3"><dt className="font-mono text-xs mb-1">License</dt><dd>{d.licenseNote}</dd></div>
-            <div className="a365-dep__without px-5 py-3"><dt className="font-mono text-xs mb-1">Without it</dt><dd>{d.withoutIt}</dd></div>
+          <p className="a365-dep__what">{d.whatItDoes}</p>
+          <dl className="a365-dep__facts">
+            <dt>License</dt><dd>{d.licenseNote}</dd>
+            <dt>Without it</dt><dd>{d.withoutIt}</dd>
           </dl>
         </div>
       ))}

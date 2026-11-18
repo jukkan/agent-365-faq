@@ -90,12 +90,25 @@
   --na-glyph-strength: 16%;
   background: var(--na-color-bg); color: var(--na-color-ink);
 }
-.a365-dep { border: 2px solid var(--na-color-plate-ink); background: #161514; }
-.a365-dep__name {
-  font-family: var(--na-font-display); font-size: 1.3rem; line-height: 1.2;
-  padding: 0.9rem 1.25rem; background: var(--na-color-plate-ink); color: var(--na-color-plate-bg);
+.a365-dep {
+  border: 1px solid var(--na-color-plate-border);
+  border-top: 2px solid var(--na-color-plate-ink-muted);
+  padding: 1.25rem 1.5rem 1.4rem;
 }
-.a365-dep__license { background: var(--na-color-plate-accent); color: #160a06; }
-.a365-dep__license dt { color: #160a06; opacity: 0.75; }
-.a365-dep__without { border-top: 1px solid var(--na-color-plate-border); color: var(--na-color-plate-ink-muted); }
-.a365-dep__without dt { color: var(--na-color-plate-ink); }
+.a365-dep__name { font-size: 1.3rem; line-height: 1.25; margin-bottom: 0.5rem; }
+.a365-dep__what { font-size: 0.95rem; color: var(--na-color-plate-ink); margin-bottom: 1rem; }
+/* Label column + text column, so every card lines up the same way. */
+.a365-dep__facts {
+  display: grid; grid-template-columns: 6.5rem 1fr; column-gap: 1rem;
+  font-size: 0.9rem; color: var(--na-color-plate-ink-muted);
+}
+.a365-dep__facts dt {
+  font: 0.75rem/1.9 var(--na-font-mono); color: var(--na-color-plate-ink-muted);
+  border-top: 1px solid var(--na-color-plate-border); padding-top: 0.6rem;
+}
+.a365-dep__facts dd { border-top: 1px solid var(--na-color-plate-border); padding: 0.6rem 0 0.7rem; }
+.a365-dep__facts dt:first-of-type { color: var(--na-color-plate-accent); }
+@media (max-width: 480px) {
+  .a365-dep__facts { grid-template-columns: 1fr; }
+  .a365-dep__facts dd { border-top: 0; padding-top: 0.1rem; }
+}
