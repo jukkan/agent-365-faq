@@ -12,7 +12,7 @@ export const DependenciesSection: React.FC = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {dependencies.map((d) => (
         <div key={d.name} className="bg-white border border-gray-200 rounded-lg p-5">
-          <h3 className="font-semibold text-gray-900 mb-2">{d.name}</h3>
+          <h3 className="text-gray-900 mb-2">{d.name}</h3>
           <p className="text-sm text-gray-700 mb-3">{d.whatItDoes}</p>
           <p className="text-sm text-gray-600 mb-2"><span className="font-medium text-gray-800">License: </span>{d.licenseNote}</p>
           <p className="text-sm text-gray-600"><span className="font-medium text-gray-800">Without it: </span>{d.withoutIt}</p>

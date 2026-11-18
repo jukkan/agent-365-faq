@@ -28,13 +28,13 @@ export const Footer: React.FC = () => {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-3">About This Site</h3>
+            <h3 className="text-gray-900 mb-3">About This Site</h3>
             <p className="text-sm text-gray-600">
               An unofficial, plain-language explainer for Microsoft Agent 365. Created to help IT admins, security teams, and developers understand what Agent 365 is and how it works.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 mb-3">Official Resources</h3>
+            <h3 className="text-gray-900 mb-3">Official Resources</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="https://www.microsoft.com/en-us/microsoft-agent-365" target="_blank" rel="noopener noreferrer" className="text-ms-blue-600 hover:underline">
@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 mb-3">Disclaimer</h3>
+            <h3 className="text-gray-900 mb-3">Disclaimer</h3>
             <p className="text-xs text-gray-500">
               This site is not affiliated with Microsoft. All information is based on publicly available sources as of November 17, 2026. Product features, pricing, and availability are subject to change. Always verify with{' '}
               <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/overview" target="_blank" rel="noopener noreferrer" className="text-ms-blue-600 hover:underline">
