@@ -17,25 +17,25 @@ function App() {
   const wrap = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header onNavigate={handleNavigate} />
       <main>
         <section id="overview" className="scroll-mt-20">
           <Hero onNavigate={handleNavigate} />
         </section>
-        <section id="coverage" className="scroll-mt-20 py-16 bg-white">
+        <section id="coverage" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><CoverageSection /></div>
         </section>
-        <section id="dependencies" className="scroll-mt-20 py-16 bg-gray-50">
+        <section id="dependencies" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><DependenciesSection /></div>
         </section>
-        <section id="gotchas" className="scroll-mt-20 py-16 bg-white">
+        <section id="gotchas" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><GotchasSection /></div>
         </section>
-        <section id="faq" className="scroll-mt-20 py-16 bg-gray-50">
+        <section id="faq" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><FaqList /></div>
         </section>
-        <section id="open-questions" className="scroll-mt-20 py-16 bg-white">
+        <section id="open-questions" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><OpenQuestionsSection /></div>
         </section>
       </main>

@@ -2,26 +2,24 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 mt-16">
+    <footer className="bg-gray-100 border-t-2 border-gray-900 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Creator Section */}
         <div className="mb-12 pb-8 border-b border-gray-200">
-          <div className="bg-gradient-to-r from-ms-blue-50 to-purple-50 rounded-lg p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-ms-blue-100 rounded-full opacity-20 -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-100 rounded-full opacity-20 -ml-24 -mb-24"></div>
-            <div className="relative z-10 text-center">
-              <p className="text-lg text-gray-700 mb-4">
-                Built by <span className="font-semibold text-ms-blue-700">Jukka Niiranen</span>, with{' '}
-                <span className="font-semibold text-purple-700">Claude Code</span>.{' '}
-                <span className="text-gray-600">Subscribe to my newsletter for more on Microsoft business applications and AI.</span>
+          <div className="na-window max-w-2xl mx-auto">
+            <div className="na-window__bar"><p className="na-window__title">perspectives.plus</p></div>
+            <div className="p-6">
+              <p className="text-lg text-gray-700 mb-5">
+                Built by <strong>Jukka Niiranen</strong>, with Claude Code. I write about Microsoft business applications,
+                licensing and AI in the Perspectives newsletter.
               </p>
               <a
                 href="https://www.perspectives.plus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-6 py-3 bg-ms-blue-600 text-white font-semibold rounded-lg hover:bg-ms-blue-700 transition-colors shadow-md hover:shadow-lg"
+                className="inline-block px-6 py-3 bg-ms-blue-600 text-white font-sans hover:bg-ms-blue-800"
               >
-                Read my Perspectives →
+                Read Perspectives
               </a>
             </div>
           </div>

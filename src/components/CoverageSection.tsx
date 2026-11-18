@@ -64,8 +64,8 @@ export const CoverageSection: React.FC = () => {
                   )}
                 </td>
                 <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{r.area}</td>
-                <td className="px-4 py-3 text-center">{r.includedWithM365 ? '✅' : '—'}</td>
-                <td className="px-4 py-3 text-center">{r.includedWithM365 ? '' : '💲'}</td>
+                <td className="px-4 py-3 text-center">{r.includedWithM365 ? '✓' : '—'}</td>
+                <td className="px-4 py-3 text-center">{r.includedWithM365 ? '' : 'Paid'}</td>
                 <td className="px-4 py-3 text-center">{r.gcc ? '✅' : '❌'}</td>
               </tr>
             ))}
