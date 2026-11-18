@@ -79,6 +79,17 @@ export const gotchas: Gotcha[] = [
     source: ignite,
   },
   {
+    id: 'g-analytics-50-licenses',
+    severity: 'warning',
+    title: 'One Copilot license opens Business Analytics, but not all of it',
+    body: 'The Ignite post says Business Analytics for Microsoft AI needs at least one Copilot license. The Business Analytics introduction says 50 assigned, and Viva Insights advanced analysis, which parts of Business Analytics run on, needs at least 50 assigned Viva Insights licenses (Copilot licenses count, in any mix). In a tenant with one Copilot Business license, the Metric calculators tab shows "Minimum license requirement for this experience is not met" and links to a Viva page that says one Copilot license is enough to start data processing. Waiting does not fix it; the count does. The Viva Insights Backend service plan is assigned at tenant level and needs no per-user action.',
+    source: {
+      type: 'Official',
+      label: 'Environment requirements for Viva Insights (Microsoft Learn)',
+      url: 'https://learn.microsoft.com/en-us/viva/insights/advanced/setup-maint/environment-requirements',
+    },
+  },
+  {
     id: 'g-connected-platforms',
     severity: 'info',
     title: 'Connecting a platform does not mean full governance',

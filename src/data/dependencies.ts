@@ -41,7 +41,7 @@ export const dependencies: Dependency[] = [
   {
     name: 'Microsoft 365 Copilot license',
     whatItDoes: 'Required in the tenant for Business Analytics on Microsoft AI services.',
-    licenseNote: 'At least one Copilot license is needed for Microsoft service analytics. Analytics for non-Microsoft AI needs Agent 365 and/or ME7.',
+    licenseNote: 'The Ignite post says one Copilot license enables analytics for Microsoft services; the Business Analytics docs and Viva Insights advanced analysis say 50 assigned. Analytics for non-Microsoft AI needs Agent 365 and/or ME7.',
     withoutIt: 'Business Analytics covers less of your AI estate. Agent 365 itself does not require Copilot.',
   },
   {
