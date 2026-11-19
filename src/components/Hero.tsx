@@ -45,6 +45,12 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           >
             Read the gotchas
           </button>
+          <button
+            onClick={() => onNavigate('advisor')}
+            className="px-6 py-3 bg-white text-gray-900 border-2 border-gray-900 hover:bg-gray-100"
+          >
+            Ask the advisor
+          </button>
           <a href={LEARN} target="_blank" rel="noopener noreferrer"
             className="px-6 py-3 text-gray-700 underline underline-offset-4 hover:text-ms-blue-600 self-center font-sans">
             Microsoft's docs on Learn ↗

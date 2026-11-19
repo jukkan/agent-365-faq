@@ -6,6 +6,7 @@ import { CoverageSection } from './components/CoverageSection';
 import { DependenciesSection } from './components/DependenciesSection';
 import { GotchasSection } from './components/GotchasSection';
 import { OpenQuestionsSection } from './components/OpenQuestionsSection';
+import { AdvisorSection } from './components/AdvisorSection';
 
 function App() {
   const handleNavigate = (section: string) => {
@@ -22,6 +23,9 @@ function App() {
       <main>
         <section id="overview" className="scroll-mt-20">
           <Hero onNavigate={handleNavigate} />
+        </section>
+        <section id="advisor" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
+          <div className={wrap}><AdvisorSection /></div>
         </section>
         <section id="coverage" className="scroll-mt-20 py-16 bg-white border-t border-gray-200">
           <div className={wrap}><CoverageSection /></div>

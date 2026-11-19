@@ -112,3 +112,9 @@
   .a365-dep__facts { grid-template-columns: 1fr; }
   .a365-dep__facts dd { border-top: 0; padding-top: 0.1rem; }
 }
+
+/* Advisor embed: fixed-height frame under the na-window bar. */
+.a365-advisor-frame { height: 620px; }
+.a365-advisor-idle { height: 100%; display: grid; place-items: center; padding: 1.5rem; --na-hatch-color: color-mix(in srgb, var(--na-color-ink) 18%, transparent); }
+.na-window__controls > a { text-decoration: none; }
+@media (max-width: 1023px) { .a365-advisor-frame { height: 75vh; } }
